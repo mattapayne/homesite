@@ -14,12 +14,12 @@ helpers do
 		link_to(image_tag(image_name, image_options), url, link_options)
 	end
 	
-	def email_link(text, email, html_options={})
+	def email_link_to(text, email, html_options={})
 		"<a href=\"mailto:#{email}\" #{html_options.to_html_options}>#{text}</a>"
 	end
 	
-	def image_email_link(image_name, email, image_html_options={}, email_link_options={})
-		email_link(image_tag(image_name, image_html_options), email, email_link_options)
+	def image_email_link_to(image_name, email, image_html_options={}, email_link_options={})
+		email_link_to(image_tag(image_name, image_html_options), email, email_link_options)
 	end
 	
 	def start_form(url, method="post")

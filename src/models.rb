@@ -71,7 +71,7 @@ module MattPayne
 				all = []
 				with_database do |db|
 					data = db[table].limit(limit).order(:created_at.desc) unless (limit.nil? || limit < 1)
-					data = db[table].order(:created_at.desc) if (limit && limit >= 1)
+					data = db[table].order(:created_at.desc) if (limit.nil? || limit < 1)
 					all = data.inject([]) do |arr, row|
 						arr << new(row)
 						arr
@@ -161,10 +161,6 @@ module MattPayne
 			
 			def to_hash
 				{:title => self.title, :body => self.body}
-			end
-			
-			def new?
-				self.id.nil?			
 			end
 			
 			def truncated_body(limit=50)
