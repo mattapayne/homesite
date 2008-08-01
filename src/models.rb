@@ -70,8 +70,8 @@ module MattPayne
 			def self.all(limit=nil)
 				all = []
 				with_database do |db|
-					data = db[table].limit(limit).order(:created_at.desc) unless limit.nil? || limit < 1
-					data = db[table].order(:created_at.desc)
+					data = db[table].limit(limit).order(:created_at.desc) unless (limit.nil? || limit < 1)
+					data = db[table].order(:created_at.desc) if (limit && limit >= 1)
 					all = data.inject([]) do |arr, row|
 						arr << new(row)
 						arr
