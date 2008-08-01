@@ -1,0 +1,51 @@
+div.posts
+{
+
+}
+
+div.post
+{
+	padding:10px;
+}
+
+p.post_title
+{
+	font-weigth:bold;
+}
+
+p.post_body
+{
+	background-color:White;
+}
+
+div.post_comments
+{
+	font-size:12px;
+	padding-left:5px;
+}
+
+div.comment
+{
+	background-color:#DCDCDC;
+	border:1px solid gray;
+	margin-top:5px;
+	padding:5px;
+}
+
+p.post_date
+{
+	font-size:10px;
+	padding-bottom:5px;
+}
+
+p.comment_date
+{
+	font-size:10px;
+	padding-bottom:5px;
+}
+
+h1, h2, h3
+{
+	border:0px;
+	margin:0px;
+}

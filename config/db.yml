@@ -1,0 +1,12 @@
+:development:
+  :captcha_key: 6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl
+  :captcha_username: mattpayne
+  :connection_string: mysql://root:2324@localhost/mattpayne_dev
+:test:
+  :captcha_key: 6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl
+  :captcha_username: mattpayne
+  :connection_string: mysql://root:2324@localhost/mattpayne_dev 
+:production:
+  :captcha_key: 6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl
+  :captcha_username: mattpayne
+  :connection_string: mysql://root:2324@localhost/mattpayne_dev

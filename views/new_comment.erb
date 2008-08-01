@@ -1,0 +1,9 @@
+<div class="content">
+	<h3>New Comment</h3>
+	<%= start_form("/create/comment/#{@post.id}") %>
+			<%= hidden_field_tag("post_id", :value => @post.id) %> 
+			<%= text_area_tag("comment") %>
+			<br /><br />
+			<%= submit_button("Save") %>
+	<%= end_form %>
+</div>

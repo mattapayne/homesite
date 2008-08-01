@@ -1,0 +1,36 @@
+<div class="posts">
+	<% if @posts %>
+		<% count = @posts.size %>
+		<% for post in @posts %>
+			<div class="post">
+				<h2>
+					<%= post.title %>
+				</h2>
+				<p class="post_date">Posted: <%= datetime(post.created_at) %></p>
+				<p class="post_body">
+					<%= render_post_body(post) %>
+				</p>
+				<div class="post_comments">
+					<h3>Comments</h3>
+					<% unless post.comments.empty? %>
+						<% for comment in post.comments %>
+							<div class="comment">
+								<p class="comment_date">Date: <%= datetime(comment.created_at) %></p>	
+								<p><%= comment.comment %></p>
+							</div>
+						<% end %>
+					<% else %>
+						<p class="comment">No comments have been posted.</p>
+					<% end %>
+					<p><%= link_to("Add Comment", "/new/comment/#{post.id}") %></p>
+				</div>
+			</div>
+			<% count -= 1 %>
+			<% unless count == 0 %>
+				<hr />
+			<% end %>
+		<% end %>
+	<% else %>
+		<p class="no_posts">There are currently no posts.</p>
+	<% end %>
+</div>

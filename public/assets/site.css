@@ -1,0 +1,92 @@
+.body
+{
+	font-family:verdana;
+}
+
+div#wrapper
+{
+	width:80%;
+	margin-left:10%;
+}
+
+div.content
+{
+	padding:10px;
+}
+
+#body
+{
+	padding-bottom:10px;
+}
+
+#footer
+{
+	background:#FFFFFF url(footer-bg.png) repeat-x scroll 0% 0%;
+	padding-bottom:10px;
+	padding-top:16px;
+	font-size:10px;
+	text-align:center;
+}
+
+div.divider
+{
+	background:#FFFFFF url(footer-bg.png) repeat-x scroll 0% 0%;
+}
+
+#header
+{
+	background-color:black;
+	height:48px;
+	margin-bottom:3px;
+}
+
+#menu
+{
+	padding: 3px 0;
+	margin-left: 0;
+	margin-bottom: 0;
+	margin-top: 0.1em;
+	font: bold 12px Verdana;
+	border-bottom: 1px solid gray;
+}
+
+#menu ul
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#menu li
+{
+	list-style: none;
+	display: inline;
+	margin: 0;
+}
+
+#menu li a
+{
+	text-decoration: none;
+	padding: 3px 0.5em;
+	margin-right: 3px;
+	border: 1px solid #778;
+	border-bottom: none;
+	background: white;
+}
+
+#menu li a:link, #tablist li a:visited
+{
+	color: navy;
+}
+
+#menu li a:hover
+{
+	color: black;
+	background: lightyellow;
+	border-color: navy;
+}
+
+#menu li a.current
+{
+	background: lightyellow;
+}

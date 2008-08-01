@@ -1,0 +1,22 @@
+<div class="content">
+	<div>
+		<h2><%= @post.title %></h2>
+		<p>
+			<%= @post.body %>
+		</p>
+	</div>
+	<div class="post_comments">
+		<h3>Comments</h3>
+			<% unless @post.comments.empty? %>
+				<% for comment in @post.comments %>
+					<div class="comment">
+						<p class="comment_date">Date: <%= datetime(comment.created_at) %></p>	
+							<p><%= comment.comment %></p>
+					</div>
+				<% end %>
+				<% else %>
+					<p class="comment">No comments have been posted.</p>
+				<% end %>
+					<p><%= link_to("Add Comment", "/new/comment/#{@post.id}") %></p>
+	</div>
+</div>

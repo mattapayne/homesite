@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Payne Consulting</title>
+  <link REL="STYLESHEET" TYPE="text/css" HREF="/assets/blog.css">
+	<link REL="STYLESHEET" TYPE="text/css" HREF="/assets/site.css">
+</head>
+<body>
+	<div id="wrapper">
+		<div class="divider">&nbsp;</div>
+		<div id="header">
+			<%= image_link_to("logo.png", "/", :alt => "Home") %>
+		</div>
+		<div class="divider">&nbsp;</div>
+		<div id="menu">
+			<ul>
+				<li><%= link_to("About", "/about") %></li>
+				<li><%= link_to("Contact", "/contact") %></li>
+				<li><%= link_to("Services", "/services") %></li>
+				<li><%= link_to("Blog", "/posts") %></li>
+			</ul>
+		</div>
+		<div id="body">
+			<%= yield %>
+		</div>
+		<div id="footer">
+			<div>
+				139 Brighton St. Unit #6B, Waterloo, Ontario, Canada, N2L 4N4
+			</div>
+			Site developed by <%= link_to("MPC", "/") %> using <%= link_to("Sinatra", "http://sinatrarb.com") %> (an alternative Ruby web framework). (2008)
+		</div>
+  </div>
+</body>
+</html>
+
