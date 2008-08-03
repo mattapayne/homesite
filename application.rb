@@ -7,7 +7,6 @@ module VendorLoader
 		MattPayne::Config.vendored_items.each do |vendor_dir, require_file|
 			path = File.expand_path(File.join(local_dir, vendor_dir.to_s))
 			$:.unshift(path) unless $:.include?(path)
-			puts "Added #{path} to the load path"
 			require require_file
 		end	
 	end

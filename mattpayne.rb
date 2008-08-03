@@ -55,6 +55,7 @@ end
 get '/posts' do
 	@posts = Post.all
 	@tags = Post.all_tags
+	@tumblr_posts = Tumblr4Rails::Post.get
 	erb :posts
 end
 
