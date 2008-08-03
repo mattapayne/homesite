@@ -5,7 +5,7 @@
   :admin_username: mattpayne
   :admin_password: monkeybutler
   :vendor:
-    :sinatra: /lib/sinatra
+    /sinatra/lib: sinatra
 
 :test:
   :captcha_key: 6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl
@@ -14,7 +14,7 @@
   :admin_username: mattpayne
   :admin_password: monkeybutler
   :vendor:
-    :sinatra: /lib/sinatra
+    /sinatra/lib: sinatra
 
 :production:
   :captcha_key: 6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl
@@ -23,4 +23,4 @@
   :admin_username: mattpayne
   :admin_password: monkeybutler
   :vendor:
-    :sinatra: /lib/sinatra
+    /sinatra/lib: sinatra
