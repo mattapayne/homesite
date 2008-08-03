@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Payne Consulting</title>
+  <title>MPC Consulting</title>
   <link REL="STYLESHEET" TYPE="text/css" HREF="/assets/blog.css">
 	<link REL="STYLESHEET" TYPE="text/css" HREF="/assets/site.css">
 </head>
@@ -14,10 +14,16 @@
 		<div class="divider">&nbsp;</div>
 		<div id="menu">
 			<ul>
+				<li><%= link_to("Home", "/") %></li>
+				<li><%= link_to("Services", "/services") %></li>
 				<li><%= link_to("About", "/about") %></li>
 				<li><%= link_to("Contact", "/contact") %></li>
-				<li><%= link_to("Services", "/services") %></li>
 				<li><%= link_to("Blog", "/posts") %></li>
+				<% if logged_in? %>
+					<li><%= link_to("Logout", "/logout") %></li>
+				<% else %>
+					<li><%= link_to("Login", "/login") %></li>
+				<% end %>
 			</ul>
 		</div>
 		<div id="body">

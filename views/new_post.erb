@@ -1,0 +1,16 @@
+<div class="content">
+	<h2>New Post</h2>
+	<%= start_form("/create/post") %>
+		<p>
+			Title:<br />
+			<%= text_field_tag("title", :value => @post.title) %>
+		</p>
+		<p>
+			Body:<br />
+			<%= text_area_tag("body", :value => @post.body, :rows => 10, :cols => 80) %>
+		</p>
+		<p>
+			<%= submit_button("Save") %>
+		</p>
+	<%= end_form %>
+</div>

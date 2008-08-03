@@ -14,16 +14,24 @@ module MattPayne
 			self.config[env.to_sym]
 		end
 		
-		def self.connection_string(env="development")
-			config_for_env(env)[:connection_string]
+		def self.connection_string
+			config_for_env(APP_ENV)[:connection_string]
 		end
 		
-		def self.captcha_key(env="development")
-			config_for_env(env)[:captcha_key]
+		def self.captcha_key
+			config_for_env(APP_ENV)[:captcha_key]
 		end
 		
-		def self.captcha_username(env="development")
-			config_for_env(env)[:captcha_username]
+		def self.captcha_username
+			config_for_env(APP_ENV)[:captcha_username]
+		end
+		
+		def self.admin_username
+			config_for_env(APP_ENV)[:admin_username]
+		end
+		
+		def self.admin_password
+			config_for_env(APP_ENV)[:admin_password]
 		end
 		
 		private

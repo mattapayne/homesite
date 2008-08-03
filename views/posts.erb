@@ -1,5 +1,5 @@
 <div class="posts">
-	<% if @posts %>
+	<% if @posts && @posts.not_empty? %>
 		<% count = @posts.size %>
 		<% for post in @posts %>
 			<div class="post">
@@ -8,7 +8,7 @@
 				</h2>
 				<p class="post_date">Posted: <%= datetime(post.created_at) %></p>
 				<p class="post_body">
-					<%= render_post_body(post) %>
+					<%= render_post_body(post, 100) %>
 				</p>
 				<div class="post_comments">
 					<h3>Comments</h3>
@@ -16,6 +16,7 @@
 						<% for comment in post.comments %>
 							<div class="comment">
 								<p class="comment_date">Date: <%= datetime(comment.created_at) %></p>	
+								<p>Posted by: <%= comment.username %></p>
 								<p><%= comment.comment %></p>
 							</div>
 						<% end %>
@@ -24,6 +25,15 @@
 					<% end %>
 					<p><%= link_to("Add Comment", "/new/comment/#{post.id}") %></p>
 				</div>
+				<% if logged_in? %>
+					<p class="admin_link">
+						<%= link_to("Edit", "/edit/post/#{post.id}") %> this post
+						<%= start_form("/post/#{post.id}") %>
+							<%= hidden_field_tag("_method", :value => "delete") %>
+							<%= submit_button("Delete") %>
+						<% end_form %>
+					</p>
+				<% end %>
 			</div>
 			<% count -= 1 %>
 			<% unless count == 0 %>
@@ -32,5 +42,10 @@
 		<% end %>
 	<% else %>
 		<p class="no_posts">There are currently no posts.</p>
+	<% end %>
+	<% if logged_in? %>
+	<p class="admin_link">
+		<%= link_to("Create", "/post") %> a new post
+	</p>
 	<% end %>
 </div>

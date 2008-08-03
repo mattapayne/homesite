@@ -10,8 +10,9 @@
 			<% unless @post.comments.empty? %>
 				<% for comment in @post.comments %>
 					<div class="comment">
-						<p class="comment_date">Date: <%= datetime(comment.created_at) %></p>	
-							<p><%= comment.comment %></p>
+						<p class="comment_date">Date: <%= datetime(comment.created_at) %></p>
+						<p>Posted by: <%= comment.username %></p>
+						<p><%= comment.comment %></p>
 					</div>
 				<% end %>
 				<% else %>
@@ -19,4 +20,13 @@
 				<% end %>
 					<p><%= link_to("Add Comment", "/new/comment/#{@post.id}") %></p>
 	</div>
+	<% if logged_in? %>
+		<p class="admin_link">
+			<%= link_to("Edit", "/edit/post/#{@post.id}") %> this post
+			<%= start_form("/post/#{@post.id}") %>
+			<%= hidden_field_tag("_method", :value => "delete") %>
+			<%= submit_button("Delete") %>
+			<% end_form %>
+		</p>
+	<% end %>
 </div>

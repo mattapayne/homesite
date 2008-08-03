@@ -9,6 +9,12 @@ div#wrapper
 	margin-left:10%;
 }
 
+.error
+{
+	font-size:12px;
+	color:red;
+}
+
 div.content
 {
 	padding:10px;

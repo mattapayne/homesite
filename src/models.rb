@@ -11,11 +11,7 @@ module MattPayne
 			def initialize(data)
 				set_not_deleted
 				set_clean
-				return if data.nil?
-				data.each do |key, value|
-					var = "@#{key}"
-					self.instance_variable_set(var, value) unless value.nil?
-				end
+				set_attributes(data)
 			end
 			
 			def save
@@ -24,6 +20,10 @@ module MattPayne
 			
 			def delete
 				self.class.delete(self)
+			end
+			
+			def update_attributes(hash)
+				set_attributes(hash, false)
 			end
 			
 			def self.delete(obj)
@@ -113,6 +113,22 @@ module MattPayne
 			
 			private
 			
+			def set_attributes(hash, new=true)
+				return if hash.nil? || hash.empty?
+				hash.each do |key, value|
+					var = "@#{key}"
+					unless new
+						if self.respond_to?(key.to_sym)
+							current_value = self.send(key.to_sym)
+							if value != current_value
+								set_dirty
+							end
+						end
+					end
+					self.instance_variable_set(var, value) unless (value.nil? || !self.respond_to?(key.to_sym))
+				end
+			end
+			
 			def set_clean
 				@dirty = false
 			end
@@ -188,7 +204,7 @@ module MattPayne
 		
 		class Comment < Base
 			
-			attr_reader :post_id, :comment
+			attr_reader :post_id, :comment, :username
 			
 			def self.find_for_post(post_id)
 				results = []
@@ -206,7 +222,7 @@ module MattPayne
 			end
 			
 			def to_hash
-				{:post_id => self.post_id, :comment => self.comment}
+				{:post_id => self.post_id, :comment => self.comment, :username => self.username}
 			end
 			
 			protected	

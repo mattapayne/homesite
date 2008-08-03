@@ -24,12 +24,28 @@ div.post_comments
 	padding-left:5px;
 }
 
+.admin_link
+{
+	font-size:10px;
+}
+
+p
+{
+	width:inherit;
+}
+
 div.comment
 {
 	background-color:#DCDCDC;
 	border:1px solid gray;
 	margin-top:5px;
 	padding:5px;
+}
+
+.captcha
+{
+	font-weight:bold;
+	font-size:10px;
 }
 
 p.post_date

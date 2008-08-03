@@ -7,3 +7,9 @@ class Hash
 		arr.join(" ")
 	end
 end
+
+class Array
+	def not_empty?
+		!empty?
+	end
+end

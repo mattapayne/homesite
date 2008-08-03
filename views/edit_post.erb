@@ -1,0 +1,17 @@
+<div class="content">
+	<h2>Edit Post</h2>
+	<%= start_form("/update/post/#{@post.id}") %>
+		<%= hidden_field_tag("_method", :value => "put") %>
+		<p>
+			Title:<br />
+			<%= text_field_tag("title", :value => @post.title) %>		
+		</p>
+		<p>
+			Content:<br />
+			<%= text_area_tag("body", :value => @post.body, :rows => 10, :cols => 80) %>
+		</p>
+		<p>
+			<%= submit_button("Update") %>
+		</p>
+	<% end_form %>
+</div>
