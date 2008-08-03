@@ -4,7 +4,7 @@
 		<div class="error"><%= @errors %></div>
 	<% end %>
 	<%= start_form("/update/post/#{@post.id}") %>
-		<%= hidden_field_tag("_method", :value => "put") %>
+		<%= hidden_field_tag("_method", :value => "PUT") %>
 		<p>
 			Title:<br />
 			<%= text_field_tag("title", :value => @post.title) %>		

@@ -6,12 +6,11 @@ html {min-height: 100%;}
     padding: 0;
 }
 
-a {color: #048;}
+a {color: #3410CE;}
 a:hover {color: #06C;}
 a img {border: none;}
 
 body {
-    background: #E7E7E2;
     color: #444;
     font: normal 62.5% Tahoma,sans-serif;
     padding-top: 10px;
@@ -87,9 +86,7 @@ div.divider
 
 #header
 {
-	background-color:black;
-	height:48px;
-	margin-bottom:20px;
+	padding-bottom:10px;
 }
 
 #menu
@@ -97,7 +94,7 @@ div.divider
 	padding: 3px 0;
 	margin-left: 0;
 	margin-bottom: 0;
-	margin-top: 0.1em;
+	margin-top: 10px;
 	font: bold 12px Verdana;
 	border-bottom: 1px solid gray;
 }
@@ -133,12 +130,7 @@ div.divider
 
 #menu li a:hover
 {
-	color: black;
-	background: lightyellow;
-	border-color: navy;
-}
-
-#menu li a.current
-{
-	background: lightyellow;
+	color: white;
+	background: #114CCE;
+	border-color: black;
 }

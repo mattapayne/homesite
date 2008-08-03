@@ -26,6 +26,11 @@ get '/contact' do
 	erb :contact
 end
 
+#Projects
+get '/projects' do
+	erb :projects
+end
+
 #Services
 get '/services' do
 	erb :services
@@ -71,12 +76,14 @@ end
 #New post
 get '/post' do
 	@post = Post.new
+	@rte_required = true
 	erb :new_post
 end
 
 #Edit post
 get '/edit/post/:id' do
 	@post = Post.find(params["id"])
+	@rte_required = true
 	erb :edit_post
 end
 
@@ -117,6 +124,7 @@ end
 get '/new/comment/reload/captcha/:post_id' do
 	@post = Post.find(params["post_id"])
 	@comment = Comment.new(:post_id => @post.id)
+	@rte_required = true
 	render :erb, :new_comment
 end
 
@@ -124,20 +132,23 @@ end
 get '/new/comment/:post_id' do
 	@post = Post.find(params["post_id"])
 	@comment = Comment.new(:post_id => @post.id)
+	@rte_required = true
 	erb :new_comment	
 end
 
 #Create comment
 post "/create/comment/:post_id" do
 	@comment = Comment.new(params)
-	errors = []
+	errors = @comment.validation_errors || []
+	puts "COMMENT: #{@comment.inspect}"
 	errors << "Invalid captcha. Please try again." unless captcha_valid?(params.delete("captcha"))
-	errors << "You must supply a comment." if (@comment.comment.nil? || @comment.comment == "")
+	puts "ERRORS: #{errors.inspect}"
 	if errors.empty?
 		@comment.save
 		redirect "/posts"
 	else
 		@errors = errors.join("<br />")
+		@rte_required = true
 		render :erb, :new_comment
 	end
 end

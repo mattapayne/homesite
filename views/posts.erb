@@ -1,14 +1,8 @@
 <div class="posts">
+	<h1>Blog Posts</h1>
 	<% if @posts && @posts.not_empty? %>
-		<%= render_tags(@tags) %>
-		<% count = @posts.size %>
 		<% for post in @posts %>
 			<%= render_partial_post(post) %>
-			<% count -= 1 %>
-			<% unless count == 0 %>
-				<br />
-				<hr />
-			<% end %>
 		<% end %>
 	<% else %>
 		<p class="no_posts">There are currently no posts.</p>
@@ -20,3 +14,5 @@
 	</p>
 	<% end %>
 </div>
+<%= render_tags(@tags) %>
+<div style="clear:both">&nbsp;</div>

@@ -1,5 +1,6 @@
-<div class="content">
+<div class="post">
 	<div>
+		<div class="post_header">&nbsp;</div>
 		<h2><%= post.title %></h2>
 		<div class="post_body">
 			<% if show_complete %>
@@ -15,7 +16,7 @@
 			<br />
 			<%= link_to("Edit", "/edit/post/#{post.id}") %> this post
 			<%= start_form("/post/#{post.id}") %>
-			<%= hidden_field_tag("_method", :value => "delete") %>
+			<%= hidden_field_tag("_method", :value => "DELETE") %>
 			<%= submit_button("Delete Post") %>
 			<% end_form %>
 		</p>

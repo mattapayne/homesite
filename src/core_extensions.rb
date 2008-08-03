@@ -23,3 +23,21 @@ class Array
   end
 
 end
+
+class String
+	def capitalize
+		return self if self == ""
+		return "#{self.slice(0...1).upcase}#{self.slice(1..self.length)}"
+	end
+end
+
+class Object
+	def blank?
+		return true if self.nil?
+		if self.respond_to?(:empty?)
+			self.empty?
+		end
+		return true if self.to_s == ""
+		return false
+	end
+end

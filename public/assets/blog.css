@@ -2,14 +2,27 @@
 {
 	padding-left:10px;
 	padding-right:10px;
-	border:2px dashed black;
-	background-color:white;
+	border:1px dashed silver;
+}
+
+.posts
+{
+	float:left;
+	width:77%;
+}
+
+div.post_header
+{
+	margin-top:15px;
+	background:#FFFFFF url(header.png) repeat-x scroll 0% 0%;
 }
 
 .post_body
 {
+	padding:5px;
 	padding-bottom:15px;
 	font-weight:bold;
+	margin-bottom:5px;
 }
 
 .comment
@@ -20,7 +33,6 @@
 
 .tags
 {
-	border-top:2px dashed black;
-	border-bottom:2px dashed black;
-	padding:10px;
+	float:right;
+	width:20%;
 }

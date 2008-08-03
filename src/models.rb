@@ -49,7 +49,7 @@ module MattPayne
 			end
 			
 			def self.save(obj)
-				return if obj.nil? || obj.deleted?
+				return if obj.blank? || obj.deleted?
 				with_database do |db|
 					time = Time.now
 					if obj.new?
@@ -70,8 +70,8 @@ module MattPayne
 			def self.all(limit=nil)
 				all = []
 				with_database do |db|
-					data = db[table].limit(limit).order(:created_at.desc) unless (limit.nil? || limit < 1)
-					data = db[table].order(:created_at.desc) if (limit.nil? || limit < 1)
+					data = db[table].limit(limit).order(:created_at.desc) unless (limit.blank? || limit < 1)
+					data = db[table].order(:created_at.desc) if (limit.blank? || limit < 1)
 					all = data.inject([]) do |arr, row|
 						arr << new(row)
 						arr
@@ -84,7 +84,7 @@ module MattPayne
 				obj = nil
 				with_database do |db|
 					data = db[table][:id => id]
-					obj = new(data) unless data.nil? || data.empty?
+					obj = new(data) unless data.blank?
 				end
 				obj
 			end
@@ -94,7 +94,7 @@ module MattPayne
 			end
 			
 			def new?
-				self.id.nil?
+				self.id.blank?
 			end
 			
 			def deleted?
@@ -106,8 +106,7 @@ module MattPayne
 			end
 			
 			def valid?
-				errors = validate
-				errors.nil? || errors.empty?
+				validate.blank?
 			end
 			
 			def validation_errors
@@ -117,7 +116,10 @@ module MattPayne
 			protected
 			
 			def validate
-				required_fields.inject([]){|arr, att| arr << "#{att} is required." if self.send(att).nil? }
+				required_fields.inject([]) do |arr, att| 
+					arr << "#{att.to_s.capitalize} is required." if self.send(att).blank?
+					arr
+				end
 			end
 			
 			def required_fields
@@ -131,7 +133,7 @@ module MattPayne
 			private
 			
 			def set_attributes(hash, new=true)
-				return if hash.nil? || hash.empty?
+				return if hash.blank?
 				hash.each do |key, value|
 					var = "@#{key}"
 					unless new
@@ -142,7 +144,7 @@ module MattPayne
 							end
 						end
 					end
-					self.instance_variable_set(var, value) unless (value.nil? || !self.respond_to?(key.to_sym))
+					self.instance_variable_set(var, value) unless (value.blank? || !self.respond_to?(key.to_sym))
 				end
 			end
 			
@@ -163,7 +165,7 @@ module MattPayne
 			end
 			
 			def self.attr_accessor(*symbols)
-				return if symbols.nil? || symbols.empty?
+				return if symbols.blank?
 				attr_reader *symbols
 				symbols.flatten.each {|s|
 					self.class_eval(
@@ -203,7 +205,7 @@ module MattPayne
 			
 			def self.all_tags
 				all.map {|post| 
-					post.tags.nil? ? nil : post.tags.split(" ") }.flatten.compact.uniq.shuffle
+					post.tags.blank? ? nil : post.tags.split(" ") }.flatten.compact.uniq.shuffle
 			end
 			
 			def to_hash
@@ -267,7 +269,7 @@ module MattPayne
 			end
 			
 			def required_fields
-				[:comment]
+				[:comment, :username]
 			end
 						
 		end
