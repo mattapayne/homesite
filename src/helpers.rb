@@ -1,7 +1,23 @@
 helpers do
 	
-	def random_tag(tag)
-		font = [8, 10, 12, 14, 16, 18].sort_by {rand}.first
+	def render_tags(tags)
+		partial(:tags, :locals => {:tags => tags})
+	end
+	
+	def render_full_post(post)
+		partial(:post, :locals => {:post => post, :show_complete => true})
+	end
+	
+	def render_partial_post(post)
+		partial(:post, :locals => {:post => post, :show_complete => false})
+	end
+	
+	def partial(name, options={})
+  	erb(name, options.merge(:layout => false))
+  end
+
+	def link_to_randomize_tag_size(tag)
+		font = [8, 12, 14, 18, 20, 24].sort_by {rand}.first
 		link_to(tag, "/posts/#{tag}", :style => "font-size:#{font}px;")
 	end
 	

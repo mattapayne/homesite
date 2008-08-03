@@ -1,3 +1,49 @@
+/* standard elements */
+html {min-height: 100%;}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {color: #048;}
+a:hover {color: #06C;}
+a img {border: none;}
+
+body {
+    background: #E7E7E2;
+    color: #444;
+    font: normal 62.5% Tahoma,sans-serif;
+    padding-top: 10px;
+}
+
+p,code,ul {padding-bottom: 1.2em;}
+
+li {list-style: none;}
+
+h1 {font: normal 1.8em Tahoma,sans-serif;}
+h2 {font: normal 1.6em sans-serif;}
+h3 {font: bold 1em Tahoma,sans-serif;}
+
+h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
+
+code {
+    background: #FFF;
+    border: 1px solid #EEE;
+    border-left: 6px solid #CCC;
+    color: #666;
+    display: block;
+    font: normal 1em Tahoma,sans-serif;
+    line-height: 1.6em;
+    margin-bottom: 12px;
+    padding: 8px 10px;
+    white-space: pre;
+}
+
+h1 {
+    font: normal 3em sans-serif;
+}
+
 .body
 {
 	font-family:verdana;
@@ -43,7 +89,7 @@ div.divider
 {
 	background-color:black;
 	height:48px;
-	margin-bottom:3px;
+	margin-bottom:20px;
 }
 
 #menu

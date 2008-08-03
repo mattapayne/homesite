@@ -202,7 +202,8 @@ module MattPayne
 			end
 			
 			def self.all_tags
-				all.map {|post| post.tags.nil? ? nil : post.tags.split(" ") }.flatten.compact.uniq
+				all.map {|post| 
+					post.tags.nil? ? nil : post.tags.split(" ") }.flatten.compact.uniq.shuffle
 			end
 			
 			def to_hash

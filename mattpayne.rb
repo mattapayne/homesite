@@ -65,7 +65,7 @@ end
 #Show post
 get '/post/:id' do
 	@post = Post.find(params["id"])
-	erb :post
+	erb :show_post
 end
 
 #New post

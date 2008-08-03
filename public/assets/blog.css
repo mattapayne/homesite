@@ -1,73 +1,26 @@
-div.posts
+.post_comments
 {
-
+	padding-left:10px;
+	padding-right:10px;
+	border:2px dashed black;
+	background-color:white;
 }
 
-div.post
+.post_body
 {
-	padding:10px;
+	padding-bottom:15px;
+	font-weight:bold;
 }
 
-p.post_title
+.comment
 {
-	font-weigth:bold;
-}
-
-p.post_body
-{
-	background-color:White;
-}
-
-div.post_comments
-{
-	font-size:12px;
-	padding-left:5px;
-}
-
-.admin_link
-{
-	font-size:10px;
-}
-
-p
-{
-	width:inherit;
-}
-
-div.comment
-{
-	background-color:#DCDCDC;
-	border:1px solid gray;
-	margin-top:5px;
+	border-top:1px dashed silver;
 	padding:5px;
 }
 
-.captcha
+.tags
 {
-	font-weight:bold;
-	font-size:10px;
-}
-
-p.post_date
-{
-	font-size:10px;
-	padding-bottom:5px;
-}
-
-div.post_body
-{
-	border:1px dashed silver;
-	background:#DCDCDC;
-}
-
-p.comment_date
-{
-	font-size:10px;
-	padding-bottom:5px;
-}
-
-h1, h2, h3
-{
-	border:0px;
-	margin:0px;
+	border-top:2px dashed black;
+	border-bottom:2px dashed black;
+	padding:10px;
 }
