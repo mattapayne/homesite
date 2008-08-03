@@ -1,0 +1,16 @@
+<div class="post_comments">
+	<h3><%= post.comments.size %> Comment(s)</h3>
+	<% unless post.comments.empty? %>
+		<% for comment in post.comments %>
+			<div class="comment">
+			<p class="comment_date">Posted at <%= datetime(comment.created_at) %>
+				by <%= comment.username %>
+			</p>
+			<p><%= comment.comment %></p>
+		</div>
+	<% end %>
+	<% else %>
+	<p class="comment">No comments have been posted.</p>
+	<% end %>
+	<p><%= link_to("Comment", "/new/comment/#{post.id}") %></p>
+</div>
