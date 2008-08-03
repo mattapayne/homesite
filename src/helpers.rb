@@ -1,7 +1,10 @@
 helpers do
 
 	include MattPayne::HtmlTags
-		
+	include Rack::Utils
+  
+  alias_method :h, :escape_html
+
 	def render_rte
 		%{
 			<script language="javascript" type="text/javascript" src="/assets/jscripts/tiny_mce/tiny_mce.js"></script>

@@ -1,7 +1,7 @@
 <div class="post">
 	<div>
 		<div class="post_header">&nbsp;</div>
-		<h2><%= post.title %></h2>
+		<h2><%= h(post.title) %></h2>
 		<div class="post_body">
 			<% if show_complete %>
 				<%= post.body %>	
