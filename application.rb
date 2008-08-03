@@ -24,7 +24,10 @@ require 'src/database'
 require 'src/models'
 require 'src/captcha'
 require 'src/html_tags'
-require 'src/helpers'
 require 'src/security'
+require 'src/helpers'
 
+configure do
+	enable :sessions
+end
 

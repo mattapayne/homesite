@@ -1,7 +1,10 @@
 <div class="content">
-	<h2>New Post</h2>
+	<h1>New Post</h1>
 	<% if @errors %>
-		<div class="error"><%= @errors %></div>
+		<div class="error">
+			<h2>Errors</h2>
+			<%= @errors %>
+		</div>
 	<% end %>
 	<%= start_form("/create/post") %>
 		<p>

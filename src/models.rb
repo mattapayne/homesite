@@ -144,7 +144,7 @@ module MattPayne
 							end
 						end
 					end
-					self.instance_variable_set(var, value) unless (value.blank? || !self.respond_to?(key.to_sym))
+					self.instance_variable_set(var, value) if self.respond_to?(key.to_sym)
 				end
 			end
 			

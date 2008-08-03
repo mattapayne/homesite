@@ -2,6 +2,9 @@ helpers do
 
 	include MattPayne::HtmlTags
 	include Rack::Utils
+	include MattPayne::Models
+	include MattPayne::Captcha
+	include MattPayne::Security
   
   alias_method :h, :escape_html
 

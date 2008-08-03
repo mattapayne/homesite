@@ -6,7 +6,7 @@
 			<p class="comment_date">Posted at <%= datetime(comment.created_at) %>
 				by <%= h(comment.username) %>
 			</p>
-			<p><%= h(comment.comment) %></p>
+			<p><%= comment.comment %></p>
 		</div>
 	<% end %>
 	<% else %>
