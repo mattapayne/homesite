@@ -4,15 +4,23 @@
   :connection_string: mysql://root:2324@localhost/mattpayne_dev
   :admin_username: mattpayne
   :admin_password: monkeybutler
+  :vendor:
+    :sinatra: /lib/sinatra
+
 :test:
   :captcha_key: 6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl
   :captcha_username: mattpayne
   :connection_string: mysql://root:2324@localhost/mattpayne_dev
   :admin_username: mattpayne
   :admin_password: monkeybutler
+  :vendor:
+    :sinatra: /lib/sinatra
+
 :production:
   :captcha_key: 6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl
   :captcha_username: mattpayne
   :connection_string: mysql://root:2324@localhost/mattpayne_dev
   :admin_username: mattpayne
   :admin_password: monkeybutler
+  :vendor:
+    :sinatra: /lib/sinatra

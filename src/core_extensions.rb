@@ -33,11 +33,6 @@ end
 
 class Object
 	def blank?
-		return true if self.nil?
-		if self.respond_to?(:empty?)
-			self.empty?
-		end
-		return true if self.to_s == ""
-		return false
+		respond_to?(:empty?) ? empty? : !self
 	end
 end

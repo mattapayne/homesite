@@ -1,6 +1,3 @@
-$:.unshift(File.expand_path(File.join(File.dirname(__FILE__), "sinatra/lib")))
-require 'rubygems'
-require 'sinatra'
 require 'application'
 
 include MattPayne::Models

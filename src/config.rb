@@ -34,11 +34,15 @@ module MattPayne
 			config_for_env(APP_ENV)[:admin_password]
 		end
 		
+		def self.vendored_items
+			config_for_env(APP_ENV)[:vendor]
+		end
+		
 		private
 		
 		def self.load_config
 			YAML.load(File.open(File.expand_path(File.join(File.dirname(__FILE__), "..", 
-      	"config", "db.yml")), "r"))			
+      	"config", "config.yml")), "r"))			
 		end
 		
 	end
