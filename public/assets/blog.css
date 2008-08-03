@@ -54,6 +54,12 @@ p.post_date
 	padding-bottom:5px;
 }
 
+div.post_body
+{
+	border:1px dashed silver;
+	background:#DCDCDC;
+}
+
 p.comment_date
 {
 	font-size:10px;

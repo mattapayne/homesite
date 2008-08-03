@@ -1,5 +1,10 @@
 helpers do
 	
+	def random_tag(tag)
+		font = [8, 10, 12, 14, 16, 18].sort_by {rand}.first
+		link_to(tag, "/posts/#{tag}", :style => "font-size:#{font}px;")
+	end
+	
 	def render_captcha(html_options={})
 		remote_image_tag(captcha_url(), html_options)
 	end

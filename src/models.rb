@@ -8,7 +8,7 @@ module MattPayne
 			
 			attr_reader :id, :created_at
 			
-			def initialize(data)
+			def initialize(data={})
 				set_not_deleted
 				set_clean
 				set_attributes(data)
@@ -104,8 +104,25 @@ module MattPayne
 			def dirty?
 				@dirty
 			end
+			
+			def valid?
+				errors = validate
+				errors.nil? || errors.empty?
+			end
+			
+			def validation_errors
+				validate
+			end
 	
 			protected
+			
+			def validate
+				required_fields.inject([]){|arr, att| arr << "#{att} is required." if self.send(att).nil? }
+			end
+			
+			def required_fields
+				raise RuntimeError.new("Abstract method!!")
+			end
 			
 			def self.table
 				raise RuntimeError.new("Abstract method!!")
@@ -168,15 +185,28 @@ module MattPayne
 		
 		class Post < Base
 		
-			attr_accessor :title, :body
+			attr_accessor :title, :body, :tags
 			attr_reader :updated_at
 			
 			def comments
 				@comments ||= Comment.find_for_post(self.id)
 			end
 			
+			def self.find_by_tag(tag)
+				matches = []
+				with_database do |db|
+					data = db[table].filter("tags LIKE '%#{tag}%'").order(:created_at.desc)
+					matches = data.inject([]) {|arr, row| arr << new(row); arr} 
+				end
+				matches
+			end
+			
+			def self.all_tags
+				all.map {|post| post.tags.nil? ? nil : post.tags.split(" ") }.flatten.compact.uniq
+			end
+			
 			def to_hash
-				{:title => self.title, :body => self.body}
+				{:title => self.title, :body => self.body, :tags => self.tags}
 			end
 			
 			def truncated_body(limit=50)
@@ -196,6 +226,10 @@ module MattPayne
 		
 			def self.table
 				:posts
+			end
+			
+			def required_fields
+				[:title, :body]
 			end
 			
 		end
@@ -229,6 +263,10 @@ module MattPayne
 		
 			def self.table
 				:comments
+			end
+			
+			def required_fields
+				[:comment]
 			end
 						
 		end

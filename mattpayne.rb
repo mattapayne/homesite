@@ -52,6 +52,13 @@ end
 #List posts
 get '/posts' do
 	@posts = Post.all
+	@tags = Post.all_tags
+	erb :posts
+end
+
+get '/posts/:tag' do
+	@posts = Post.find_by_tag(params["tag"])
+	@tags = Post.all_tags
 	erb :posts
 end
 
@@ -63,7 +70,7 @@ end
 
 #New post
 get '/post' do
-	@post = Post.new({})
+	@post = Post.new
 	erb :new_post
 end
 
@@ -76,16 +83,28 @@ end
 #Create post
 post '/create/post' do
 	@post = Post.new(params)
-	@post.save
-	redirect '/posts'
+	if @post.valid?
+		@post.save
+		redirect '/posts'
+	else
+		@errors = @post.validation_errors.join("<br />")
+		render :erb, :new_post
+	end
 end
 
 #Update post
 put '/update/post/:id' do
 	@post = Post.find(params["id"])
 	@post.update_attributes(params)
-	@post.save if @post.dirty?
-	redirect '/posts'
+	if @post.valid?
+		if @post.dirty?
+			@post.save
+		end
+		redirect "/posts"
+	else
+		@errors = @post.validation_errors.join("<br />")
+		render :erb, :edit_post
+	end
 end
 
 #Delete post

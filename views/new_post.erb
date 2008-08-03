@@ -1,5 +1,8 @@
 <div class="content">
 	<h2>New Post</h2>
+	<% if @errors %>
+		<div class="error"><%= @errors %></div>
+	<% end %>
 	<%= start_form("/create/post") %>
 		<p>
 			Title:<br />
@@ -8,6 +11,10 @@
 		<p>
 			Body:<br />
 			<%= text_area_tag("body", :value => @post.body, :rows => 10, :cols => 80) %>
+		</p>
+		<p>
+			Tags:<br />
+			<%= text_field_tag("tags", :value => @post.tags) %>
 		</p>
 		<p>
 			<%= submit_button("Save") %>

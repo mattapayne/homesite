@@ -1,5 +1,8 @@
 <div class="content">
 	<h2>Edit Post</h2>
+	<% if @errors %>
+		<div class="error"><%= @errors %></div>
+	<% end %>
 	<%= start_form("/update/post/#{@post.id}") %>
 		<%= hidden_field_tag("_method", :value => "put") %>
 		<p>
@@ -9,6 +12,10 @@
 		<p>
 			Content:<br />
 			<%= text_area_tag("body", :value => @post.body, :rows => 10, :cols => 80) %>
+		</p>
+		<p>
+			Tags:<br />
+			<%= text_field_tag("tags", :value => @post.tags) %>
 		</p>
 		<p>
 			<%= submit_button("Update") %>

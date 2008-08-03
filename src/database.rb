@@ -31,9 +31,9 @@ module MattPayne
           db.execute("DROP TABLE comments;")
           db.execute("DROP TABLE posts;")
           db.execute(%{create table posts (
-					id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, body TEXT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME);})
+						id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, body TEXT NOT NULL, tags TEXT, 						created_at DATETIME NOT NULL, updated_at DATETIME);})
           db.execute(%{create table comments (
-					id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, comment TEXT NOT NULL, username VARCHAR(100), post_id INT NOT NULL, created_at DATETIME NOT NULL);})
+						id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, comment TEXT NOT NULL, username VARCHAR(100), post_id INT NOT 						NULL, created_at DATETIME NOT NULL);})
           db.execute("ALTER TABLE comments ADD FOREIGN KEY(post_id) REFERENCES posts(id);")
         end
       end
