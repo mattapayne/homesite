@@ -8,20 +8,19 @@
 .posts
 {
 	float:left;
-	width:77%;
+	width:75%;
+	padding:10px;
 }
 
-div.post_header
+img.post_header
 {
 	margin-top:15px;
-	background:#FFFFFF url(header.png) repeat-x scroll 0% 0%;
 }
 
 .post_body
 {
 	padding:5px;
 	padding-bottom:15px;
-	font-weight:bold;
 	margin-bottom:5px;
 }
 

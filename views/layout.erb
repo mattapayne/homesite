@@ -1,17 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>MPC Consulting</title>
+  <title><%= "Matt Payne Consulting #{@title}" %></title>
   <link REL="STYLESHEET" TYPE="text/css" HREF="/assets/blog.css">
 	<link REL="STYLESHEET" TYPE="text/css" HREF="/assets/site.css">
 	<% if @rte_required %>
 		<%= render_rte %>
 	<% end %>
+	<script src="/assets/mootools-1.2-core-yc.js" type="text/javascript" language="javascript"></script>
+	<script type="text/javascript" language="javascript" src="/assets/site.js"></script>
 </head>
-<body>
+<body onload="set_cursor();">
 	<div id="wrapper">
 		<div id="header">
-			<%= image_link_to("logo.png", "/", {:alt => "Home"}, :width => "354px", :height => "24px") %>
+			<%= image_link_to("logo.png", "/", {:alt => "Home"}) %>
+			<%= image_tag("header.png", {:width => "100%", :height => "20px"}) %>
 		</div>
 		<div id="menu">
 			<ul>
@@ -22,6 +25,7 @@
 				<li><%= link_to("Contact", "/contact") %></li>
 				<li><%= link_to("Blog", "/posts") %></li>
 				<% if logged_in? %>
+					<li><%= link_to("Hits", "/hits") %></li>
 					<li><%= link_to("Logout", "/logout") %></li>
 				<% else %>
 					<li><%= link_to("Login", "/login") %></li>
@@ -32,6 +36,8 @@
 			<%= yield %>
 		</div>
 		<div id="footer">
+			<%= image_tag("header.png", {:width => "100%", :height => "20px"}) %>
+			<%= partial(:page_hits) %>
 			<div>
 				139 Brighton St. Unit #6B, Waterloo, Ontario, Canada, N2L 4N4
 			</div>

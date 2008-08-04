@@ -239,6 +239,70 @@ module MattPayne
 		
 		#---------------------------------------------------------------------------
 		
+		class Hit
+			
+			include MattPayne::Database
+			
+			attr_accessor :ip_address, :session_id, :user_agent
+			attr_reader :created_at
+			
+			def initialize(hash={})
+				return if hash.blank?
+				hash.each do |key, value|
+					var = "@#{key}"
+					if respond_to?(key.to_sym)
+						self.instance_variable_set(var, value)
+					end
+				end
+			end
+			
+			def to_hash
+				{
+					:ip_address => self.ip_address, 
+					:session_id => self.session_id,
+					:user_agent => self.user_agent
+				}
+			end
+			
+			def self.count
+				count = 0
+				with_database do |db|
+					count = db[table].count
+				end
+				count
+			end
+			
+			def self.all
+				all = []
+				with_database do |db|
+					all = db[table].order(:created_at.desc).inject([]) {|arr, row| arr << new(row); arr}
+				end
+				all
+			end
+			
+			def save
+				self.class.save(self)
+			end
+			
+			def self.save(obj)
+				return if obj.blank?
+				with_database do |db|
+					unless db[table].filter(:ip_address => obj.ip_address, :session_id => obj.session_id).size > 0
+						db[table].insert(obj.to_hash.merge(:created_at => DateTime.now))
+					end
+				end
+			end
+			
+			protected
+			
+			def self.table
+				:hits
+			end
+			
+		end
+		
+		#---------------------------------------------------------------------------		
+		
 		class Comment < Base
 			
 			attr_reader :post_id, :comment, :username

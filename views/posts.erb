@@ -2,6 +2,7 @@
 	<h1>Blog Posts</h1>
 	<% if @posts && @posts.not_empty? %>
 		<% for post in @posts %>
+			<%= image_tag("header.png", {:width => "100%", :height => "6px", :class => "post_header"}) %>
 			<%= render_partial_post(post) %>
 		<% end %>
 	<% else %>

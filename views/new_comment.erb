@@ -9,7 +9,7 @@
 	<%= start_form("/create/comment/#{@post.id}") %>
 		<%= hidden_field_tag("post_id", :value => @post.id) %>
 		<p>Your name:<br />
-			<%= text_field_tag("username", :value => @comment.username) %>
+			<%= text_field_tag("username", :value => @comment.username, :class => "select") %>
 		</p>
 		<p>Your comment:<br />
 			<%= text_area_tag("comment", :value => @comment.comment, :rows => 10, :cols => 60) %>

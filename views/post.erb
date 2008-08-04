@@ -1,6 +1,5 @@
 <div class="post">
 	<div>
-		<div class="post_header">&nbsp;</div>
 		<h2><%= h(post.title) %></h2>
 		<div class="post_body">
 			<% if show_complete %>
@@ -11,14 +10,5 @@
 		</div>
 	</div>
 	<%= partial(:comment, :locals => {:post => post }) %>
-	<% if logged_in? %>
-		<p class="admin_link">
-			<br />
-			<%= link_to("Edit", "/edit/post/#{post.id}") %> this post
-			<%= start_form("/post/#{post.id}") %>
-			<%= hidden_field_tag("_method", :value => "DELETE") %>
-			<%= submit_button("Delete Post") %>
-			<% end_form %>
-		</p>
-	<% end %>
+	<%= partial(:admin_post, :locals => {:post => post}) %>
 </div>

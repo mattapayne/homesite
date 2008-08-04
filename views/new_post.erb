@@ -9,7 +9,7 @@
 	<%= start_form("/create/post") %>
 		<p>
 			Title:<br />
-			<%= text_field_tag("title", :value => @post.title) %>
+			<%= text_field_tag("title", :value => @post.title, :class => "select") %>
 		</p>
 		<p>
 			Body:<br />

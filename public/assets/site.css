@@ -6,13 +6,13 @@ html {min-height: 100%;}
     padding: 0;
 }
 
-a {color: #3410CE;}
+a {color: #5071a4;}
 a:hover {color: #06C;}
 a img {border: none;}
 
 body {
     color: #444;
-    font: normal 62.5% Tahoma,sans-serif;
+    font: normal 62.5% Verdana,sans-serif;
     padding-top: 10px;
 }
 
@@ -20,11 +20,11 @@ p,code,ul {padding-bottom: 1.2em;}
 
 li {list-style: none;}
 
-h1 {font: normal 1.8em Tahoma,sans-serif;}
-h2 {font: normal 1.6em sans-serif;}
-h3 {font: bold 1em Tahoma,sans-serif;}
+h1 {font: normal 1.8em Verdana,sans-serif;}
+h2 {font: normal 1.6em Verdana, sans-serif;}
+h3 {font: bold 1em Verdana,sans-serif;}
 
-h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
+h1,h2,h3 {padding-top: 6px; color: #5071a4; margin-bottom: 4px;}
 
 code {
     background: #FFF;
@@ -54,6 +54,11 @@ div#wrapper
 	margin-left:10%;
 }
 
+div#home_image
+{
+	text-align:center;
+}
+
 .error
 {
 	font-size:12px;
@@ -72,7 +77,6 @@ div.content
 
 #footer
 {
-	background:#FFFFFF url(footer-bg.png) repeat-x scroll 0% 0%;
 	padding-bottom:10px;
 	padding-top:16px;
 	font-size:10px;
@@ -95,8 +99,8 @@ div.divider
 	margin-left: 0;
 	margin-bottom: 0;
 	margin-top: 10px;
-	font: bold 12px Verdana;
-	border-bottom: 1px solid gray;
+	font: bold 12px Neuropolitical;
+	border-bottom: 1px solid #5071a4;
 }
 
 #menu ul
@@ -118,19 +122,19 @@ div.divider
 	text-decoration: none;
 	padding: 3px 0.5em;
 	margin-right: 3px;
-	border: 1px solid #778;
+	border: 1px solid #5071a4;
 	border-bottom: none;
 	background: white;
 }
 
 #menu li a:link, #tablist li a:visited
 {
-	color: navy;
+	color: #1686ce;
 }
 
 #menu li a:hover
 {
 	color: white;
-	background: #114CCE;
-	border-color: black;
+	background: #5071a4;
+	border-color: white;
 }

@@ -10,7 +10,7 @@
 		<%= hidden_field_tag("_method", :value => "PUT") %>
 		<p>
 			Title:<br />
-			<%= text_field_tag("title", :value => @post.title) %>		
+			<%= text_field_tag("title", :value => @post.title, :class => "select") %>		
 		</p>
 		<p>
 			Content:<br />

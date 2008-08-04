@@ -28,12 +28,15 @@ module MattPayne
 			
       def create_schema
         with_database do |db|
-          db.execute("DROP TABLE comments;")
-          db.execute("DROP TABLE posts;")
+          db.execute("DROP TABLE IF EXISTS comments;")
+          db.execute("DROP TABLE IF EXISTS posts;")
+          db.execute("DROP TABLE IF EXISTS hits;")
           db.execute(%{create table posts (
 						id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, body TEXT NOT NULL, tags TEXT, 						created_at DATETIME NOT NULL, updated_at DATETIME);})
           db.execute(%{create table comments (
 						id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, comment TEXT NOT NULL, username VARCHAR(100), post_id INT NOT 						NULL, created_at DATETIME NOT NULL);})
+					db.execute(%{CREATE TABLE hits (ip_address VARCHAR(40), session_id VARCHAR(100), 
+						user_agent VARCHAR(255), created_at DATETIME); })
           db.execute("ALTER TABLE comments ADD FOREIGN KEY(post_id) REFERENCES posts(id);")
         end
       end
