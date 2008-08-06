@@ -81,6 +81,7 @@ get '/posts' do
 	@title = " - Blog"
 	@posts = Post.all
 	@tags = Post.all_tags
+	@tumblr_posts = tumblr_posts
 	erb :posts
 end
 

@@ -17,6 +17,11 @@ img.post_header
 	margin-top:15px;
 }
 
+.tumblr_posts
+{
+	font-size:10px;
+}
+
 .post_body
 {
 	padding:5px;
@@ -30,7 +35,7 @@ img.post_header
 	padding:5px;
 }
 
-.tags
+.right-bar
 {
 	float:right;
 	width:20%;

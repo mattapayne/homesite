@@ -6,6 +6,11 @@ class Hash
 		end
 		arr.join(" ")
 	end
+	
+	def not_empty?
+		!empty?
+	end
+	
 end
 
 class Array

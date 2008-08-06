@@ -38,6 +38,10 @@ module MattPayne
 			config_for_env(APP_ENV)[:vendor]
 		end
 		
+		def self.tumblr_url
+			config_for_env(APP_ENV)[:tumblr_url]
+		end
+		
 		private
 		
 		def self.load_config

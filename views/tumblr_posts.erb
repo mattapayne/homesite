@@ -1,0 +1,12 @@
+<div class="tumblr_posts">
+	<h2>My Tumblr Posts</h2>
+		<% if posts && posts.not_empty? %>
+			<% for post in posts %>
+				<div class="tumblr_post">
+					<%= link_to(post["regular-title"], post["url"]) %> (<%= post["date"] %>)
+				</div>
+			<% end %>
+		<% else %>
+			<p>There are currently no Tumblr posts.</p>
+		<% end %>
+</div>

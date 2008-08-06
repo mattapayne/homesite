@@ -5,6 +5,7 @@ helpers do
 	include MattPayne::Models
 	include MattPayne::Captcha
 	include MattPayne::Security
+	include MattPayne::Tumblr
   
   alias_method :h, :escape_html
 
@@ -21,6 +22,10 @@ helpers do
 				});
 			</script>
 		}
+	end
+	
+	def render_tumblr_posts(posts)
+		partial(:tumblr_posts, :locals => {:posts => posts})
 	end
 	
 	def render_tags(tags)
@@ -48,13 +53,15 @@ helpers do
 		remote_image_tag(captcha_url(), html_options)
 	end
 	
-	def render_post_body(post, limit=50)
+	def render_post_body(post, limit=100)
 		text = post.truncated_body(limit)
 		link = nil
 		if post.truncated_body?
 			link = link_to("Read more ...", "/post/#{post.id}")
+			puts "LINK: #{link}"
 		end
 		text += " #{link}" unless link.nil?
+		puts "TEXT: #{text}"
 		text
 	end
 	
