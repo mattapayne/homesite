@@ -88,7 +88,7 @@ get '/posts' do
 end
 
 #Get posts as RSS
-get '/posts.rss' do
+get '/posts/posts.rss' do
 	Post.to_rss
 end
 
@@ -105,6 +105,9 @@ end
 get '/post/:id' do
 	@title = " - Post Details"
 	@post = Post.find(params["id"])
+	@tags = Post.all_tags
+	@tumblr_posts ||= tumblr_posts
+	@github_repos ||= MattPayne::GitHub.repositories
 	erb :show_post
 end
 

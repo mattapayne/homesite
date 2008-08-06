@@ -1,5 +1,5 @@
 <div class="tumblr_posts">
-	<h2>My Tumblr Posts</h2>
+	<h2>My <%= link_to("Tumblr", "http://tumblr.com") %> Posts</h2>
 		<% if posts && posts.not_empty? %>
 			<% for post in posts %>
 				<div class="tumblr_post">

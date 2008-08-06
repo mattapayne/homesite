@@ -36,12 +36,8 @@ helpers do
 		partial(:tags, :locals => {:tags => tags})
 	end
 	
-	def render_full_post(post)
-		partial(:post, :locals => {:post => post, :show_complete => true})
-	end
-	
-	def render_partial_post(post)
-		partial(:post, :locals => {:post => post, :show_complete => false})
+	def render_post(post)
+		partial(:post, :locals => {:post => post})
 	end
 	
 	def partial(name, options={})
@@ -55,18 +51,6 @@ helpers do
 	
 	def render_captcha(html_options={})
 		remote_image_tag(captcha_url(), html_options)
-	end
-	
-	def render_post_body(post, limit=100)
-		text = post.truncated_body(limit)
-		link = nil
-		if post.truncated_body?
-			link = link_to("Read more ...", "/post/#{post.id}")
-			puts "LINK: #{link}"
-		end
-		text += " #{link}" unless link.nil?
-		puts "TEXT: #{text}"
-		text
 	end
 	
 	def datetime(date, format="%I:%M%p on %m/%d/%Y")

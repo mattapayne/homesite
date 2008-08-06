@@ -7,8 +7,6 @@
 
 .posts
 {
-	float:left;
-	width:75%;
 	padding:10px;
 }
 
@@ -35,8 +33,15 @@ img.post_header
 	padding:5px;
 }
 
-.right-bar
+div.right-bar
 {
-	float:right;
+	float:left;
+	margin:10px;
+	width:75%;
+}
+
+div.left-bar
+{
+	float:left;
 	width:20%;
 }

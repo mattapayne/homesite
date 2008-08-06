@@ -1,27 +1,29 @@
-<div class="posts">
-	<h1>Blog Posts</h1>
-	<div>
-		Subscribe to the MPC blog rss feed 
-		<%= image_link_to("feed-icon-14x14.png", "/posts.rss", link_options={}) %>
-	</div>
-	<% if @posts && @posts.not_empty? %>
-		<% for post in @posts %>
-			<%= image_tag("header.png", {:width => "100%", :height => "6px", :class => "post_header"}) %>
-			<%= render_partial_post(post) %>
-		<% end %>
-	<% else %>
-		<p class="no_posts">There are currently no posts.</p>
-	<% end %>
-	<% if logged_in? %>
-	<p class="admin_link">
-		<br />
-		<%= link_to("Create", "/post") %> a new post
-	</p>
-	<% end %>
-</div>
-<div class=right-bar">
-	<%= render_tags(@tags) %>
-	<%= render_tumblr_posts(@tumblr_posts) %>
+<div class="left-bar">
+	<%= render_tags(@tags) %><br />
+	<%= render_tumblr_posts(@tumblr_posts) %><br />
 	<%= render_github_repos(@github_repos) %>
+</div>
+<div class="right-bar">
+	<div class="posts">
+		<h1>Blog Posts</h1>
+		<div>
+			Subscribe to the MPC blog rss feed 
+			<%= image_link_to("feed-icon-14x14.png", "/posts/posts.rss", link_options={}) %>
+		</div>
+		<% if @posts && @posts.not_empty? %>
+			<% for post in @posts %>
+				<%= image_tag("header.png", {:width => "100%", :height => "6px", :class => "post_header"}) %>
+				<%= render_post(post) %>
+			<% end %>
+		<% else %>
+			<p class="no_posts">There are currently no posts.</p>
+		<% end %>
+		<% if logged_in? %>
+		<p class="admin_link">
+			<br />
+			<%= link_to("Create", "/post") %> a new post
+		</p>
+		<% end %>
+	</div>
 </div>
 <div style="clear:both">&nbsp;</div>
