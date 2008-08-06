@@ -7,6 +7,7 @@ module MattPayne
 		VERSION = "2.0"
 		
 		def to_rss
+			return unless respond_to?(:all)
 			posts = self.all
 			content = RSS::Maker.make(VERSION) do |m|
 				m.channel.title = "Matt Payne Consulting RSS feed"

@@ -5,7 +5,8 @@ module MattPayne
 	module Captcha
 	
 		def captcha_valid?(supplied_captcha)
-			get_captcha_text(session.delete(:captcha)) == supplied_captcha
+			actual = get_captcha_text(session.delete(:captcha))
+			actual == supplied_captcha
 		end
 		
 		def captcha_url(length=6)
