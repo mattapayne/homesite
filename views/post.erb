@@ -1,6 +1,7 @@
 <div class="post">
 	<div>
 		<h2><%= h(post.title) %></h2>
+		<p><%= datetime(post.created_at) %></p>
 		<div class="post_body">
 			<% if show_complete %>
 				<%= post.body %>	
