@@ -187,6 +187,8 @@ module MattPayne
 		
 		class Post < Base
 		
+			extend MattPayne::BlogToRss
+		
 			attr_accessor :title, :body, :tags
 			attr_reader :updated_at
 			

@@ -1,5 +1,9 @@
 <div class="posts">
 	<h1>Blog Posts</h1>
+	<div>
+		Subscribe to the MPC blog rss feed 
+		<%= image_link_to("feed-icon-14x14.png", "/posts.rss", link_options={}) %>
+	</div>
 	<% if @posts && @posts.not_empty? %>
 		<% for post in @posts %>
 			<%= image_tag("header.png", {:width => "100%", :height => "6px", :class => "post_header"}) %>

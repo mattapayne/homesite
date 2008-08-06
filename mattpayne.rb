@@ -84,6 +84,11 @@ get '/posts' do
 	erb :posts
 end
 
+#Get posts as RSS
+get '/posts.rss' do
+	Post.to_rss
+end
+
 get '/posts/:tag' do
 	@title = " - Blog - (#{params["tag"]}) Posts"
 	@posts = Post.find_by_tag(params["tag"])
