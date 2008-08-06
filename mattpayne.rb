@@ -81,7 +81,7 @@ get '/posts' do
 	@title = " - Blog"
 	@posts = Post.all
 	@tags = Post.all_tags
-	@tumblr_posts = tumblr_posts
+	@tumblr_posts ||= tumblr_posts
 	erb :posts
 end
 
@@ -94,6 +94,7 @@ get '/posts/:tag' do
 	@title = " - Blog - (#{params["tag"]}) Posts"
 	@posts = Post.find_by_tag(params["tag"])
 	@tags = Post.all_tags
+	@tumblr_posts ||= tumblr_posts
 	erb :posts
 end
 
