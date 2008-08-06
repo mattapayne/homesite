@@ -1,0 +1,12 @@
+<div class="github_repositories">
+	<h2>My GitHub Repositories</h2>
+		<% if repos && repos.not_empty? %>
+			<% for repo in repos %>
+				<div class="github_repository">
+					<%= image_tag("github_smile.png") %>&nbsp;<%= link_to(repo["name"].first, repo["url"].first) %>
+				</div>
+			<% end %>
+		<% else %>
+			<p>I do not currently have any GitHub repositories.</p>
+		<% end %>
+</div>

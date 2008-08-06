@@ -42,6 +42,10 @@ module MattPayne
 			config_for_env(APP_ENV)[:tumblr_url]
 		end
 		
+		def self.github_url
+			config_for_env(APP_ENV)[:github_url]
+		end
+		
 		private
 		
 		def self.load_config

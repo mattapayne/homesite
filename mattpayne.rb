@@ -83,6 +83,7 @@ get '/posts' do
 	@posts = Post.all
 	@tags = Post.all_tags
 	@tumblr_posts ||= tumblr_posts
+	@github_repos ||= MattPayne::GitHub.repositories
 	erb :posts
 end
 
@@ -96,6 +97,7 @@ get '/posts/:tag' do
 	@posts = Post.find_by_tag(params["tag"])
 	@tags = Post.all_tags
 	@tumblr_posts ||= tumblr_posts
+	@github_repos ||= MattPayne::GitHub.repositories
 	erb :posts
 end
 

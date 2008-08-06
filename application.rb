@@ -21,6 +21,7 @@ require 'src/config'
 VendorLoader.load
 
 require 'src/tumblr'
+require 'src/github'
 require 'src/blog_to_rss'
 require 'src/database'
 require 'src/models'

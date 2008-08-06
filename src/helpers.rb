@@ -24,6 +24,10 @@ helpers do
 		}
 	end
 	
+	def render_github_repos(repos)
+		partial(:github_repositories, :locals => {:repos => repos})
+	end
+	
 	def render_tumblr_posts(posts)
 		partial(:tumblr_posts, :locals => {:posts => posts})
 	end
