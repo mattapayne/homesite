@@ -1,56 +1,52 @@
-require 'yaml'
-
 module MattPayne
 
 	class Config
 		
 		@@config = nil
+		@@cache = {}
 		
 		def self.config
 			@@config ||= load_config
 		end
-		
-		def self.config_for_env(env)
-			self.config[env.to_sym]
-		end
-		
-		def self.connection_string
-			config_for_env(APP_ENV)[:connection_string]
-		end
-		
+	
 		def self.captcha_key
-			config_for_env(APP_ENV)[:captcha_key]
+			value_for_key(:captcha_key)
 		end
 		
 		def self.captcha_username
-			config_for_env(APP_ENV)[:captcha_username]
+			value_for_key(:captcha_username)
 		end
 		
 		def self.admin_username
-			config_for_env(APP_ENV)[:admin_username]
+			value_for_key(:admin_username)
 		end
 		
 		def self.admin_password
-			config_for_env(APP_ENV)[:admin_password]
-		end
-		
-		def self.vendored_items
-			config_for_env(APP_ENV)[:vendor]
+			value_for_key(:admin_password)
 		end
 		
 		def self.tumblr_url
-			config_for_env(APP_ENV)[:tumblr_url]
+			value_for_key(:tumblr_url)
 		end
 		
 		def self.github_url
-			config_for_env(APP_ENV)[:github_url]
+			value_for_key(:github_url)
 		end
 		
 		private
 		
+		def self.value_for_key(key)
+			return @@cache[key.to_s] if @@cache.key?(key.to_s)
+			found = self.config.select {|setting| setting.name.to_s == key.to_s}
+			unless found.blank?
+				@@cache[key.to_s] = found.first.value
+			end
+			return @@cache[key.to_s]
+		end
+		
 		def self.load_config
-			YAML.load(File.open(File.expand_path(File.join(File.dirname(__FILE__), "..", 
-      	"config", "config.yml")), "r"))			
+			@@settings ||= Setting.all.select {|s| 
+					s.environment.to_s.downcase == Sinatra.application.options.env.to_s.downcase}
 		end
 		
 	end

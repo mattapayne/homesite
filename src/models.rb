@@ -252,6 +252,42 @@ module MattPayne
 		
 		#---------------------------------------------------------------------------
 		
+		class Setting
+			
+			include MattPayne::Database
+			
+			attr_reader :name, :value, :environment
+			
+			def initialize(hash={})
+				return if hash.blank?
+				hash.each do |key, value|
+					var = "@#{key}"
+					if respond_to?(key.to_sym)
+						self.instance_variable_set(var, value)
+					end
+				end
+			end
+			
+			def self.all
+				@@all ||= fetch_settings
+			end
+			
+			private
+			
+			def self.fetch_settings
+				all = []
+				with_database do |db|
+					all = db[table].inject([]) {|arr, row| arr << new(row); arr}
+				end
+				all
+			end
+			
+			def self.table
+				:app_settings
+			end
+			
+		end
+		
 		class Hit
 			
 			include MattPayne::Database

@@ -5,7 +5,7 @@ module MattPayne
 
 	module Tumblr
 	
-		def tumblr_posts
+		def self.posts
 			results = nil
 			begin
 				results = open(MattPayne::Config.tumblr_url).read
@@ -18,7 +18,7 @@ module MattPayne
 		
 		private
 		
-		def extract_posts(hash)
+		def self.extract_posts(hash)
 			hash["posts"].blank? ? {} : (hash["posts"].first["post"].blank? ? {} : hash["posts"].first["post"])
 		end
 		

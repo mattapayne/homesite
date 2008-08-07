@@ -2,10 +2,8 @@ helpers do
 
 	include MattPayne::HtmlTags
 	include Rack::Utils
-	include MattPayne::Models
 	include MattPayne::Captcha
 	include MattPayne::Security
-	include MattPayne::Tumblr
   
   alias_method :h, :escape_html
 
@@ -22,6 +20,10 @@ helpers do
 				});
 			</script>
 		}
+	end
+	
+	def render_create_post
+		partial(:create_post)
 	end
 	
 	def render_paging_title(posts)

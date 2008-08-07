@@ -3,8 +3,6 @@ vendor_path = File.expand_path(File.join(File.dirname(__FILE__), "vendor", "sina
 
 $:.unshift(local_path) unless $:.include?(local_path)
 $:.unshift(vendor_path) unless $:.include?(vendor_path)
-	
-APP_ENV = "production" unless defined?(APP_ENV)
 
 require 'rubygems'
 require 'sinatra'
@@ -19,6 +17,18 @@ require 'src/captcha'
 require 'src/html_tags'
 require 'src/security'
 require 'src/helpers'
+
+configure :production do
+	set :connection_string => "mysql://root:2324@localhost/mattpayne"
+end
+
+configure :test do
+	set :connection_string => "mysql://root:2324@localhost/mattpayne_test"
+end
+
+configure :development do
+	set :connection_string => "mysql://root:2324@localhost/mattpayne_dev"
+end
 
 include MattPayne::Models
 
@@ -100,9 +110,7 @@ end
 get '/posts' do
 	@title = " - Blog"
 	@posts = Post.paged(5, params["page"])
-	@tags = Post.all_tags
-	@tumblr_posts ||= tumblr_posts
-	@github_repos ||= MattPayne::GitHub.repositories
+	load_blog_variables
 	@tagged = false
 	erb :posts
 end
@@ -115,9 +123,7 @@ end
 get '/posts/tag/:tag' do
 	@title = " - Blog - (#{params["tag"]}) Posts"
 	@posts = Post.find_by_tag(params["tag"], 5, params["page"])
-	@tags = Post.all_tags
-	@tumblr_posts ||= tumblr_posts
-	@github_repos ||= MattPayne::GitHub.repositories
+	load_blog_variables
 	@tagged = true
 	erb :posts
 end
@@ -126,9 +132,7 @@ end
 get '/post/:id' do
 	@title = " - Post Details"
 	@post = Post.find(params["id"])
-	@tags = Post.all_tags
-	@tumblr_posts ||= tumblr_posts
-	@github_repos ||= MattPayne::GitHub.repositories
+	load_blog_variables
 	erb :show_post
 end
 
@@ -215,4 +219,12 @@ post "/create/comment/:post_id" do
 		@title = " - Add Comment"
 		render :erb, :new_comment
 	end
+end
+
+private
+
+def load_blog_variables
+	@tags ||= Post.all_tags
+	@tumblr_posts ||= MattPayne::Tumblr.posts
+	@github_repos ||= MattPayne::GitHub.repositories
 end
