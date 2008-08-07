@@ -1,0 +1,12 @@
+<% if posts && posts.not_empty? %>
+	<div class="paged">
+		<h3><%= (posts.current_page.to_s == posts.page_count.to_s) ? "" : "More" %></h3>
+		<% for number in 1..posts.page_count %>
+				<% unless number.to_s == posts.current_page.to_s %>
+					<%= link_to("#{number}", "/posts?page=#{number}") %>
+				<% else %>
+					<%= "#{number}" %>
+				<% end %>
+		<% end %>
+	</div>
+<% end %>
