@@ -17,7 +17,6 @@
 			<p class="no_posts">There are currently no posts.</p>
 		<% end %>
 		<%= render_paging(@posts, @tagged) %>
-		<% if logged_in? %>
 		<%= render_create_post %>
 	</div>
 </div>
