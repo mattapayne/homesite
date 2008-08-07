@@ -207,6 +207,7 @@ post "/create/comment/:post_id" do
 		@comment.save
 		redirect "/posts"
 	else
+		@post = Post.find(params["post_id"])
 		@errors = errors.join("<br />")
 		@rte_required = true
 		@title = " - Add Comment"
