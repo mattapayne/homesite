@@ -11,7 +11,7 @@ Sinatra::Application.default_options.merge!(
   :env => :production,
   :raise_errors => true,
   :sessions => true,
-  :app_file => 'home/matt/homesite/mattpayne.rb',
+  :app_file => '/home/matt/homesite/mattpayne.rb',
   :root => "/home/matt/homesite",
   :views => "/home/matt/homesite/views"
 )
