@@ -5,11 +5,19 @@ $:.unshift(vendor_path) unless $:.include?(vendor_path)
 
 require 'rubygems'
 require 'sinatra'
- 
+
 Sinatra::Application.default_options.merge!(
   :run => false,
-  :env => :production
+  :env => :development,
+  :raise_errors => true,
+  :sessions => true,
+  :root => "/home/matt/homesite",
+  :views => "/home/matt/homesite/views"
 )
+
+log = File.new("sinatra.log", "w")
+STDOUT.reopen(log)
+STDERR.reopen(log)
 
 require 'mattpayne'
 run Sinatra.application
