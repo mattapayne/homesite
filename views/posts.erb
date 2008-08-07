@@ -5,11 +5,8 @@
 </div>
 <div class="right-bar">
 	<div class="posts">
-		<h1>Blog Posts</h1>
-		<div>
-			Subscribe to the MPC blog rss feed 
-			<%= image_link_to("feed-icon-14x14.png", "/posts/posts.rss", link_options={}) %>
-		</div>
+		Subscribe to the MPC blog rss feed 
+		<%= image_link_to("feed-icon-14x14.png", "/posts/posts.rss", link_options={}) %>
 		<% if @posts && @posts.not_empty? %>
 			<% if logged_in? %>
 				<p class="admin_link">
@@ -24,7 +21,7 @@
 		<% else %>
 			<p class="no_posts">There are currently no posts.</p>
 		<% end %>
-		<%= render_paging(@posts) %>
+		<%= render_paging(@posts, @tagged) %>
 		<% if logged_in? %>
 		<p class="admin_link">
 			<br />

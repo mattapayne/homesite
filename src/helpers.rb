@@ -24,8 +24,22 @@ helpers do
 		}
 	end
 	
-	def render_paging(posts)
-		partial(:paging, :locals => {:posts => posts })
+	def render_paging_title(posts)
+		(posts.current_page.to_s == posts.page_count.to_s) ? "" : "More"
+	end
+	
+	def render_paged_link(posts, number, tagged)
+		unless number.to_s == posts.current_page.to_s
+			return link_to("#{number}", "/posts?page=#{number}") if !tagged
+			return link_to("#{number}", "/posts/tag/#{params['tag']}?page=#{number}") if tagged
+		else
+			return "#{number}"
+		end
+	end
+	
+	def render_paging(posts, tagged)
+		return if posts.blank?
+		partial(:paging, :locals => {:posts => posts, :tagged => tagged })
 	end
 	
 	def render_github_repos(repos)
@@ -50,7 +64,7 @@ helpers do
 
 	def link_to_randomize_tag_size(tag)
 		font = [8, 12, 14, 18, 20, 24].sort_by {rand}.first
-		link_to(tag, "/posts/#{tag}", :style => "font-size:#{font}px;")
+		link_to(tag, "/posts/tag/#{tag}", :style => "font-size:#{font}px;")
 	end
 	
 	def render_captcha(html_options={})

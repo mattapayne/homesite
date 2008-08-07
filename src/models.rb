@@ -206,13 +206,14 @@ module MattPayne
 				@comments ||= Comment.find_for_post(self.id)
 			end
 			
-			def self.find_by_tag(tag)
-				matches = []
+			def self.find_by_tag(tag, limit=5, page="1")
+				page ||= 1
+				paged = PagingArray.new(page.to_i, 0)
 				with_database do |db|
-					data = db[table].filter("tags LIKE '%#{tag}%'").order(:created_at.desc)
-					matches = data.inject([]) {|arr, row| arr << new(row); arr} 
+					data = db[table].filter("tags LIKE '%#{tag}%'").paginate(page.to_i, limit.to_i).order(:created_at.desc)
+					paged = data.inject(PagingArray.new(page, data.page_count)) { |arr, row| arr << new(row); arr}
 				end
-				matches
+				paged
 			end
 			
 			def self.all_tags

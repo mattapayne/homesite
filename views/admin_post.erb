@@ -2,6 +2,7 @@
 		<p class="admin_link">
 			<br />
 			<%= link_to("Edit", "/edit/post/#{post.id}") %> this post
+			<br />
 			<%= start_form("/post/#{post.id}") %>
 			<%= hidden_field_tag("_method", :value => "DELETE") %>
 			<%= submit_button("Delete Post") %>

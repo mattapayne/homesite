@@ -100,10 +100,10 @@ end
 get '/posts' do
 	@title = " - Blog"
 	@posts = Post.paged(5, params["page"])
-	@page = params["page"] || "1"
 	@tags = Post.all_tags
 	@tumblr_posts ||= tumblr_posts
 	@github_repos ||= MattPayne::GitHub.repositories
+	@tagged = false
 	erb :posts
 end
 
@@ -112,12 +112,13 @@ get '/posts/posts.rss' do
 	Post.to_rss
 end
 
-get '/posts/:tag' do
+get '/posts/tag/:tag' do
 	@title = " - Blog - (#{params["tag"]}) Posts"
-	@posts = Post.find_by_tag(params["tag"])
+	@posts = Post.find_by_tag(params["tag"], 5, params["page"])
 	@tags = Post.all_tags
 	@tumblr_posts ||= tumblr_posts
 	@github_repos ||= MattPayne::GitHub.repositories
+	@tagged = true
 	erb :posts
 end
 
