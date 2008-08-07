@@ -33,6 +33,12 @@ img.post_header
 	padding:5px;
 }
 
+div.paged
+{
+  text-align:center;
+  font-weight:bold;
+}
+
 div.right-bar
 {
 	float:left;

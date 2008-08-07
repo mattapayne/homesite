@@ -67,6 +67,16 @@ module MattPayne
 				obj
 			end
 			
+			def self.paged(limit=5, page=1)
+				page ||= 1
+				paged = PagingArray.new(page.to_i, 0)
+				with_database do |db|
+					data = db[table].paginate(page.to_i, limit.to_i).order(:created_at.desc)
+					paged = data.inject(PagingArray.new(page, data.page_count)) { |arr, row| arr << new(row); arr}
+				end
+				paged
+			end
+			
 			def self.all(limit=nil)
 				all = []
 				with_database do |db|

@@ -11,6 +11,12 @@
 			<%= image_link_to("feed-icon-14x14.png", "/posts/posts.rss", link_options={}) %>
 		</div>
 		<% if @posts && @posts.not_empty? %>
+			<% if logged_in? %>
+				<p class="admin_link">
+					<br />
+					<%= link_to("Create", "/post") %> a new post
+				</p>
+			<% end %>
 			<% for post in @posts %>
 				<%= image_tag("header.png", {:width => "100%", :height => "6px", :class => "post_header"}) %>
 				<%= render_post(post) %>
@@ -18,6 +24,7 @@
 		<% else %>
 			<p class="no_posts">There are currently no posts.</p>
 		<% end %>
+		<%= render_paging(@posts) %>
 		<% if logged_in? %>
 		<p class="admin_link">
 			<br />

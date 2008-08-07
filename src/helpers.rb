@@ -24,6 +24,10 @@ helpers do
 		}
 	end
 	
+	def render_paging(posts)
+		partial(:paging, :locals => {:posts => posts })
+	end
+	
 	def render_github_repos(repos)
 		partial(:github_repositories, :locals => {:repos => repos})
 	end

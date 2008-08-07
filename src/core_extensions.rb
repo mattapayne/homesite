@@ -29,6 +29,17 @@ class Array
 
 end
 
+class PagingArray < Array
+	
+	attr_reader :current_page
+	attr_reader :page_count
+	
+	def initialize(current_page, page_count)
+		@current_page, @page_count = current_page, page_count
+	end
+	
+end
+
 class String
 	def capitalize
 		return self if self == ""

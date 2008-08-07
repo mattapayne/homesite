@@ -4,7 +4,7 @@ vendor_path = File.expand_path(File.join(File.dirname(__FILE__), "vendor", "sina
 $:.unshift(local_path) unless $:.include?(local_path)
 $:.unshift(vendor_path) unless $:.include?(vendor_path)
 	
-APP_ENV = "development" unless defined?(APP_ENV)
+APP_ENV = "production" unless defined?(APP_ENV)
 
 require 'rubygems'
 require 'sinatra'
@@ -99,7 +99,8 @@ end
 #List posts
 get '/posts' do
 	@title = " - Blog"
-	@posts = Post.all
+	@posts = Post.paged(5, params["page"])
+	@page = params["page"] || "1"
 	@tags = Post.all_tags
 	@tumblr_posts ||= tumblr_posts
 	@github_repos ||= MattPayne::GitHub.repositories
