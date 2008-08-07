@@ -8,7 +8,7 @@ require 'sinatra'
 
 Sinatra::Application.default_options.merge!(
   :run => false,
-  :env => :development,
+  :env => :production,
   :raise_errors => true,
   :sessions => true,
   :root => "/home/matt/homesite",
