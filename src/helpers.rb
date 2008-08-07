@@ -38,7 +38,7 @@ helpers do
 	end
 	
 	def render_paging(posts, tagged)
-		return if posts.blank?
+		return if posts.blank? || posts.total_pages.to_i <= 1
 		partial(:paging, :locals => {:posts => posts, :tagged => tagged })
 	end
 	
