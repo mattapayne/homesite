@@ -11,6 +11,7 @@ Sinatra::Application.default_options.merge!(
   :env => :production,
   :raise_errors => true,
   :sessions => true,
+  :app_file => 'home/matt/homesite/mattpayne.rb',
   :root => "/home/matt/homesite",
   :views => "/home/matt/homesite/views"
 )
@@ -19,5 +20,5 @@ log = File.new("sinatra.log", "w")
 STDOUT.reopen(log)
 STDERR.reopen(log)
 
-require 'mattpayne'
+require '/home/matt/homesite/mattpayne'
 run Sinatra.application
