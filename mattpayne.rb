@@ -1,5 +1,29 @@
-$:.unshift(File.expand_path(File.dirname(__FILE__))) unless $:.include?(File.expand_path(File.dirname(__FILE__)))
-require 'application'
+local_path = File.expand_path(File.dirname(__FILE__))
+vendor_path = File.expand_path(File.join(File.dirname(__FILE__), "vendor", "sinatra", "lib"))
+
+$:.unshift(local_path) unless $:.include?(local_path)
+$:.unshift(vendor_path) unless $:.include?(vendor_path)
+	
+APP_ENV = "development" unless defined?(APP_ENV)
+
+require 'rubygems'
+require 'sinatra'
+
+configure do
+	enable :sessions
+end
+
+require 'src/core_extensions'
+require 'src/config'
+require 'src/tumblr'
+require 'src/github'
+require 'src/blog_to_rss'
+require 'src/database'
+require 'src/models'
+require 'src/captcha'
+require 'src/html_tags'
+require 'src/security'
+require 'src/helpers'
 
 include MattPayne::Models
 
