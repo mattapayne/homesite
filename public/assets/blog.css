@@ -38,16 +38,3 @@ div.paged
   text-align:center;
   font-weight:bold;
 }
-
-div.right-bar
-{
-	float:left;
-	margin:10px;
-	width:75%;
-}
-
-div.left-bar
-{
-	float:left;
-	width:20%;
-}
