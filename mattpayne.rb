@@ -113,6 +113,7 @@ get '/posts' do
 	load_blog_variables
 	@tagged = false
 	@requires_highlighting = @posts.map {|p| p.contains_code?}.size > 0
+	puts "REQUIRES HIGHLIGHTING: #{@requires_highlighting}"
 	erb :posts
 end
 
@@ -127,6 +128,7 @@ get '/posts/tag/:tag' do
 	load_blog_variables
 	@tagged = true
 	@requires_highlighting = @posts.map {|p| p.contains_code?}.size > 0
+	puts "REQUIRES HIGHLIGHTING: #{@requires_highlighting}"
 	erb :posts
 end
 
@@ -136,6 +138,7 @@ get '/post/:id' do
 	@post = Post.find(params["id"])
 	load_blog_variables
 	@requires_highlighting = @post.contains_code?
+	puts "REQUIRES HIGHLIGHTING: #{@requires_highlighting}"
 	erb :show_post
 end
 
