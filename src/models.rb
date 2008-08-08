@@ -225,17 +225,8 @@ module MattPayne
 				{:title => self.title, :body => self.body, :tags => self.tags}
 			end
 			
-			def truncated_body(limit=50)
-				if self.body && self.body.length > limit
-					@truncated = true
-					self.body.slice(0..limit)
-				else
-					self.body
-				end
-			end
-			
-			def truncated_body?
-				@truncated || false
+			def contains_code?
+				(self.body =~ /^.*<pre name="code".*$/) != nil
 			end
 			
 			protected	

@@ -6,6 +6,25 @@ helpers do
 	include MattPayne::Security
   
   alias_method :h, :escape_html
+  
+  def render_syntax
+  	%{
+  		<link type="text/css" rel="stylesheet" href="/assets/hilight/SyntaxHighlighter.css"></link>
+			<script language="javascript" src="/assets/hilight/shCore.js"></script>
+			<script language="javascript" src="/assets/hilight/shBrushRuby.js"></script>
+			<script language="javascript" src="/assets/hilight/shBrushCss.js"></script>
+			<script language="javascript" src="/assets/hilight/shBrushJava.js"></script>
+			<script language="javascript" src="/assets/hilight/shBrushPython.js"></script>
+			<script language="javascript" src="/assets/hilight/shBrushSql.js"></script>
+			<script language="javascript" src="/assets/hilight/shBrushJScript.js"></script>
+			<script language="javascript" src="/assets/hilight/shBrushCSharp.js"></script>
+			<script language="javascript" src="/assets/hilight/shBrushXml.js"></script>
+			<script language="javascript">
+				dp.SyntaxHighlighter.ClipboardSwf = '/assets/hilight/clipboard.swf';
+				dp.SyntaxHighlighter.HighlightAll('code');
+			</script>
+  	}
+  end
 
 	def render_rte
 		%{
