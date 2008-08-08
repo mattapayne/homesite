@@ -112,7 +112,7 @@ get '/posts' do
 	@posts = Post.paged(5, params["page"])
 	load_blog_variables
 	@tagged = false
-	@requires_highlighting = !(@posts.select {|p| p.contains_code?}.empty?)
+	@requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
 	erb :posts
 end
 
@@ -126,7 +126,7 @@ get '/posts/tag/:tag' do
 	@posts = Post.find_by_tag(params["tag"], 5, params["page"])
 	load_blog_variables
 	@tagged = true
-	@requires_highlighting = !(@posts.select {|p| p.contains_code?}.empty?)
+	@requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
 	erb :posts
 end
 
