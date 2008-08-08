@@ -1,4 +1,22 @@
+module CollectionExtensions
+	
+	def self.included(klazz)
+		klazz.send(:include, InstanceMethods)
+	end
+	
+	module InstanceMethods
+		
+		def not_empty?
+			!blank?
+		end
+		
+	end
+	
+end
+
 class Hash
+	include CollectionExtensions
+	
 	def to_html_options
 		arr = inject([]) do |a, (k,v)|
 			a << "#{k}=\"#{v}\""
@@ -7,16 +25,10 @@ class Hash
 		arr.join(" ")
 	end
 	
-	def not_empty?
-		!empty?
-	end
-	
 end
 
 class Array
-	def not_empty?
-		!empty?
-	end
+	include CollectionExtensions
 
 	def shuffle
     array = dup
