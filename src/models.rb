@@ -27,8 +27,7 @@ module MattPayne
 			end
 			
 			def self.delete(obj)
-				return if obj.deleted?
-				raise RuntimeError.new("You cannot delete an object that has not been saved.") if obj.new?
+				return if obj.deleted? || obj.new?
 				delete_by_id(obj.id)
 				obj.send(:set_deleted)
 				obj.send(:set_clean)
