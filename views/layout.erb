@@ -45,12 +45,7 @@
 			Site developed by <%= link_to("MPC", "/") %> using <%= link_to("Sinatra", "http://sinatrarb.com") %> (an alternative Ruby web framework). (2008)
 		</div>
   </div>
-  <% if @requires_highlighting %>
-  	<div class="debug">
-  		Requires highlighting = <%= @requires_highlighting %>
-  	</div>
-		<%= render_syntax %>
-	<% end %>
+	<%= render_syntax(@requires_highlighting) %>
 </body>
 </html>
 
