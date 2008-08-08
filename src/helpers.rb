@@ -35,7 +35,8 @@ helpers do
 					mode : "exact",
 					elements : "_textarea",
 					theme_advanced_toolbar_location : "top",
-					theme_advanced_toolbar_align : "left"
+					theme_advanced_toolbar_align : "left",
+					valid_elements : "pre[name]"
 				});
 			</script>
 		}
