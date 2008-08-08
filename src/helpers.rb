@@ -7,8 +7,7 @@ helpers do
   
   alias_method :h, :escape_html
   
-  def render_syntax(required=false)
-  	return
+  def render_syntax
   	%{
   		<link type="text/css" rel="stylesheet" href="/assets/hilight/SyntaxHighlighter.css"></link>
 			<script language="javascript" src="/assets/hilight/shCore.js"></script>
@@ -24,7 +23,7 @@ helpers do
 				dp.SyntaxHighlighter.ClipboardSwf = '/assets/hilight/clipboard.swf';
 				dp.SyntaxHighlighter.HighlightAll('code');
 			</script>
-  	} if required
+  	}
   end
 
 	def render_rte
