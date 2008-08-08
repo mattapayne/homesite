@@ -16,7 +16,7 @@ Sinatra::Application.default_options.merge!(
   :views => "/home/matt/homesite/views"
 )
 
-log = File.new("sinatra.log", "w")
+log = File.new("sinatra.log", "a")
 STDOUT.reopen(log)
 STDERR.reopen(log)
 
