@@ -36,7 +36,7 @@ helpers do
 					elements : "_textarea",
 					theme_advanced_toolbar_location : "top",
 					theme_advanced_toolbar_align : "left",
-					valid_elements : "pre[name]"
+					valid_elements : "pre[name|class]"
 				});
 			</script>
 		}
