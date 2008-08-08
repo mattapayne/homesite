@@ -46,6 +46,9 @@
 		</div>
   </div>
   <% if @requires_highlighting %>
+  	<div class="debug">
+  		Requires highlighting = <%= @requires_highlighting %>
+  	</div>
 		<%= render_syntax %>
 	<% end %>
 </body>
