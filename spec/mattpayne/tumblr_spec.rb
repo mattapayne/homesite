@@ -1,7 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "spec_helper"))
 
 describe MattPayne::Tumblr do
-	include MattPayne::Tumblr
 
 	def response_body
 		<<-eos
@@ -30,40 +29,46 @@ describe MattPayne::Tumblr do
 	
 	def stub_response(raise_error=false)
 		@response = mock("Response")
-		self.stub!(:open).with(MattPayne::Config.tumblr_url).and_return(@response)
+		MattPayne::Tumblr.stub!(:open).with(MattPayne::Config.tumblr_url).and_return(@response)
 		@response.stub!(:read).and_return(response_body) unless raise_error
 		@response.stub!(:read).and_raise(RuntimeError) if raise_error
 	end
 	
-	it "should respond_to? tumblr_posts" do
-		self.should respond_to(:tumblr_posts)
+	it "should respond_to? posts" do
+		MattPayne::Tumblr.should respond_to(:posts)
 	end
 	
 	it "should return an empty hash if opening the url fails" do
-		self.should_receive(:open).with(MattPayne::Config.tumblr_url).and_raise(RuntimeError)
-		self.tumblr_posts.should be_empty
+		MattPayne::Tumblr.should_receive(:open).with(MattPayne::Config.tumblr_url).and_raise(RuntimeError)
+		MattPayne::Tumblr.posts.should be_empty
 	end
 	
 	it "should return an empty hash if reading the response fails" do
 		stub_response(true)
-		self.tumblr_posts.should be_empty
+		MattPayne::Tumblr.posts.should be_empty
 	end
 	
 	it "should return an array of hashes, each representing a post" do
 		stub_response(false)
-		self.tumblr_posts.should have(2).items
+		MattPayne::Tumblr.posts.should have(2).items
 	end
 	
 	it "should return posts that all have a title" do
 		stub_response(false)
-		posts = self.tumblr_posts
-		posts.each { |p| p["regular-title"].should_not be_nil }
+		posts = MattPayne::Tumblr.posts
+		posts.each { |p| p.title.should_not be_nil }
 	end
 	
 	it "should return posts that all have a url" do
 		stub_response(false)
-		posts = self.tumblr_posts
-		posts.each {|p| p["url"].should_not be_nil }
+		posts = MattPayne::Tumblr.posts
+		posts.each {|p| p.url.should_not be_nil }
+	end
+	
+	it "should return posts that all have a date" do
+		stub_response(false)
+		posts = MattPayne::Tumblr.posts
+		posts.each {|p| p.date.should_not be_nil }
 	end
 	
 end

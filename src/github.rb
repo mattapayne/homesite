@@ -1,19 +1,26 @@
 require 'open-uri'
 require 'xmlsimple'
+require 'ostruct'
 
 module MattPayne
 
 	module GitHub
 	
 		def self.repositories
-			results = nil
+			repos = []
 			begin
-				results = open(MattPayne::Config.github_url).read
+				xml = open(MattPayne::Config.github_url).read
+				tmp = xml.blank? ? {} : XmlSimple.xml_in(xml)
+				tmp = extract_repositories(tmp)
+				repos = tmp.inject([]) do |arr, r|
+					h = {:name => r["name"].first, :url => r["url"].first}
+					arr << OpenStruct.new(h) 
+					arr
+				end
 			rescue
 				#swallow
 			end
-			data = results.blank? ? {} : XmlSimple.xml_in(results)
-			return data.blank? ? data : extract_repositories(data)
+			repos
 		end
 		
 		private

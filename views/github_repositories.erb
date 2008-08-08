@@ -3,7 +3,7 @@
 		<% if repos && repos.not_empty? %>
 			<% for repo in repos %>
 				<div class="github_repository">
-					<%= image_tag("github_smile.png") %>&nbsp;<%= link_to(repo["name"].first, repo["url"].first) %>
+					<%= image_tag("github_smile.png") %>&nbsp;<%= link_to(repo.name, repo.url) %>
 				</div>
 			<% end %>
 		<% else %>
