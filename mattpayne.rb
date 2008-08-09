@@ -31,25 +31,6 @@ configure :development do
 end
 
 include MattPayne::Models
-include MattPayne::LogParser
-
-@@tracked_requests = ["/", "/projects", "/services", "/about", "/contact", "/posts"]
-		
-before do
-	request_path = request.env["REQUEST_PATH"]
-	if @@tracked_requests.include?(request_path)
-		begin
-			ip_address = request.env["REMOTE_ADDR"]
-			user_agent = request.env["HTTP_USER_AGENT"]
-			session_id = request.env["rack.request.cookie_hash"]["rack.session"]
-			Hit.new(
-				:ip_address => ip_address, :user_agent => user_agent, :session_id => session_id
-			).save
-		rescue
-			#Swallow the error
-		end
-	end
-end
 
 #Home page
 get '/' do
