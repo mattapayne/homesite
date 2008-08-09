@@ -20,6 +20,15 @@ require 'src/helpers'
 
 configure :production do
 	set :connection_string => "mysql://root:2324@localhost/mattpayne"
+	
+	not_found do
+  	"We're so sorry, but we don't what this is"
+ 	end
+
+	error do
+  	"Something really nasty happened.  We're on it!"
+	end
+
 end
 
 configure :test do
@@ -29,6 +38,7 @@ end
 configure :development do
 	set :connection_string => "mysql://root:2324@localhost/mattpayne_dev"
 end
+
 
 include MattPayne::Models
 
@@ -110,6 +120,7 @@ end
 get '/post/:id' do
 	@title = " - Post Details"
 	@post = Post.find(params["id"])
+	raise Sinatra::NotFound.new unless @post
 	load_blog_variables
 	@requires_highlighting = @post.contains_code?
 	erb :show_post
@@ -117,6 +128,7 @@ end
 
 #New post
 get '/post' do
+	require_login
 	@title = " - Create Post"
 	@post = Post.new
 	@rte_required = true
@@ -125,14 +137,17 @@ end
 
 #Edit post
 get '/edit/post/:id' do
+	require_login
 	@title = " - Edit Post"
 	@post = Post.find(params["id"])
+	raise Sinatra::NotFound.new unless @post
 	@rte_required = true
 	erb :edit_post
 end
 
 #Create post
 post '/create/post' do
+	require_login
 	@post = Post.new(params)
 	if @post.valid?
 		@post.save
@@ -146,7 +161,9 @@ end
 
 #Update post
 put '/update/post/:id' do
+	require_login
 	@post = Post.find(params["id"])
+	raise Sinatra::NotFound.new unless @post
 	@post.update_attributes(params)
 	if @post.valid?
 		@post.save if @post.dirty?
@@ -160,7 +177,8 @@ put '/update/post/:id' do
 end
 
 #Delete post
-	delete '/post/:id' do
+delete '/post/:id' do
+	require_login
 	Post.delete_by_id(params["id"])
 	redirect '/posts'
 end
@@ -168,6 +186,7 @@ end
 #New captcha'd comment
 get '/new/comment/reload/captcha/:post_id' do
 	@post = Post.find(params["post_id"])
+	raise Sinatra::NotFound.new unless @post
 	@comment = Comment.new(:post_id => @post.id)
 	@rte_required = true
 	@title = " - Add Comment"
@@ -178,6 +197,7 @@ end
 get '/new/comment/:post_id' do
 	@title = " - Add Comment"
 	@post = Post.find(params["post_id"])
+	raise Sinatra::NotFound.new unless @post
 	@comment = Comment.new(:post_id => @post.id)
 	@rte_required = true
 	erb :new_comment	
@@ -193,6 +213,7 @@ post "/create/comment/:post_id" do
 		redirect "/posts"
 	else
 		@post = Post.find(params["post_id"])
+		raise Sinatra::NotFound.new unless @post
 		@errors = errors.join("<br />")
 		@rte_required = true
 		@title = " - Add Comment"

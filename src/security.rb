@@ -19,6 +19,10 @@ module MattPayne
 			!session[:logged_in].nil? && session[:logged_in] == true
 		end
 		
+		def require_login
+			throw :halt, [401, 'Authorization Required'] unless logged_in?
+		end
+		
 	end
 	
 end
