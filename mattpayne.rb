@@ -31,6 +31,7 @@ configure :development do
 end
 
 include MattPayne::Models
+include MattPayne::LogParser
 
 @@tracked_requests = ["/", "/projects", "/services", "/about", "/contact", "/posts"]
 		
@@ -98,12 +99,6 @@ end
 get '/logout' do
 	logout
 	redirect '/'
-end
-
-#list hits
-get "/hits" do
-	@hits = Hit.all
-	erb :hits
 end
 
 #List posts

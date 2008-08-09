@@ -30,7 +30,6 @@ module MattPayne
         with_database do |db|
           create_posts(db)
           create_comments(db)
-          create_hits(db)
           create_app_settings(db)
           db.execute("ALTER TABLE comments ADD FOREIGN KEY(post_id) REFERENCES posts(id);")
         end
@@ -46,12 +45,6 @@ module MattPayne
       	db.execute("DROP TABLE IF EXISTS posts;")
       	db.execute(%{create table posts (
 					id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, body TEXT NOT NULL, tags TEXT, 					created_at DATETIME NOT NULL, updated_at DATETIME);})
-      end
-      
-      def create_hits(db)
-      	db.execute("DROP TABLE IF EXISTS hits;")
-      	db.execute(%{CREATE TABLE hits (ip_address VARCHAR(40), session_id VARCHAR(100), 
-					user_agent VARCHAR(255), created_at DATETIME); })
       end
       
       def create_app_settings(db)
