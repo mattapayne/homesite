@@ -39,8 +39,12 @@ configure :development do
 	set :connection_string => "mysql://root:2324@localhost/mattpayne_dev"
 end
 
-
 include MattPayne::Models
+
+helpers do	
+	include MattPayne::Helpers
+end
+
 
 #Home page
 get '/' do

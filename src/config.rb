@@ -36,17 +36,26 @@ module MattPayne
 		private
 		
 		def self.value_for_key(key)
-			return @@cache[key.to_s] if @@cache.key?(key.to_s)
+			value = retrieve_from_cache(key)
+			return value unless value.blank?
 			found = self.config.select {|setting| setting.name.to_s == key.to_s}
 			unless found.blank?
-				@@cache[key.to_s] = found.first.value
+				store_in_cache(key, found.first.value)
 			end
-			return @@cache[key.to_s]
+			return retrieve_from_cache(key)
 		end
 		
 		def self.load_config
-			@@settings ||= Setting.all.select {|s| 
-					s.environment.to_s.downcase == Sinatra.application.options.env.to_s.downcase}
+			current_env = Sinatra.application.options.env.to_s.downcase
+			Setting.all.select { |s| s.environment.to_s.downcase == current_env }
+		end
+		
+		def self.retrieve_from_cache(key)
+			@@cache[key.to_s]
+		end
+		
+		def self.store_in_cache(key, value)
+			@@cache[key.to_s] = value
 		end
 		
 	end
