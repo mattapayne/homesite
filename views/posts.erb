@@ -6,7 +6,7 @@
 <div class="right-bar">
 	<div class="posts">
 		Subscribe to the MPC blog rss feed 
-		<%= image_link_to("feed-icon-14x14.png", "/posts/posts.rss", link_options={}) %>
+		<%= image_link_to("feed-icon-14x14.png", "/posts/posts.rss", {}, {:style => "margin-bottom:-3px;"}) %>
 		<% if @posts && @posts.not_empty? %>
 			<%= render_create_post %>
 			<% for post in @posts %>
