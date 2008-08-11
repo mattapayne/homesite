@@ -40,10 +40,10 @@
 			<%= yield %>
 		</div>
 		<div id="footer">
-			<%= image_tag("header.png", {:width => "100%", :height => "20px"}) %>
+			<%= image_tag("header.png", {:width => "100%", :height => "20px", :style => "margin-bottom:5px;"}) %>
 			<div>
 				Subscribe to the MPC blog rss feed 
-				<%= image_link_to("feed-icon-14x14.png", "/posts/posts.rss", link_options={}) %>
+				<%= image_link_to("feed-icon-14x14.png", "/posts/posts.rss", {}, {:style => "margin-bottom:-3px"}) %>
 			</div>
 			Site developed by <%= link_to("MPC", "/") %> using <%= link_to("Sinatra", "http://sinatrarb.com") %> (an alternative Ruby web framework). (2008)
 		</div>
