@@ -1,27 +1,27 @@
 <div class="content">
-	<h1>Edit Post</h1>
-	<% if @errors %>
-		<div class="error">
-			<h2>Errors</h2>
-			<%= @errors %>
-		</div>
-	<% end %>
-	<%= start_form("/blog/update/post/#{@post.slug}") %>
-		<%= hidden_field_tag("_method", :value => "PUT") %>
-		<p>
-			Title:<br />
-			<%= text_field_tag("title", :value => @post.title, :class => "select") %>		
-		</p>
-		<p>
-			Content:<br />
-			<%= text_area_tag("body", :value => @post.body, :rows => 25, :cols => 80) %>
-		</p>
-		<p>
-			Tags:<br />
-			<%= text_field_tag("tags", :value => @post.tags) %>
-		</p>
-		<p>
-			<%= submit_button("Update") %>
-		</p>
-	<% end_form %>
+  <h1>Edit Post</h1>
+  <% if @errors %>
+    <div class="error">
+      <h2>Errors</h2>
+      <%= @errors %>
+    </div>
+  <% end %>
+  <%= start_form("/blog/update/post/#{@post.slug}") %>
+  <%= hidden_field_tag("_method", :value => "PUT") %>
+  <p>
+    Title:<br />
+    <%= text_field_tag("title", :value => @post.title, :class => "select") %>		
+  </p>
+  <p>
+    Content:<br />
+    <%= text_area_tag("body", :value => @post.body, :rows => 25, :cols => 80) %>
+  </p>
+  <p>
+    Tags:<br />
+    <%= text_field_tag("tags", :value => @post.tags) %>
+  </p>
+  <p>
+    <%= submit_button("Update") %>
+  </p>
+  <% end_form %>
 </div>

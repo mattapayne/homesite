@@ -5,7 +5,7 @@ module MattPayne
   module Database
     
     def self.included(klazz)
-    	klazz.extend(Connection)
+      klazz.extend(Connection)
     end
       
     module Connection

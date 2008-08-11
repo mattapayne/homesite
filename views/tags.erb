@@ -1,8 +1,8 @@
 <% if tags && tags.not_empty? %>
-	<div class="tags">
-	<h2>Tags</h2>
-	<% for tag in tags %>
-		<%= link_to_randomize_tag_size(tag) %> &nbsp;
-	<% end %>
-	</div>
+  <div class="tags">
+    <h2>Tags</h2>
+    <% for tag in tags %>
+      <%= link_to_randomize_tag_size(tag) %> &nbsp;
+    <% end %>
+  </div>
 <% end %>

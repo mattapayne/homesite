@@ -1,6 +1,6 @@
 <div class="paged">
-	<h3><%= render_paging_title(posts) %></h3>
-	<% for number in 1..posts.page_count %>
-			<%= render_paged_link(posts, number, tagged) %>
-	<% end %>
+  <h3><%= render_paging_title(posts) %></h3>
+  <% for number in 1..posts.page_count %>
+    <%= render_paged_link(posts, number, tagged) %>
+  <% end %>
 </div>
