@@ -3,7 +3,7 @@
 			<br />
 			<%= link_to("Edit", "/blog/edit/post/#{post.slug}") %> this post
 			<br />
-			<%= start_form("/blog/post/#{post.slug}") %>
+			<%= start_form("/blog/delete/post/#{post.slug}") %>
 			<%= hidden_field_tag("_method", :value => "delete") %>
 			<%= submit_button("Delete Post") %>
 			<%= end_form %>

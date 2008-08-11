@@ -181,9 +181,9 @@ put '/blog/update/post/:slug' do
 end
 
 #Delete post
-delete '/blog/post/:slug' do
+delete '/blog/delete/post/:slug' do
 	require_login
-	@post.find_by_slug(params["slug"])
+	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
 	@post.delete
 	redirect '/blog'
