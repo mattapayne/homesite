@@ -6,6 +6,6 @@
 			<%= start_form("/blog/post/#{post.slug}") %>
 			<%= hidden_field_tag("_method", :value => "DELETE") %>
 			<%= submit_button("Delete Post") %>
-			<% end_form %>
+			<%= end_form %>
 		</p>
 <% end %>
