@@ -6,7 +6,7 @@ module MattPayne
 	
 		VERSION = "2.0"
 		TITLE = "Matt Payne Consulting RSS feed"
-		LINK = "http://mattpayne.ca"
+		LINK = "http://mattpayne.ca/blog"
 		DESCRIPTION = "Matt Payne Consulting Blog Posts"
 		
 		def to_rss
@@ -21,7 +21,7 @@ module MattPayne
 					i = m.items.new_item
 					i.title = p.title
 					i.description = p.body
-					i.link = "#{BlogToRss::LINK}/post/#{p.id}"
+					i.link = "#{BlogToRss::LINK}/post/#{p.slug}"
 					i.date = p.created_at
 				end
 			end
