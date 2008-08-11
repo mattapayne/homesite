@@ -64,7 +64,7 @@ module MattPayne
 		def render_paged_link(posts, number, tagged)
 			return unless posts
 			unless number.to_s == posts.current_page.to_s
-				return link_to("#{number}", "/blog/posts?page=#{number}") if !tagged
+				return link_to("#{number}", "/blog?page=#{number}") if !tagged
 				return link_to("#{number}", "/blog/posts/tagged-as/#{params['tag']}?page=#{number}") if tagged
 			else
 				return "#{number}"
