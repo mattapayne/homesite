@@ -58,7 +58,9 @@ module MattPayne
 		end
 	
 		def hidden_field_tag(name, html_options={})
-			input_tag({:type => "hidden", :name => name, :id => "_#{name}"}, html_options)
+			id = name
+			id = "_#{name}" if (name =~ /^_+*$/ == nil)
+			input_tag({:type => "hidden", :name => name, :id => id}, html_options)
 		end
 		
 		private
