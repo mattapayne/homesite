@@ -19,218 +19,223 @@ require 'src/security'
 require 'src/helpers'
 
 configure :production do
-	set :connection_string => "mysql://root:2324@localhost/mattpayne"
+  set :connection_string => "mysql://root:2324@localhost/mattpayne"
 	
-	not_found do
-  	"We're so sorry, but we don't what this is"
- 	end
+  not_found do
+    "We're so sorry, but we don't what this is"
+  end
 
-	error do
-  	"Something really nasty happened.  We're on it!"
-	end
+  error do
+    "Something really nasty happened.  We're on it!"
+  end
 
 end
 
 configure :test do
-	set :connection_string => "mysql://root:2324@localhost/mattpayne_test"
+  set :connection_string => "mysql://root:2324@localhost/mattpayne_test"
 end
 
 configure :development do
-	set :connection_string => "mysql://root:2324@localhost/mattpayne_dev"
+  set :connection_string => "mysql://root:2324@localhost/mattpayne_dev"
 end
 
 include MattPayne::Models
 
 helpers do	
-	include MattPayne::Helpers
+  include MattPayne::Helpers
 end
-
 
 #Home page
 get '/' do
-	@title = " - Home"
-	erb :home
+  @title = " - Home"
+  erb :home
 end
 
 #About
 get '/about' do
-	@title = " - About"
-	erb :about
+  @title = " - About"
+  erb :about
 end
 
 #Contact
 get '/contact' do
-	@title = " - Contact"
-	erb :contact
+  @title = " - Contact"
+  erb :contact
 end
 
 #Projects
 get '/projects' do
-	@title = " - Projects"
-	erb :projects
+  @title = " - Projects"
+  erb :projects
 end
 
 #Services
 get '/services' do
-	@title = " - Services"
-	erb :services
+  @title = " - Services"
+  erb :services
 end
 
 get '/login' do
-	@title = " - Login"
-	erb :login
+  @title = " - Login"
+  erb :login
 end
 
 post '/attempt/login' do
-	if login(params["username"], params["password"])
-		redirect '/'
-	else
-		@errors = "Invalid login."
-		@title = " - Login"
-		render :erb, :login
-	end
+  if login(params["username"], params["password"])
+    redirect '/'
+  else
+    @errors = "Invalid login."
+    @title = " - Login"
+    render :erb, :login
+  end
 end
 
 get '/logout' do
-	logout
-	redirect '/'
+  logout
+  redirect '/'
 end
 
 #List posts
 get '/blog' do
-	@title = " - Blog"
-	@posts = Post.paged(5, params["page"])
-	load_blog_variables
-	@tagged = false
-	@requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
-	erb :posts
+  @posts = Post.paged(5, params["page"])
+  load_blog_variables
+  @title = " - Blog"
+  @tagged = false
+  @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
+  erb :posts
 end
 
 #Get posts as RSS
 get '/blog/posts.rss' do
-	Post.to_rss
+  Post.to_rss
 end
 
 get '/blog/posts/tagged-as/:tag' do
-	@title = " - Blog - (#{params["tag"]}) Posts"
-	@posts = Post.find_by_tag(params["tag"], 5, params["page"])
-	load_blog_variables
-	@tagged = true
-	@requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
-	erb :posts
+  @posts = Post.find_by_tag(params["tag"], 5, params["page"])
+  load_blog_variables
+  @title = " - Blog - Posts Tagged As (#{params["tag"].capitalize})"
+  @tagged = true
+  @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
+  erb :posts
 end
 
 #Show post
 get '/blog/post/:slug' do
-	@title = " - Post Details"
-	@post = Post.find_by_slug(params["slug"])
-	raise Sinatra::NotFound.new unless @post
-	load_blog_variables
-	@requires_highlighting = @post.contains_code?
-	erb :show_post
+  @post = Post.find_by_slug(params["slug"])
+  raise_post_not_found(params["slug"]) unless @post
+  load_blog_variables
+  @title = " - Post Details"
+  @requires_highlighting = @post.contains_code?
+  erb :show_post
 end
 
 #New post
 get '/blog/post' do
-	require_login
-	@title = " - Create Post"
-	@post = Post.new
-	@rte_required = true
-	erb :new_post
+  require_login
+  @post = Post.new
+  @title = " - Create Post"
+  @rte_required = true
+  erb :new_post
 end
 
 #Edit post
 get '/blog/edit/post/:slug' do
-	require_login
-	@title = " - Edit Post"
-	@post = Post.find_by_slug(params["slug"])
-	raise Sinatra::NotFound.new unless @post
-	@rte_required = true
-	erb :edit_post
+  require_login
+  @post = Post.find_by_slug(params["slug"])
+  raise_post_not_found(params["slug"]) unless @post
+  @title = " - Edit Post"
+  @rte_required = true
+  erb :edit_post
 end
 
 #Create post
 post '/blog/create/post' do
-	require_login
-	@post = Post.new(params)
-	if @post.valid?
-		@post.save
-		redirect '/blog'
-	else
-		@errors = @post.validation_errors.join("<br />")
-		@title = " - Create Post"
-		render :erb, :new_post
-	end
+  require_login
+  @post = Post.new(params)
+  if @post.valid?
+    @post.save
+    redirect '/blog'
+  else
+    @errors = @post.validation_errors.join("<br />")
+    @title = " - Create Post"
+    render :erb, :new_post
+  end
 end
 
 #Update post
 put '/blog/update/post/:slug' do
-	require_login
-	@post = Post.find_by_slug(params["slug"])
-	raise Sinatra::NotFound.new unless @post
-	@post.update_attributes(params)
-	if @post.valid?
-		@post.save if @post.dirty?
-		redirect "/blog"
-	else
-		@errors = @post.validation_errors.join("<br />")
-		@rte_required = true
-		@title = " - Edit Post"
-		render :erb, :edit_post
-	end
+  require_login
+  @post = Post.find_by_slug(params["slug"])
+  raise_post_not_found(params["slug"]) unless @post
+  @post.update_attributes(params)
+  if @post.valid?
+    @post.save if @post.dirty?
+    redirect "/blog"
+  else
+    @errors = @post.validation_errors.join("<br />")
+    @rte_required = true
+    @title = " - Edit Post"
+    render :erb, :edit_post
+  end
 end
 
 #Delete post
 delete '/blog/delete/post/:slug' do
-	require_login
-	@post = Post.find_by_slug(params["slug"])
-	raise Sinatra::NotFound.new unless @post
-	@post.delete
-	redirect '/blog'
+  require_login
+  @post = Post.find_by_slug(params["slug"])
+  raise_post_not_found(params["slug"]) unless @post
+  @post.delete
+  redirect '/blog'
 end
 
 #New captcha'd comment
 get '/blog/new/comment/reload/captcha/:slug' do
-	@post = Post.find_by_slug(params["slug"])
-	raise Sinatra::NotFound.new unless @post
-	@comment = Comment.new(:post_id => @post.id)
-	@rte_required = true
-	@title = " - Add Comment"
-	render :erb, :new_comment
+  @post = Post.find_by_slug(params["slug"])
+  raise_post_not_found(params["slug"]) unless @post
+  @comment = Comment.new(:post_id => @post.id)
+  @rte_required = true
+  @title = " - Add Comment"
+  render :erb, :new_comment
 end
 
 #New comment
 get '/blog/new/comment/:slug' do
-	@title = " - Add Comment"
-	@post = Post.find_by_slug(params["slug"])
-	raise Sinatra::NotFound.new unless @post
-	@comment = Comment.new(:post_id => @post.id)
-	@rte_required = true
-	erb :new_comment	
+  @post = Post.find_by_slug(paramos["slug"])
+  raise_post_not_found(params["slug"]) unless @post
+  @comment = Comment.new(:post_id => @post.id)
+  @title = " - Add Comment"
+  @rte_required = true
+  erb :new_comment	
 end
 
 #Create comment
 post "/blog/create/comment/:slug" do
-	@post = Post.find_by_slug(params["slug"])
-	raise Sinatra::NotFound.new unless @post
-	@comment = Comment.new(params.merge(:post_id => @post.id))
-	errors = @comment.validation_errors || []
-	errors << "Invalid captcha. Please try again." unless captcha_valid?(params.delete("captcha"))
-	if errors.empty?
-		@comment.save
-		redirect "/blog"
-	else
-		@errors = errors.join("<br />")
-		@rte_required = true
-		@title = " - Add Comment"
-		render :erb, :new_comment
-	end
+  @post = Post.find_by_slug(params["slug"])
+  raise_post_not_found(params["slug"]) unless @post
+  @comment = Comment.new(params.merge(:post_id => @post.id))
+  errors = @comment.validation_errors || []
+  unless captcha_valid?(params.delete("captcha"))
+    errors << "Invalid captcha. Please try again." 
+  end
+  if errors.empty?
+    @comment.save
+    redirect "/blog"
+  else
+    @errors = errors.join("<br />")
+    @rte_required = true
+    @title = " - Add Comment"
+    render :erb, :new_comment
+  end
 end
 
 private
 
+def raise_post_not_found(id)
+  raise Sinatra::NotFound.new("Could not find a post identified by: #{id}")
+end
+
 def load_blog_variables
-	@tags ||= Post.all_tags
-	@tumblr_posts ||= MattPayne::Tumblr.posts
-	@github_repos ||= MattPayne::GitHub.repositories
+  @tags ||= Post.all_tags
+  @tumblr_posts ||= MattPayne::Tumblr.posts
+  @github_repos ||= MattPayne::GitHub.repositories
 end
