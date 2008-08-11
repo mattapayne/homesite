@@ -7,7 +7,15 @@ module MattPayne
 		include MattPayne::Captcha
 		include MattPayne::Security
 		
+		@@tag_font_map = {1 => "8px", 2 => "12px", 3 => "14px", 4 => "18px", 5 => "20px", 6 => "24px"}
+		
 		alias_method :h, :escape_html
+		
+		def self.font_for_tag(tag)
+			max = @@tag_font_map.max
+			return max.last if tag.count >= max.first
+			return @@tag_font_map[tag.count]
+		end
 		
 		def render_syntax
 			%{
@@ -89,8 +97,7 @@ module MattPayne
 		end
 
 		def link_to_randomize_tag_size(tag)
-			font = [8, 12, 14, 18, 20, 24].sort_by {rand}.first
-			link_to(tag, "/posts/tag/#{tag}", :style => "font-size:#{font}px;")
+			link_to("#{tag.tag} (#{tag.count})", "/posts/tag/#{tag.tag}", :style => "font-size:#{MattPayne::Helpers.font_for_tag(tag)}")
 		end
 	
 		def render_captcha(html_options={})

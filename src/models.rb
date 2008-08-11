@@ -2,6 +2,16 @@ module MattPayne
 
 	module Models
 	
+		class Tag
+			
+			attr_reader :count, :tag
+			
+			def initialize(tag, count)
+				@count, @tag = count, tag
+			end
+			
+		end
+		
 		class Base
 		
 			include MattPayne::Database
@@ -195,7 +205,7 @@ module MattPayne
 		#---------------------------------------------------------------------------
 		
 		class Post < Base
-		
+			
 			extend MattPayne::BlogToRss
 		
 			attr_accessor :title, :body, :tags
@@ -216,8 +226,14 @@ module MattPayne
 			end
 			
 			def self.all_tags
-				all.map {|post| 
-					post.tags.blank? ? nil : post.tags.split(" ") }.flatten.compact.uniq.shuffle
+				hash = all.inject({}) do |h, post|
+					unless post.tags.blank?
+						tags = post.tags.split
+						tags.each {|t| h.key?(t) ? h[t] += 1 : h[t] = 1}
+					end
+					h
+				end
+				hash.inject([]){|arr, (k,v)| arr << Tag.new(k, v); arr}.shuffle
 			end
 			
 			def to_hash
