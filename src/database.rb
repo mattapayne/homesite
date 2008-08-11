@@ -44,7 +44,11 @@ module MattPayne
       def create_posts(db)
       	db.execute("DROP TABLE IF EXISTS posts;")
       	db.execute(%{create table posts (
-					id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, body TEXT NOT NULL, tags TEXT, 					created_at DATETIME NOT NULL, updated_at DATETIME);})
+					id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, body TEXT 						NOT NULL, tags TEXT, created_at DATETIME NOT NULL, updated_at DATETIME);})
+      end
+      
+      def add_post_slug(db)
+      	db.execute(%{ALTER TABLE posts ADD slug VARCHAR(255);})
       end
       
       def create_app_settings(db)

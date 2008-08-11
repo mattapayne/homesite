@@ -1,6 +1,6 @@
 <div class="post">
 	<div>
-		<h2><%= link_to(h(post.title), "/post/#{post.id}") %></h2>
+		<h2><%= link_to(h(post.title), "/post/#{post.slug}") %></h2>
 		<p>Posted on <%= datetime(post.created_at) %></p>
 		<div class="post_body">
 				<%= post.body %>	

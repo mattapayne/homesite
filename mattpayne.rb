@@ -121,9 +121,9 @@ get '/posts/tag/:tag' do
 end
 
 #Show post
-get '/post/:id' do
+get '/post/:slug' do
 	@title = " - Post Details"
-	@post = Post.find(params["id"])
+	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
 	load_blog_variables
 	@requires_highlighting = @post.contains_code?
@@ -140,10 +140,10 @@ get '/post' do
 end
 
 #Edit post
-get '/edit/post/:id' do
+get '/edit/post/:slug' do
 	require_login
 	@title = " - Edit Post"
-	@post = Post.find(params["id"])
+	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
 	@rte_required = true
 	erb :edit_post
@@ -164,9 +164,9 @@ post '/create/post' do
 end
 
 #Update post
-put '/update/post/:id' do
+put '/update/post/:slug' do
 	require_login
-	@post = Post.find(params["id"])
+	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
 	@post.update_attributes(params)
 	if @post.valid?
@@ -181,15 +181,15 @@ put '/update/post/:id' do
 end
 
 #Delete post
-delete '/post/:id' do
+delete '/post/:slug' do
 	require_login
-	Post.delete_by_id(params["id"])
+	@post.find_by_slug(params["slug"])
 	redirect '/posts'
 end
 
 #New captcha'd comment
-get '/new/comment/reload/captcha/:post_id' do
-	@post = Post.find(params["post_id"])
+get '/new/comment/reload/captcha/:slug' do
+	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
 	@comment = Comment.new(:post_id => @post.id)
 	@rte_required = true
@@ -198,9 +198,9 @@ get '/new/comment/reload/captcha/:post_id' do
 end
 
 #New comment
-get '/new/comment/:post_id' do
+get '/new/comment/:slug' do
 	@title = " - Add Comment"
-	@post = Post.find(params["post_id"])
+	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
 	@comment = Comment.new(:post_id => @post.id)
 	@rte_required = true
@@ -208,16 +208,16 @@ get '/new/comment/:post_id' do
 end
 
 #Create comment
-post "/create/comment/:post_id" do
-	@comment = Comment.new(params)
+post "/create/comment/:slug" do
+	@post = Post.find_by_slug(params["slug"])
+	raise Sinatra::NotFound.new unless @post
+	@comment = Comment.new(params.merge(:post_id => @post.id))
 	errors = @comment.validation_errors || []
 	errors << "Invalid captcha. Please try again." unless captcha_valid?(params.delete("captcha"))
 	if errors.empty?
 		@comment.save
 		redirect "/posts"
 	else
-		@post = Post.find(params["post_id"])
-		raise Sinatra::NotFound.new unless @post
 		@errors = errors.join("<br />")
 		@rte_required = true
 		@title = " - Add Comment"

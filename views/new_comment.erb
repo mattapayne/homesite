@@ -6,7 +6,7 @@
 			<%= @errors %>
 		</div>
 	<% end %>
-	<%= start_form("/create/comment/#{@post.id}") %>
+	<%= start_form("/create/comment/#{@post.slug}") %>
 		<%= hidden_field_tag("post_id", :value => @post.id) %>
 		<p>Your name:<br />
 			<%= text_field_tag("username", :value => @comment.username, :class => "select") %>

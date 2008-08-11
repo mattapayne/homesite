@@ -208,11 +208,20 @@ module MattPayne
 			
 			extend MattPayne::BlogToRss
 		
-			attr_accessor :title, :body, :tags
+			attr_accessor :title, :body, :tags, :slug
 			attr_reader :updated_at
 			
 			def comments
 				@comments ||= Comment.find_for_post(self.id)
+			end
+			
+			def self.find_by_slug(slug)
+				obj = nil
+				with_database do |db|
+					data = db[table][:slug => slug]
+					obj = new(data) unless data.blank?
+				end
+				obj
 			end
 			
 			def self.find_by_tag(tag, limit=5, page="1")
@@ -237,7 +246,7 @@ module MattPayne
 			end
 			
 			def to_hash
-				{:title => self.title, :body => self.body, :tags => self.tags}
+				{:title => self.title, :body => self.body, :tags => self.tags, :slug => self.title.slugify}
 			end
 			
 			def contains_code?
