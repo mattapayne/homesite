@@ -65,7 +65,7 @@ module MattPayne
 			return unless posts
 			unless number.to_s == posts.current_page.to_s
 				return link_to("#{number}", "/posts?page=#{number}") if !tagged
-				return link_to("#{number}", "/posts/tag/#{params['tag']}?page=#{number}") if tagged
+				return link_to("#{number}", "/posts/tagged-as/#{params['tag']}?page=#{number}") if tagged
 			else
 				return "#{number}"
 			end
@@ -101,7 +101,7 @@ module MattPayne
 		end
 
 		def link_to_randomize_tag_size(tag)
-			link_to("#{tag.tag} (#{tag.count})", "/posts/tag/#{tag.tag}", :style => "font-size:#{MattPayne::Helpers.font_for_tag(tag)}")
+			link_to("#{tag.tag} (#{tag.count})", "/posts/tagged-as/#{tag.tag}", :style => "font-size:#{MattPayne::Helpers.font_for_tag(tag)}")
 		end
 	
 		def render_captcha(html_options={})

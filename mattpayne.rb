@@ -111,7 +111,7 @@ get '/posts/posts.rss' do
 	Post.to_rss
 end
 
-get '/posts/tag/:tag' do
+get '/posts/tagged-as/:tag' do
 	@title = " - Blog - (#{params["tag"]}) Posts"
 	@posts = Post.find_by_tag(params["tag"], 5, params["page"])
 	load_blog_variables
