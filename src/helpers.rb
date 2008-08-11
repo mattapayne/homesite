@@ -64,8 +64,8 @@ module MattPayne
 		def render_paged_link(posts, number, tagged)
 			return unless posts
 			unless number.to_s == posts.current_page.to_s
-				return link_to("#{number}", "/posts?page=#{number}") if !tagged
-				return link_to("#{number}", "/posts/tagged-as/#{params['tag']}?page=#{number}") if tagged
+				return link_to("#{number}", "/blog/posts?page=#{number}") if !tagged
+				return link_to("#{number}", "/blog/posts/tagged-as/#{params['tag']}?page=#{number}") if tagged
 			else
 				return "#{number}"
 			end
@@ -97,11 +97,11 @@ module MattPayne
 		end
 		
 		def link_to_rss_feed
-			image_link_to("feed-icon-14x14.png", "/posts/posts.rss", {}, {:style => "margin-bottom:-3px;"})
+			image_link_to("feed-icon-14x14.png", "/blog/posts.rss", {}, {:style => "margin-bottom:-3px;"})
 		end
 
 		def link_to_randomize_tag_size(tag)
-			link_to("#{tag.tag} (#{tag.count})", "/posts/tagged-as/#{tag.tag}", :style => "font-size:#{MattPayne::Helpers.font_for_tag(tag)}")
+			link_to("#{tag.tag} (#{tag.count})", "/blog/posts/tagged-as/#{tag.tag}", :style => "font-size:#{MattPayne::Helpers.font_for_tag(tag)}")
 		end
 	
 		def render_captcha(html_options={})

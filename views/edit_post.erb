@@ -6,7 +6,7 @@
 			<%= @errors %>
 		</div>
 	<% end %>
-	<%= start_form("/update/post/#{@post.slug}") %>
+	<%= start_form("/blog/update/post/#{@post.slug}") %>
 		<%= hidden_field_tag("_method", :value => "PUT") %>
 		<p>
 			Title:<br />

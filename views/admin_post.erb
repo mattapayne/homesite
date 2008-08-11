@@ -1,9 +1,9 @@
 <% if logged_in? %>
 		<p class="admin_link">
 			<br />
-			<%= link_to("Edit", "/edit/post/#{post.slug}") %> this post
+			<%= link_to("Edit", "/blog/edit/post/#{post.slug}") %> this post
 			<br />
-			<%= start_form("/post/#{post.slug}") %>
+			<%= start_form("/blog/post/#{post.slug}") %>
 			<%= hidden_field_tag("_method", :value => "DELETE") %>
 			<%= submit_button("Delete Post") %>
 			<% end_form %>

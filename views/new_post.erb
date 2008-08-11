@@ -6,7 +6,7 @@
 			<%= @errors %>
 		</div>
 	<% end %>
-	<%= start_form("/create/post") %>
+	<%= start_form("/blog/create/post") %>
 		<p>
 			Title:<br />
 			<%= text_field_tag("title", :value => @post.title, :class => "select") %>

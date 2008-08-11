@@ -97,7 +97,7 @@ get '/logout' do
 end
 
 #List posts
-get '/posts' do
+get '/blog' do
 	@title = " - Blog"
 	@posts = Post.paged(5, params["page"])
 	load_blog_variables
@@ -107,11 +107,11 @@ get '/posts' do
 end
 
 #Get posts as RSS
-get '/posts/posts.rss' do
+get '/blog/posts.rss' do
 	Post.to_rss
 end
 
-get '/posts/tagged-as/:tag' do
+get '/blog/posts/tagged-as/:tag' do
 	@title = " - Blog - (#{params["tag"]}) Posts"
 	@posts = Post.find_by_tag(params["tag"], 5, params["page"])
 	load_blog_variables
@@ -121,7 +121,7 @@ get '/posts/tagged-as/:tag' do
 end
 
 #Show post
-get '/post/:slug' do
+get '/blog/post/:slug' do
 	@title = " - Post Details"
 	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
@@ -131,7 +131,7 @@ get '/post/:slug' do
 end
 
 #New post
-get '/post' do
+get '/blog/post' do
 	require_login
 	@title = " - Create Post"
 	@post = Post.new
@@ -140,7 +140,7 @@ get '/post' do
 end
 
 #Edit post
-get '/edit/post/:slug' do
+get '/blog/edit/post/:slug' do
 	require_login
 	@title = " - Edit Post"
 	@post = Post.find_by_slug(params["slug"])
@@ -150,12 +150,12 @@ get '/edit/post/:slug' do
 end
 
 #Create post
-post '/create/post' do
+post '/blog/create/post' do
 	require_login
 	@post = Post.new(params)
 	if @post.valid?
 		@post.save
-		redirect '/posts'
+		redirect '/blog'
 	else
 		@errors = @post.validation_errors.join("<br />")
 		@title = " - Create Post"
@@ -164,14 +164,14 @@ post '/create/post' do
 end
 
 #Update post
-put '/update/post/:slug' do
+put '/blog/update/post/:slug' do
 	require_login
 	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
 	@post.update_attributes(params)
 	if @post.valid?
 		@post.save if @post.dirty?
-		redirect "/posts"
+		redirect "/blog"
 	else
 		@errors = @post.validation_errors.join("<br />")
 		@rte_required = true
@@ -181,14 +181,14 @@ put '/update/post/:slug' do
 end
 
 #Delete post
-delete '/post/:slug' do
+delete '/blog/post/:slug' do
 	require_login
 	@post.find_by_slug(params["slug"])
-	redirect '/posts'
+	redirect '/blog'
 end
 
 #New captcha'd comment
-get '/new/comment/reload/captcha/:slug' do
+get '/blog/new/comment/reload/captcha/:slug' do
 	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
 	@comment = Comment.new(:post_id => @post.id)
@@ -198,7 +198,7 @@ get '/new/comment/reload/captcha/:slug' do
 end
 
 #New comment
-get '/new/comment/:slug' do
+get '/blog/new/comment/:slug' do
 	@title = " - Add Comment"
 	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
@@ -208,7 +208,7 @@ get '/new/comment/:slug' do
 end
 
 #Create comment
-post "/create/comment/:slug" do
+post "/blog/create/comment/:slug" do
 	@post = Post.find_by_slug(params["slug"])
 	raise Sinatra::NotFound.new unless @post
 	@comment = Comment.new(params.merge(:post_id => @post.id))
@@ -216,7 +216,7 @@ post "/create/comment/:slug" do
 	errors << "Invalid captcha. Please try again." unless captcha_valid?(params.delete("captcha"))
 	if errors.empty?
 		@comment.save
-		redirect "/posts"
+		redirect "/blog"
 	else
 		@errors = errors.join("<br />")
 		@rte_required = true
