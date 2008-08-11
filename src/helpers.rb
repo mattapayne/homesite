@@ -95,6 +95,10 @@ module MattPayne
 		def partial(name, options={})
 			erb(name, options.merge(:layout => false))
 		end
+		
+		def link_to_rss_feed
+			image_link_to("feed-icon-14x14.png", "/posts/posts.rss", {}, {:style => "margin-bottom:-3px;"})
+		end
 
 		def link_to_randomize_tag_size(tag)
 			link_to("#{tag.tag} (#{tag.count})", "/posts/tag/#{tag.tag}", :style => "font-size:#{MattPayne::Helpers.font_for_tag(tag)}")
