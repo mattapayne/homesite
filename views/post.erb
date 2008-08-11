@@ -6,9 +6,9 @@
 				<%= post.body %>	
 		</div>
 	</div>
-	<div>
-		Tags: <%= post.tags %>
-	</div>
 	<%= partial(:comment, :locals => {:post => post }) %>
 	<%= partial(:admin_post, :locals => {:post => post}) %>
+	<div>
+		Tags: <%= post.tags.split(" ").join(", ") %>
+	</div>
 </div>
