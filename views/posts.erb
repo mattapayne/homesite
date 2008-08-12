@@ -18,8 +18,7 @@
     <% else %>
       <p class="no_posts">There are currently no posts.</p>
     <% end %>
-    <%= render_paging(@posts, @tagged) %>
     <%= render_create_post %>
   </div>
 </div>
-<div style="clear:both">&nbsp;</div>
+<div style="clear:both"><%= render_paging(@posts, @tagged) %></div>
