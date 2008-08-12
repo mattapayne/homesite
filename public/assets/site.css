@@ -16,9 +16,12 @@ body {
     padding-top: 10px;
 }
  
-p,code,ul {padding-bottom: 1.2em;}
+p,ul {padding-bottom: 1.2em;}
  
-li {list-style: none;}
+ul
+{
+    margin-left:15px;
+}
  
 h1 {font: normal 1.6em Verdana,sans-serif;}
 h2 {font: normal 1.4em Verdana, sans-serif;}
