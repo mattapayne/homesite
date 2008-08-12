@@ -1,40 +1,55 @@
 .post_comments
 {
-	padding-left:10px;
-	padding-right:10px;
-	border:1px dashed silver;
+    padding-left:10px;
+    padding-right:10px;
+    border:1px dashed silver;
 }
 
 .posts
 {
-	padding:10px;
+    padding:10px;
 }
 
 img.post_header
 {
-	margin-top:15px;
+    margin-top:15px;
 }
 
 .tumblr_posts
 {
-	font-size:10px;
+    font-size:10px;
 }
 
 .post_body
 {
-	padding:5px;
-	padding-bottom:15px;
-	margin-bottom:5px;
+    padding:5px;
+    padding-bottom:15px;
+    margin-bottom:5px;
 }
 
 .comment
 {
-	border-top:1px dashed silver;
-	padding:5px;
+    border-top:1px dashed silver;
+    padding:5px;
 }
 
 div.paged
 {
-  text-align:center;
-  font-weight:bold;
+    text-align:center;
+    font-weight:bold;
+}
+
+div.github_repositories
+{
+    font-size:62.5%;
+}
+
+div.tumblr_posts
+{
+    font-size:62.5%;
+}
+
+div.tags
+{
+    font-size:62.5%;
 }
