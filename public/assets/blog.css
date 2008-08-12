@@ -39,20 +39,9 @@ div.paged
     font-weight:bold;
 }
 
-div.github_repositories
+div.sidebar-content
 {
     font-size:62.5%;
     border:1px dashed #DCDCDC;
-}
-
-div.tumblr_posts
-{
-    font-size:62.5%;
-    border:1px dashed #DCDCDC;
-}
-
-div.tags
-{
-    font-size:62.5%;
-    border:1px dashed #DCDCDC;
+    padding:5px;
 }
