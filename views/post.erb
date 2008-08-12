@@ -2,13 +2,13 @@
   <div>
     <h2><%= link_to(h(post.title), "/blog/post/#{post.slug}") %></h2>
     <p>Posted on <%= datetime(post.created_at) %></p>
+    <p>
+      Tags: <%= post.tags.split(" ").join(", ") %>
+    </p>
     <div class="post_body">
       <%= post.body %>	
     </div>
   </div>
   <%= partial(:comment, :locals => {:post => post }) %>
-  <div>
-    Tags: <%= post.tags.split(" ").join(", ") %>
-  </div>
   <%= partial(:admin_post, :locals => {:post => post}) %>
 </div>
