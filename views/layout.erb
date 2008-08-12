@@ -16,11 +16,8 @@
     <script type="text/javascript" language="javascript" src="/assets/site.js"></script>
   </head>
   <body onload="setCursor();">
-    <div id="wrapper">
-      <div id="header">
-        <%= image_link_to("logo.png", "/", {:alt => "Home"}) %>
-        <%= image_tag("header.png", {:width => "100%", :height => "15px"}) %>
-      </div>
+    <div id="header">
+      <%= image_link_to("logo_alt.png", "/", {:alt => "Home"}) %>
       <div id="menu">
         <ul>
           <li><%= link_to("Home", "/",  :id => "home") %></li>
@@ -36,17 +33,18 @@
           <% end %>
         </ul>
       </div>
+    </div>
+    <div id="wrapper">
       <div id="body">
         <%= yield %>
       </div>
-      <div id="footer">
-        <%= image_tag("header.png", {:width => "100%", :height => "15px", :style => "margin-bottom:5px;"}) %>
-        <div>
-          Subscribe to the MPC blog rss feed 
-          <%= link_to_rss_feed %>
-        </div>
-        Site developed by <%= link_to("MPC", "/") %> using <%= link_to("Sinatra", "http://sinatrarb.com") %> (an alternative Ruby web framework). (2008)
+    </div>
+    <div id="footer">
+      <div>
+        Subscribe to the MPC blog rss feed 
+        <%= link_to_rss_feed %>
       </div>
+      Site developed by <%= link_to("MPC", "/") %> using <%= link_to("Sinatra", "http://sinatrarb.com") %> (an alternative Ruby web framework). (2008)
     </div>
     <% if @requires_highlighting %>
       <%= render_syntax %>
@@ -60,8 +58,8 @@
         pageTracker._trackPageview();
     </script>
     <script type="text/javascript">
-      setSelectedTab("<%= @action %>");
-  </script>
+        setSelectedTab("<%= @action %>");
+    </script>
   </body>
 </html>
 

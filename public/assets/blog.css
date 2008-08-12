@@ -2,12 +2,13 @@
 {
     padding-left:10px;
     padding-right:10px;
-    border:1px dashed silver;
+    border:1px dashed #737373;
 }
 
 .post
 {
   margin-bottom:30px;
+  margin-top:10px;
 }
  
 .post_body
@@ -15,16 +16,20 @@
     margin-bottom:5px;
 }
 
+hr.wide-rule
+{
+    background-color:#737373;
+    height:5px;
+}
+
 .rss
 {
-    font-size:10px;
-    padding-top:10px;
     padding-bottom:10px;
 }
  
 .comment
 {
-    border-top:1px dashed silver;
+    border-top:1px dashed #737373;
     padding:5px;
 }
  
@@ -37,11 +42,13 @@ div.paged
 div.sidebar-content
 {
     font-size:62.5%;
-    border:1px dashed #DCDCDC;
+    border:1px dashed #737373;
     padding:5px;
 }
 
 div.sidebar-content h2
 {
     padding:0px;
+    padding-bottom:10px;
+    font-weight:bold;
 }

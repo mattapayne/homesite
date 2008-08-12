@@ -1,24 +1,26 @@
-<div class="rss">
-  Subscribe to the MPC blog rss feed 
-  <%= link_to_rss_feed %>
-</div>
-<div class="left-bar">
-  <%= render_tags(@tags) %><br />
-  <%= render_tumblr_posts(@tumblr_posts) %><br />
-  <%= render_github_repos(@github_repos) %>
-</div>
-<div class="right-bar">
-  <div class="posts">
-    <% if @posts && @posts.not_empty? %>
-      <%= render_create_post %>
-      <% for post in @posts %>
-        <%= image_tag("header.png", {:width => "100%", :height => "6px"}) %>
-        <%= render_post(post) %>
-      <% end %>
-    <% else %>
-      <p class="no_posts">There are currently no posts.</p>
-    <% end %>
-    <%= render_create_post %>
+<div class="content">
+  <div class="left-bar">
+    <%= render_tags(@tags) %><br />
+    <%= render_tumblr_posts(@tumblr_posts) %><br />
+    <%= render_github_repos(@github_repos) %>
   </div>
+  <div class="right-bar">
+    <div class="rss">
+      Subscribe to the MPC blog rss feed 
+      <%= link_to_rss_feed %>
+    </div>
+    <div class="posts">
+      <% if @posts && @posts.not_empty? %>
+        <%= render_create_post %>
+        <% for post in @posts %>
+          <hr class="wide-rule" />
+          <%= render_post(post) %>
+        <% end %>
+      <% else %>
+        <p class="no_posts">There are currently no posts.</p>
+      <% end %>
+      <%= render_create_post %>
+    </div>
+  </div>
+  <div style="clear:both"><%= render_paging(@posts, @tagged) %></div>
 </div>
-<div style="clear:both"><%= render_paging(@posts, @tagged) %></div>

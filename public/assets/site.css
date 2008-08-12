@@ -5,15 +5,25 @@ html {min-height: 100%;}
     margin: 0;
     padding: 0;
 }
+
+hr
+{
+    color:#737373;
+    width:100%;
+}
  
-a {color: #5071a4;}
 a:hover {color: #06C;}
 a img {border: none;}
- 
-body {
+
+#menu a
+{
+    color:white;
+}
+
+body 
+{
     color: #444;
     font: normal 100% Verdana,sans-serif;
-    padding-top: 10px;
 }
  
 p,ul {padding-bottom: 1.2em;}
@@ -28,7 +38,7 @@ h1 {font: normal 1.6em Verdana,sans-serif;}
 h2 {font: normal 1.4em Verdana, sans-serif;}
 h3 {font: bold 1em Verdana,sans-serif;}
  
-h1,h2,h3 {color: #5071a4;}
+h1,h2,h3 {color: #737373;}
  
 .body
 {
@@ -37,8 +47,8 @@ h1,h2,h3 {color: #5071a4;}
  
 div#wrapper
 {
-    width:80%;
-    margin-left:10%;
+    width:90%;
+    margin-left:5%;
 }
  
 div#home_image
@@ -54,20 +64,25 @@ div#home_image
  
 div.content
 {
-    padding:10px;
+    padding-top:30px;
+    padding-bottom:30px;
 }
  
 #body
 {
     padding-bottom:10px;
+    min-height:400px;
 }
  
 #footer
 {
-    padding-bottom:10px;
-    padding-top:16px;
+    padding-bottom:5px;
+    padding-top:5px;
     font-size:10px;
+    border-top:2px solid red;
     text-align:center;
+    background-color:black;
+    color:white;
 }
  
 div.divider
@@ -78,16 +93,25 @@ div.divider
 #header
 {
     padding-bottom:10px;
+    background-color:black;
+    border-top:2px solid red;
+    height:101px;
+}
+
+#header a img
+{
+    padding:10px;
 }
  
 #menu
 {
-    padding: 3px 0;
+    padding: 20px 0;
     margin-left: 0;
     margin-bottom: 0;
     margin-top: 10px;
-    font: bold 12px Neuropolitical;
-    border-bottom: 1px solid #5071a4;
+    font: bold 14px Neuropolitical;
+    width:90%;
+    margin-left:5%;
 }
  
 #menu ul
@@ -109,28 +133,25 @@ div.divider
     text-decoration: none;
     padding: 3px 0.5em;
     margin-right: 3px;
-    border: 1px solid #5071a4;
     border-bottom: none;
-    background: white;
+    background: #737373;
 }
  
 #menu li a:link, #tablist li a:visited
 {
-    color: #1686ce;
+    color: white;
 }
  
 #menu li a:hover
 {
-    color: white;
-    background: #5071a4;
-    border-color: white;
+    color: #737373;
+    background: white;
 }
 
 #menu li a.selected-tab
 {
-    color: white;
-    background: #5071a4;
-    border-color: white;  
+    color: #737373;
+    background: white;
 }
  
 div.right-bar
