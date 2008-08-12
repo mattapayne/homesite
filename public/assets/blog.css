@@ -5,43 +5,43 @@
     border:1px dashed silver;
 }
 
-.posts
+.post
 {
-    padding:10px;
+  margin-bottom:30px;
 }
-
-img.post_header
-{
-    margin-top:15px;
-}
-
-.tumblr_posts
-{
-    font-size:10px;
-}
-
+ 
 .post_body
 {
-    padding:5px;
-    padding-bottom:15px;
     margin-bottom:5px;
 }
 
+.rss
+{
+    font-size:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+ 
 .comment
 {
     border-top:1px dashed silver;
     padding:5px;
 }
-
+ 
 div.paged
 {
     text-align:center;
     font-weight:bold;
 }
-
+ 
 div.sidebar-content
 {
     font-size:62.5%;
     border:1px dashed #DCDCDC;
     padding:5px;
+}
+
+div.sidebar-content h2
+{
+    padding:0px;
 }

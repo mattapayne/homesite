@@ -200,7 +200,7 @@ end
 
 #New comment
 get '/blog/new/comment/:slug' do
-  @post = Post.find_by_slug(paramos["slug"])
+  @post = Post.find_by_slug(params["slug"])
   raise_post_not_found(params["slug"]) unless @post
   @comment = Comment.new(:post_id => @post.id)
   @title = " - Add Comment"

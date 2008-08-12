@@ -1,80 +1,63 @@
 /* standard elements */
 html {min-height: 100%;}
-
+ 
 * {
     margin: 0;
     padding: 0;
 }
-
+ 
 a {color: #5071a4;}
 a:hover {color: #06C;}
 a img {border: none;}
-
+ 
 body {
     color: #444;
     font: normal 100% Verdana,sans-serif;
     padding-top: 10px;
 }
-
+ 
 p,code,ul {padding-bottom: 1.2em;}
-
+ 
 li {list-style: none;}
-
-h1 {font: normal 1.8em Verdana,sans-serif;}
-h2 {font: normal 1.6em Verdana, sans-serif;}
+ 
+h1 {font: normal 1.6em Verdana,sans-serif;}
+h2 {font: normal 1.4em Verdana, sans-serif;}
 h3 {font: bold 1em Verdana,sans-serif;}
-
-h1,h2,h3 {padding-top: 6px; color: #5071a4; margin-bottom: 4px;}
-
-code {
-    background: #FFF;
-    border: 1px solid #EEE;
-    border-left: 6px solid #CCC;
-    color: #666;
-    display: block;
-    font: normal 1em Tahoma,sans-serif;
-    line-height: 1.6em;
-    margin-bottom: 12px;
-    padding: 8px 10px;
-    white-space: pre;
-}
-
-h1 {
-    font: normal 3em sans-serif;
-}
-
+ 
+h1,h2,h3 {color: #5071a4;}
+ 
 .body
 {
     font-family:verdana;
 }
-
+ 
 div#wrapper
 {
     width:80%;
     margin-left:10%;
 }
-
+ 
 div#home_image
 {
     text-align:center;
 }
-
+ 
 .error
 {
     font-size:12px;
     color:red;
 }
-
+ 
 div.content
 {
     padding:10px;
 }
-
+ 
 #body
 {
     padding-bottom:10px;
 }
-
+ 
 #footer
 {
     padding-bottom:10px;
@@ -82,17 +65,17 @@ div.content
     font-size:10px;
     text-align:center;
 }
-
+ 
 div.divider
 {
     background:#FFFFFF url(footer-bg.png) repeat-x scroll 0% 0%;
 }
-
+ 
 #header
 {
     padding-bottom:10px;
 }
-
+ 
 #menu
 {
     padding: 3px 0;
@@ -102,21 +85,21 @@ div.divider
     font: bold 12px Neuropolitical;
     border-bottom: 1px solid #5071a4;
 }
-
+ 
 #menu ul
 {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-
+ 
 #menu li
 {
     list-style: none;
     display: inline;
     margin: 0;
 }
-
+ 
 #menu li a
 {
     text-decoration: none;
@@ -126,38 +109,38 @@ div.divider
     border-bottom: none;
     background: white;
 }
-
+ 
 #menu li a:link, #tablist li a:visited
 {
     color: #1686ce;
 }
-
+ 
 #menu li a:hover
 {
     color: white;
     background: #5071a4;
     border-color: white;
 }
-
+ 
 div.right-bar
 {
     float:left;
-    margin:10px;
-    width:75%;
+    margin-left:15px;
+    width:78%;
 }
-
+ 
 div.left-bar
 {
     float:left;
     width:20%;
 }
-
+ 
 div.service-left
 {
     float:left;
     width:45%;
 }
-
+ 
 div.service-right
 {
     float:left;
