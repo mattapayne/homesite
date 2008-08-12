@@ -56,15 +56,6 @@ div#wrapper
     font-size:12px;
     color:red;
 }
-
-span.logo
-{
-    font-family: Neuropolitical;
-    font-size:42pt;
-    color:white;
-    padding-left:10px;
-    cursor:pointer;
-}
  
 div.content
 {
@@ -99,7 +90,12 @@ div.divider
     padding-bottom:10px;
     background-color:black;
     border-top:2px solid red;
-    height:105px;
+    height:102px;
+}
+
+#header a img
+{
+    padding:15px;
 }
 
 #menu
