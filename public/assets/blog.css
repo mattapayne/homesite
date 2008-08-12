@@ -42,14 +42,17 @@ div.paged
 div.github_repositories
 {
     font-size:62.5%;
+    border:1px dashed #DCDCDC;
 }
 
 div.tumblr_posts
 {
     font-size:62.5%;
+    border:1px dashed #DCDCDC;
 }
 
 div.tags
 {
     font-size:62.5%;
+    border:1px dashed #DCDCDC;
 }
