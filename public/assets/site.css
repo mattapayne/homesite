@@ -51,15 +51,19 @@ div#wrapper
     margin-left:5%;
 }
  
-div#home_image
-{
-    text-align:center;
-}
- 
 .error
 {
     font-size:12px;
     color:red;
+}
+
+span.logo
+{
+    font-family: Neuropolitical;
+    font-size:42pt;
+    color:white;
+    padding-left:10px;
+    cursor:pointer;
 }
  
 div.content
@@ -95,14 +99,9 @@ div.divider
     padding-bottom:10px;
     background-color:black;
     border-top:2px solid red;
-    height:101px;
+    height:105px;
 }
 
-#header a img
-{
-    padding:10px;
-}
- 
 #menu
 {
     padding: 20px 0;

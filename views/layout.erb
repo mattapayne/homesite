@@ -17,7 +17,7 @@
   </head>
   <body onload="setCursor();">
     <div id="header">
-      <%= image_link_to("logo_alt.png", "/", {:alt => "Home"}) %>
+      <span class="logo" onclick="location.href = '/'">matt payne consulting.</span>
       <div id="menu">
         <ul>
           <li><%= link_to("Home", "/",  :id => "home") %></li>
