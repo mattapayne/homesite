@@ -125,6 +125,13 @@ div.divider
     background: #5071a4;
     border-color: white;
 }
+
+#menu li a.selected-tab
+{
+    color: white;
+    background: #5071a4;
+    border-color: white;  
+}
  
 div.right-bar
 {

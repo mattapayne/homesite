@@ -48,35 +48,41 @@ end
 #Home page
 get '/' do
   @title = " - Home"
+  @action = "home"
   erb :home
 end
 
 #About
 get '/about' do
   @title = " - About"
+  @action = "about"
   erb :about
 end
 
 #Contact
 get '/contact' do
   @title = " - Contact"
+  @action = "contact"
   erb :contact
 end
 
 #Projects
 get '/projects' do
   @title = " - Projects"
+  @action = "projects"
   erb :projects
 end
 
 #Services
 get '/services' do
   @title = " - Services"
+  @action = "services"
   erb :services
 end
 
 get '/login' do
   @title = " - Login"
+  @action = "login"
   erb :login
 end
 
@@ -101,6 +107,7 @@ get '/blog' do
   load_blog_variables
   @title = " - Blog"
   @tagged = false
+  @action = "blog"
   @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
   erb :posts
 end
@@ -115,6 +122,7 @@ get '/blog/posts/tagged-as/:tag' do
   load_blog_variables
   @title = " - Blog - Posts Tagged As (#{params["tag"].capitalize})"
   @tagged = true
+  @action = "blog"
   @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
   erb :posts
 end
@@ -125,6 +133,7 @@ get '/blog/post/:slug' do
   raise_post_not_found(params["slug"]) unless @post
   load_blog_variables
   @title = " - Post Details"
+  @action = "blog"
   @requires_highlighting = @post.contains_code?
   erb :show_post
 end
@@ -134,6 +143,7 @@ get '/blog/post' do
   require_login
   @post = Post.new
   @title = " - Create Post"
+  @action = "blog"
   @rte_required = true
   erb :new_post
 end
@@ -144,6 +154,7 @@ get '/blog/edit/post/:slug' do
   @post = Post.find_by_slug(params["slug"])
   raise_post_not_found(params["slug"]) unless @post
   @title = " - Edit Post"
+  @action = "blog"
   @rte_required = true
   erb :edit_post
 end
@@ -195,6 +206,7 @@ get '/blog/new/comment/reload/captcha/:slug' do
   @comment = Comment.new(:post_id => @post.id)
   @rte_required = true
   @title = " - Add Comment"
+  @action = "blog"
   render :erb, :new_comment
 end
 
@@ -205,6 +217,7 @@ get '/blog/new/comment/:slug' do
   @comment = Comment.new(:post_id => @post.id)
   @title = " - Add Comment"
   @rte_required = true
+  @action = "blog"
   erb :new_comment	
 end
 
