@@ -61,12 +61,12 @@ div.content
 {
     padding-top:30px;
     padding-bottom:30px;
+    min-height:538px;
 }
  
 #body
 {
     padding-bottom:10px;
-    min-height:400px;
 }
  
 #footer
@@ -78,6 +78,8 @@ div.content
     text-align:center;
     background-color:black;
     color:white;
+    position:relative;
+    bottom:0;
 }
  
 div.divider
