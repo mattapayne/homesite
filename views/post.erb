@@ -1,8 +1,7 @@
 <div class="post">
   <div>
     <h2><%= link_to(h(post.title), "/blog/post/#{post.slug}") %></h2>
-    <p>Posted on <%= datetime(post.created_at) %></p>
-    <p>
+    <p>Posted on <%= datetime(post.created_at) %><br />
       Tags: <%= post.tags.split(" ").join(", ") %>
     </p>
     <div class="post_body">
