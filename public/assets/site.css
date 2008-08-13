@@ -23,7 +23,7 @@ a img {border: none;}
 body 
 {
     color: #444;
-    font: normal 100% Verdana,sans-serif;
+    font: normal 14pt Verdana,sans-serif;
 }
  
 p,ul {padding-bottom: 1.2em;}
@@ -36,7 +36,7 @@ ul
  
 h1 {font: normal 1.6em Verdana,sans-serif;}
 h2 {font: normal 1.4em Verdana, sans-serif;}
-h3 {font: bold 1em Verdana,sans-serif;}
+h3 {font: normal 1.2em Verdana,sans-serif;}
  
 h1,h2,h3 {color: #737373;}
  
@@ -57,11 +57,16 @@ div#wrapper
     color:red;
 }
  
+div.home
+{
+  font-size:16pt;
+}
+
 div.content
 {
     padding-top:30px;
     padding-bottom:30px;
-    min-height:538px;
+    min-height:450px;
 }
  
 #body
