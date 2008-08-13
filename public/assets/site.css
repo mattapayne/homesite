@@ -78,8 +78,6 @@ div.content
     text-align:center;
     background-color:black;
     color:white;
-    position:relative;
-    bottom:0;
 }
  
 div.divider
@@ -92,7 +90,7 @@ div.divider
     padding-bottom:10px;
     background-color:black;
     border-top:2px solid red;
-    height:102px;
+    height:105px;
 }
 
 #header a img
