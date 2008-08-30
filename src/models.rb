@@ -189,12 +189,12 @@ module MattPayne
         symbols.flatten.each {|s|
           self.class_eval(
             %{
-							def #{s}=(value)
-								unless value == @#{s}
-									@#{s} = value
-									set_dirty unless new?
-								end
-							end
+              def #{s}=(value)
+                      unless value == @#{s}
+                              @#{s} = value
+                              set_dirty unless new?
+                      end
+              end
             }
           )
         }
