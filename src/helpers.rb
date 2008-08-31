@@ -88,8 +88,8 @@ module MattPayne
       partial(:tags, :locals => {:tags => tags})
     end
 	
-    def render_post(post)
-      partial(:post, :locals => {:post => post})
+    def render_post(post, singular=false)
+      partial(:post, :locals => {:post => post, :singular => singular})
     end
 	
     def partial(name, options={})

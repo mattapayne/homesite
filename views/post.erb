@@ -1,6 +1,10 @@
 <div class="post">
   <div>
-    <h2><%= link_to(h(post.title), "/blog/post/#{post.slug}") %></h2>
+    <% unless singular %>
+      <h2><%= link_to(h(post.title), "/blog/post/#{post.slug}") %></h2>
+    <% else %>
+      <h2><%= h(post.title) %></h2>
+    <% end %>
     <p>Posted on <%= datetime(post.created_at) %><br />
       Tags: <%= post.tags.split(" ").join(", ") %>
     </p>

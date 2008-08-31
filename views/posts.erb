@@ -13,7 +13,7 @@
       <% if @posts && @posts.not_empty? %>
         <% for post in @posts %>
           <hr class="wide-rule" />
-          <%= render_post(post) %>
+          <%= render_post(post, false) %>
         <% end %>
       <% else %>
         <p class="no_posts">There are currently no posts.</p>
