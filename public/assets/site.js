@@ -17,6 +17,11 @@ function setCursor()
     }
 }
 
+function unloadMap()
+{
+    GUnload();
+}
+
 function setSelectedTab(tab)
 {
     $(tab).className = "selected-tab";

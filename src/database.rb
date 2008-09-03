@@ -51,6 +51,15 @@ module MattPayne
       	db.execute(%{ALTER TABLE posts ADD slug VARCHAR(255);})
       end
       
+      def add_google_maps_api_key(db)
+        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('gmaps_key', 
+          'ABQIAAAAmKfFxA14dHoBadEFep47iRQwHu3rQCyfTgH93yBlkTR7UAz0_BQABOpQxFTILdJiz_tUXzDmxR5L9Q', 'development');})
+        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('gmaps_key', 
+          'ABQIAAAAmKfFxA14dHoBadEFep47iRQwHu3rQCyfTgH93yBlkTR7UAz0_BQABOpQxFTILdJiz_tUXzDmxR5L9Q', 'test');})
+        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('gmaps_key', 
+          'ABQIAAAAmKfFxA14dHoBadEFep47iRQwHu3rQCyfTgH93yBlkTR7UAz0_BQABOpQxFTILdJiz_tUXzDmxR5L9Q', 'production');})
+      end
+      
       def create_app_settings(db)
       	db.execute("DROP TABLE IF EXISTS app_settings;")
       	db.execute(%{create table app_settings (name VARCHAR(100) NOT NULL, value VARCHAR(255) NOT NULL, environment 						VARCHAR(30));})
@@ -84,6 +93,7 @@ module MattPayne
       	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 					'development');})
       	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 					'test');})
       	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 					'production');})
+  
       end
 		
     end

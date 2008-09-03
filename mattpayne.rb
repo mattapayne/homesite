@@ -63,6 +63,7 @@ end
 get '/contact' do
   @title = " - Contact"
   @action = "contact"
+  @render_gmh = true
   erb :contact
 end
 

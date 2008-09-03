@@ -15,10 +15,16 @@
     <% if @rte_required %>
       <%= render_rte %>
     <% end %>
+    <% if @render_gmh %>
+        <%= render_gmh %>
+    <% end %>
     <script src="/assets/mootools-1.2-core-yc.js" type="text/javascript" language="javascript"></script>
     <script type="text/javascript" language="javascript" src="/assets/site.js"></script>
   </head>
-  <body onload="setCursor();">
+  <body onload="setCursor()"
+        <% unless @render_gmh.blank? %>
+            onunload="unloadMap();"
+        <% end %>>
     <div id="header">
       <%= image_link_to("logo.png", "/") %>
       <div id="menu">

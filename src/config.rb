@@ -12,6 +12,10 @@ module MattPayne
     def self.captcha_key
       value_for_key(:captcha_key)
     end
+    
+    def self.google_maps_api_key
+      value_for_key(:gmaps_key)
+    end
 		
     def self.captcha_username
       value_for_key(:captcha_username)

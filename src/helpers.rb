@@ -16,6 +16,38 @@ module MattPayne
       return max.last if tag.count >= max.first
       return @@tag_font_map[tag.count]
     end
+    
+    def render_gmh
+      #http://maps.google.ca/maps?f=q&hl=en&geocode=&q=139+brighton+st+waterloo&sll=43.471258,-80.518501&sspn=0.010885,0.018775&ie=UTF8&z=16&iwloc=addr
+      %{
+        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=#{MattPayne::Config.google_maps_api_key}
+          type="text/javascript"></script>
+          <script type="text/javascript">
+
+          //<![CDATA[
+
+          function load() {
+            if (GBrowserIsCompatible()) {
+              var address = "<p>139 Brighton St. Unit 6b<br />Waterloo, Ontario, Canada<br />N2J 4Z5<br />(519) 573-2888<br /><a href='mailto:paynmatt@gmail.com>Email MPC</a></p>";
+              var map = new GMap2(document.getElementById("map"));
+              var ctl = new GSmallMapControl();
+              map.addControl(ctl);
+              var point = new GLatLng(43.471258, -80.51850);
+              map.setCenter(point, 15);
+              marker = new GMarker(point);
+              map.addOverlay(marker);
+              GEvent.addListener(marker, "click", function() {
+                map.openInfoWindowHtml(point, address);
+              });
+              map.openInfoWindow(map.getCenter(), address);
+            }
+          }
+
+          //]]>
+        </script>
+      }
+
+    end
 		
     def render_syntax
       %{

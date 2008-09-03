@@ -45,6 +45,12 @@ h1,h2,h3 {color: #737373;}
     font-family:verdana;
 }
  
+div.map-container
+{
+  padding-top:15px;
+  padding-bottom:15px;
+}
+
 div#wrapper
 {
     width:90%;

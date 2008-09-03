@@ -1,17 +1,16 @@
 <div class="content">
   <h1>Contact Information</h1>
   <hr />
-  <br />
+  <div class="map-container">
+    <div id="map" style="width: 500px; height: 300px">
+      
+    </div>
+  </div>
   <p>
-    Matt Payne Consulting<br />
-    139 Brighton St. #6b<br />
-    Waterloo, ON<br />
-    Canada<br />
-    N2L4Z5<br />
-    (519) 573-2888<br />
+    Feel free to email me at any time.<br />
+    <%= image_email_link_to("email.png", "paynmatt@gmail.com") %>
   </p>
-  <p>
-    Feel free to email me at any time.
-  </p>
-  <%= image_email_link_to("email.png", "paynmatt@gmail.com") %>
 </div>
+<script type="text/javascript" language="javascript">
+    load();
+</script>
