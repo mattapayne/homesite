@@ -20,7 +20,7 @@ module MattPayne
     def render_gmh
       #http://maps.google.ca/maps?f=q&hl=en&geocode=&q=139+brighton+st+waterloo&sll=43.471258,-80.518501&sspn=0.010885,0.018775&ie=UTF8&z=16&iwloc=addr
       %{
-        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=#{MattPayne::Config.google_maps_api_key}
+        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=#{MattPayne::Config.google_maps_api_key}"
           type="text/javascript"></script>
           <script type="text/javascript">
 
