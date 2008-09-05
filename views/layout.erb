@@ -1,74 +1,72 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title><%= "Matt Payne Software Consulting - Waterloo, Ontario - (Ruby, .NET, Python and Java) #{@title}" %></title>
-    <META name="description" content="Custom Canadian software development for business">
-    <META name="keywords" content="ruby, rails, sinatra, django, software, canada, waterloo,
-          python, .net, c#, java, j2ee, jsp, struts, matt, payne, web development, ontario,
-          asp.net, mvc, framework">
-    <link REL="STYLESHEET" TYPE="text/css" HREF="/assets/blog.css">
-    <link REL="STYLESHEET" TYPE="text/css" HREF="/assets/site.css">
-    <!--[if IE]>
+<head>
+  <title><%= "Matt Payne Software Consulting - Waterloo, Ontario - (Ruby, .NET, Python and Java) #{@title}" %></title>
+  <META name="description" content="Custom Canadian software development for business">
+  <META name="keywords" content="ruby, rails, sinatra, django, software, canada, waterloo,
+        python, .net, c#, java, j2ee, jsp, struts, matt, payne, web development, ontario,
+        asp.net, mvc, framework">
+  <link REL="STYLESHEET" TYPE="text/css" HREF="/assets/blog.css">
+  <link REL="STYLESHEET" TYPE="text/css" HREF="/assets/site.css">
+  <!--[if IE]>
         <link rel="stylesheet" type="text/css" href="/assets/ie.css" />
     <![endif]--> 
-    <link rel="icon" type="image/ico" href="/assets/favicon.ico" />
-    <% if @rte_required %>
-      <%= render_rte %>
-    <% end %>
-    <% if @render_gmh %>
-        <%= render_gmh %>
-    <% end %>
-    <script src="/assets/mootools-1.2-core-yc.js" type="text/javascript" language="javascript"></script>
-    <script type="text/javascript" language="javascript" src="/assets/site.js"></script>
-  </head>
-  <body onload="setCursor()"
-        <% unless @render_gmh.blank? %>
-            onunload="unloadMap();"
-        <% end %>>
-    <div id="header">
-      <%= image_link_to("logo.png", "/") %>
-      <div id="menu">
-        <ul>
-          <li><%= link_to("Home", "/",  :id => "home") %></li>
-          <li><%= link_to("Services", "/services", :id => "services") %></li>
-          <li><%= link_to("Projects", "/projects",  :id => "projects") %></li>
-          <li><%= link_to("About", "/about", :id => "about") %></li>
-          <li><%= link_to("Contact", "/contact",  :id => "contact") %></li>
-          <li><%= link_to("Blog", "/blog",  :id => "blog") %></li>
-          <% if logged_in? %>
-            <li><%= link_to("Logout", "/logout") %></li>
-          <% else %>
-            <li><%= link_to("Login", "/login",  :id => "login") %></li>
-          <% end %>
-        </ul>
-      </div>
+  <link rel="icon" type="image/ico" href="/assets/favicon.ico" />
+  <% if @rte_required %>
+    <%= render_rte %>
+  <% end %>
+  <% if @render_gmh %>
+    <%= render_gmh %>
+  <% end %>
+  <script src="/assets/mootools-1.2-core-yc.js" type="text/javascript" language="javascript"></script>
+  <script type="text/javascript" language="javascript" src="/assets/site.js"></script>
+</head>
+<body onload="setCursor()"
+      <% unless @render_gmh.blank? %>
+        onunload="unloadMap();"
+      <% end %>>
+      <div id="header">
+  <%= image_link_to("logo.png", "/") %>
+  <div id="menu">
+    <ul>
+      <li><%= link_to("Home", "/",  :id => "home") %></li>
+      <li><%= link_to("Services", "/services", :id => "services") %></li>
+      <li><%= link_to("Projects", "/projects",  :id => "projects") %></li>
+      <li><%= link_to("About", "/about", :id => "about") %></li>
+      <li><%= link_to("Contact", "/contact",  :id => "contact") %></li>
+      <li><%= link_to("Blog", "/blog",  :id => "blog") %></li>
+      <% if logged_in? %>
+        <li><%= link_to("Logout", "/logout") %></li>
+      <% else %>
+        <li><%= link_to("Login", "/login",  :id => "login") %></li>
+      <% end %>
+    </ul>
+  </div>
+  </div>
+  <div id="body">
+    <%= yield %>
+  </div>
+  <div id="footer">
+    <div>
+      Subscribe to the MPC blog rss feed 
+      <%= link_to_rss_feed %>
     </div>
-    <div id="wrapper">
-      <div id="body">
-        <%= yield %>
-      </div>
-    </div>
-    <div id="footer">
-      <div>
-        Subscribe to the MPC blog rss feed 
-        <%= link_to_rss_feed %>
-      </div>
-      Site developed by <%= link_to("MPC", "/") %> using <%= link_to("Sinatra", "http://sinatrarb.com") %> (an alternative Ruby web framework). (2008)
-    </div>
-    <% if @requires_highlighting %>
-      <%= render_syntax %>
-    <% end %>
-    <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script type="text/javascript">
-        var pageTracker = _gat._getTracker("UA-5245338-1");
-        pageTracker._trackPageview();
-    </script>
-    <script type="text/javascript">
-        setSelectedTab("<%= @action %>");
-    </script>
-  </body>
+    Site developed by <%= link_to("MPC", "/") %> using <%= link_to("Sinatra", "http://sinatrarb.com") %> (an alternative Ruby web framework). (2008)
+  </div>
+  <% if @requires_highlighting %>
+    <%= render_syntax %>
+  <% end %>
+  <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+      var pageTracker = _gat._getTracker("UA-5245338-1");
+      pageTracker._trackPageview();
+  </script>
+  <script type="text/javascript">
+      setSelectedTab("<%= @action %>");
+  </script>
+</body>
 </html>
 

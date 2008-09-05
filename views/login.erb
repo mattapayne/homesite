@@ -1,21 +1,19 @@
-<div class="content">
-  <h1>Login</h1>
-  <hr />
-  <br />
-  <% if @errors %>
-    <div class="error"><%= @errors %></div>
-  <% end %>
-  <%= start_form("/attempt/login") %>
-  <p>
-    Username:<br />
-    <%= text_field_tag("username", :class => "select") %>
-  </p>
-  <p>
-    Password:<br />
-    <%= password_field_tag("password") %>
-  </p>
-  <p>
-    <%= submit_button("Login") %>
-  </p>
-  <%= end_form %>
-</div>
+<h1>Login</h1>
+<hr />
+<br />
+<% if @errors %>
+  <div class="error"><%= @errors %></div>
+<% end %>
+<%= start_form("/attempt/login") %>
+<p>
+  Username:<br />
+  <%= text_field_tag("username", :class => "select") %>
+</p>
+<p>
+  Password:<br />
+  <%= password_field_tag("password") %>
+</p>
+<p>
+  <%= submit_button("Login") %>
+</p>
+<%= end_form %>

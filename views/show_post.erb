@@ -1,13 +1,11 @@
-<div class="content">
-  <div class="left-bar">
-    <%= render_tags(@tags) %><br />
-    <%= render_tumblr_posts(@tumblr_posts) %><br />
-    <%= render_github_repos(@github_repos) %>
-  </div>
-  <div class="right-bar">
-    <div class="posts">
-      <%= render_post(@post, true) %>
-    </div>
-  </div>
-  <div style="clear:both">&nbsp;</div>
+<div class="left-bar">
+  <%= render_tags(@tags) %><br />
+  <%= render_tumblr_posts(@tumblr_posts) %><br />
+  <%= render_github_repos(@github_repos) %>
 </div>
+<div class="right-bar">
+  <div class="posts">
+    <%= render_post(@post, true) %>
+  </div>
+</div>
+<div style="clear:both">&nbsp;</div>
