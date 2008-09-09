@@ -37,14 +37,15 @@ module MattPayne
       
       def create_comments(db)
       	db.execute("DROP TABLE IF EXISTS comments;")
-      	db.execute(%{create table comments (
-				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, comment TEXT NOT NULL, username VARCHAR(100), post_id INT NOT 				NULL, created_at DATETIME NOT NULL);})
+      	db.execute(%{create table comments (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+          comment TEXT NOT NULL, username VARCHAR(100), post_id INT NOT NULL, created_at DATETIME NOT NULL);})
       end
       
       def create_posts(db)
       	db.execute("DROP TABLE IF EXISTS posts;")
-      	db.execute(%{create table posts (
-					id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, body TEXT 						NOT NULL, tags TEXT, created_at DATETIME NOT NULL, updated_at DATETIME);})
+      	db.execute(%{create table posts (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+          title VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, body TEXT NOT NULL, 
+          tags TEXT, created_at DATETIME NOT NULL, updated_at DATETIME);})
       end
       
       def add_post_slug(db)
@@ -62,15 +63,19 @@ module MattPayne
       
       def create_app_settings(db)
       	db.execute("DROP TABLE IF EXISTS app_settings;")
-      	db.execute(%{create table app_settings (name VARCHAR(100) NOT NULL, value VARCHAR(255) NOT NULL, environment 						VARCHAR(30));})
+      	db.execute(%{create table app_settings (name VARCHAR(100) NOT NULL, value VARCHAR(255) NOT NULL, 
+          environment VARCHAR(30));})
       	
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_key', 						'6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl', 'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_key', 						'6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl', 'test');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_key', 						'6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl', 'production');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) 
+          VALUES ('captcha_key', '6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl', 'development');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) 
+          VALUES ('captcha_key', '6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl', 'test');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) 
+          VALUES ('captcha_key', '6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl', 'production');})
       	
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_username', 'mattpayne', 					'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_username', 'mattpayne', 					'test');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_username', 'mattpayne', 					'production');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_username', 'mattpayne', 'development');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_username', 'mattpayne', 'test');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_username', 'mattpayne', 'production');})
       	
       	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('tumblr_url', 
       		'http://mpayne.tumblr.com/api/read?type=regular&num=5', 'development');})
@@ -86,13 +91,13 @@ module MattPayne
       	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('github_url',
       		'http://github.com/api/v1/xml/mattapayne', 'production');})
       		
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_username', 'mpayne', 						'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_username', 'mpayne', 						'test');})
-       	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_username', 'mpayne', 						'production');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_username', 'mpayne', 'development');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_username', 'mpayne', 'test');})
+       	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_username', 'mpayne', 'production');})
       	
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 					'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 					'test');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 					'production');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 'development');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 'test');})
+      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 'production');})
   
       end
 		
