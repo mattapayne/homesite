@@ -36,7 +36,19 @@ module MattPayne
     def self.github_url
       value_for_key(:github_url)
     end
-		
+    
+    def self.connection_string
+      f = nil
+      begin
+        f = File.open("config.txt", "r")
+        return f.read()
+      ensure
+        unless f.nil?
+          f.close()
+        end
+      end
+    end
+    
     private
 		
     def self.value_for_key(key)

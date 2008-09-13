@@ -1,7 +1,7 @@
 require 'src/loader'
 
 configure :production do
-  set :connection_string => "mysql://root:2324@localhost/mattpayne"
+  set :connection_string => MattPayne::Config.connection_string
 	
   not_found do
     "We're so sorry, but we don't what this is"
@@ -14,11 +14,11 @@ configure :production do
 end
 
 configure :test do
-  set :connection_string => "mysql://root:2324@localhost/mattpayne_test"
+  set :connection_string => MattPayne::Config.connection_string
 end
 
 configure :development do
-  set :connection_string => "mysql://root:2324@localhost/mattpayne"
+  set :connection_string => MattPayne::Config.connection_string
 end
 
 include MattPayne::Models
