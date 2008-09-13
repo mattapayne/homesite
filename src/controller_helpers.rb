@@ -4,6 +4,12 @@ module MattPayne
     
     private
 
+    def ensure_param(condition, message)
+      unless condition
+        @error_message = message
+      end
+    end
+    
     def raise_post_not_found(id)
       raise Sinatra::NotFound.new("Could not find a post identified by: #{id}")
     end

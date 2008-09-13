@@ -12,17 +12,24 @@
     <%= render_post_search %>
   </div>
   <div class="posts">
+    <hr class="wide-rule" />
+    <% if @searched %>
+      <div class="search-results">
+        <%= @error_message %>
+        Your search for '<%= @query %>' resulted in <%= @posts.size %> result(s).
+      </div>
+    <% end %>
     <% if @posts && @posts.not_empty? %>
       <% for post in @posts %>
-        <hr class="wide-rule" />
         <%= render_post(post, false) %>
+        <hr class="wide-rule" />
       <% end %>
     <% else %>
       <p class="no_posts">
         <% unless @searched %>
-            There are currently no posts.
+          There are currently no posts.
         <% else %>
-            Sorry, no posts found that match your search. Please try again.
+          Sorry, no posts found that match your search. Please try again.
         <% end %>
       </p>
     <% end %>

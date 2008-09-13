@@ -99,8 +99,13 @@ end
 
 get '/blog/posts/search' do
   for_blog_related_action(:searched => true, :title => " - Blog - Posts For #{params['query']}") do
+    #handle js disabled. This will simply render the error message to the page.
+    ensure_param(!params['query'].blank?, "**You must enter a search value**<br />")
+    ensure_param((!params['query'].blank? && params['query'].size >= 4), 
+      "**You must enter a search value of at least 4 characters**<br />")
     @posts = Post.search(params["query"], 5, params["page"] || "1")
     @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
+    @query = params['query']
     erb :posts
   end
 end

@@ -26,3 +26,19 @@ function setSelectedTab(tab)
 {
     $(tab).className = "selected-tab";
 }
+
+function verifyValue(element_id)
+{
+    elem = $(element_id);
+    if(elem.value == null || elem.value == "")
+    {
+      alert("Please enter a search value.");
+      return false;
+    }
+    else if(elem.value.length < 4)
+    {
+        alert("The search value must be at least 4 characters.");
+        return false;
+    }
+    return true;
+}
