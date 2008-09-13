@@ -179,16 +179,6 @@ delete '/blog/delete/post/:slug' do
   redirect '/blog'
 end
 
-#New captcha'd comment
-get '/blog/new/comment/reload/captcha/:slug' do
-  for_blog_related_action(:title => " - Add Comment", :rte_required => true) do
-    @post = Post.find_by_slug(params["slug"])
-    raise_post_not_found(params["slug"]) unless @post
-    @comment = Comment.new(:post_id => @post.id)
-    render :erb, :new_comment
-  end
-end
-
 #New comment
 get '/blog/new/comment/:slug' do
   for_blog_related_action(:title => " - Add Comment", :rte_required => true) do
