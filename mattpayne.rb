@@ -1,22 +1,4 @@
-local_path = File.expand_path(File.dirname(__FILE__))
-vendor_path = File.expand_path(File.join(File.dirname(__FILE__), "vendor", "sinatra", "lib"))
-
-$:.unshift(local_path) unless $:.include?(local_path)
-$:.unshift(vendor_path) unless $:.include?(vendor_path)
-
-require 'rubygems'
-require 'sinatra'
-require 'src/core_extensions'
-require 'src/config'
-require 'src/tumblr'
-require 'src/github'
-require 'src/blog_to_rss'
-require 'src/database'
-require 'src/models'
-require 'src/captcha'
-require 'src/html_tags'
-require 'src/security'
-require 'src/helpers'
+require 'src/loader'
 
 configure :production do
   set :connection_string => "mysql://root:2324@localhost/mattpayne"
@@ -36,55 +18,54 @@ configure :test do
 end
 
 configure :development do
-  set :connection_string => "mysql://root:2324@localhost/mattpayne_dev"
+  set :connection_string => "mysql://root:2324@localhost/mattpayne"
 end
 
 include MattPayne::Models
 
 helpers do	
-  include MattPayne::Helpers
+  include MattPayne::Helpers, MattPayne::ControllerHelpers
 end
 
 #Home page
 get '/' do
-  @title = " - Home"
-  @action = "home"
-  erb :home
+  for_simple_action() do
+    erb :home
+  end
 end
 
 #About
 get '/about' do
-  @title = " - About"
-  @action = "about"
-  erb :about
+  for_simple_action(:action => "about") do
+    erb :about
+  end
 end
 
 #Contact
 get '/contact' do
-  @title = " - Contact"
-  @action = "contact"
-  @render_gmh = true
-  erb :contact
+  for_simple_action(:action => "contact", :render_gmh => true) do
+    erb :contact
+  end
 end
 
 #Projects
 get '/projects' do
-  @title = " - Projects"
-  @action = "projects"
-  erb :projects
+  for_simple_action(:action => "projects") do
+    erb :projects
+  end
 end
 
 #Services
 get '/services' do
-  @title = " - Services"
-  @action = "services"
-  erb :services
+  for_simple_action(:action => "services") do
+    erb :services
+  end
 end
 
 get '/login' do
-  @title = " - Login"
-  @action = "login"
-  erb :login
+  for_simple_action(:action => "login") do
+    erb :login
+  end
 end
 
 post '/attempt/login' do
@@ -104,13 +85,11 @@ end
 
 #List posts
 get '/blog' do
-  @posts = Post.paged(5, params["page"])
-  load_blog_variables
-  @title = " - Blog"
-  @tagged = false
-  @action = "blog"
-  @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
-  erb :posts
+  for_blog_related_action() do
+    @posts = Post.paged(5, params["page"] || "1")
+    @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
+    erb :posts
+  end
 end
 
 #Get posts as RSS
@@ -118,46 +97,46 @@ get '/blog/posts.rss' do
   Post.to_rss
 end
 
+get '/blog/posts/search' do
+  for_blog_related_action(:searched => true, :title => " - Blog - Posts For #{params['query']}") do
+    @posts = Post.search(params["query"], 5, params["page"] || "1")
+    @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
+    erb :posts
+  end
+end
+
 get '/blog/posts/tagged-as/:tag' do
-  @posts = Post.find_by_tag(params["tag"], 5, params["page"])
-  load_blog_variables
-  @title = " - Blog - Posts Tagged As (#{params["tag"].capitalize})"
-  @tagged = true
-  @action = "blog"
-  @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
-  erb :posts
+  for_blog_related_action(:tagged => true, :title => " - Blog - Posts Tagged As (#{params["tag"].capitalize})") do
+    @posts = Post.find_by_tag(params["tag"], 5, params["page"] || "1")
+    @requires_highlighting = @posts.select {|p| p.contains_code?}.not_empty?
+    erb :posts
+  end
 end
 
 #Show post
 get '/blog/post/:slug' do
-  @post = Post.find_by_slug(params["slug"])
-  raise_post_not_found(params["slug"]) unless @post
-  load_blog_variables
-  @title = " - Post Details"
-  @action = "blog"
-  @requires_highlighting = @post.contains_code?
-  erb :show_post
+  for_blog_related_action(:title => " - Post Details") do
+    @post = Post.find_by_slug(params["slug"])
+    @requires_highlighting = @post.contains_code?
+    erb :show_post
+  end
 end
 
 #New post
 get '/blog/post' do
-  require_login
-  @post = Post.new
-  @title = " - Create Post"
-  @action = "blog"
-  @rte_required = true
-  erb :new_post
+  for_blog_related_action(:secure => true, :title => " - Create Post", :rte_required => true) do
+    @post = Post.new
+    erb :new_post
+  end
 end
 
 #Edit post
 get '/blog/edit/post/:slug' do
-  require_login
-  @post = Post.find_by_slug(params["slug"])
-  raise_post_not_found(params["slug"]) unless @post
-  @title = " - Edit Post"
-  @action = "blog"
-  @rte_required = true
-  erb :edit_post
+  for_blog_related_action(:secure => true, :title => @title = " - Edit Post", :rte_required => true) do
+    @post = Post.find_by_slug(params["slug"])
+    raise_post_not_found(params["slug"]) unless @post
+    erb :edit_post
+  end
 end
 
 #Create post
@@ -202,24 +181,22 @@ end
 
 #New captcha'd comment
 get '/blog/new/comment/reload/captcha/:slug' do
-  @post = Post.find_by_slug(params["slug"])
-  raise_post_not_found(params["slug"]) unless @post
-  @comment = Comment.new(:post_id => @post.id)
-  @rte_required = true
-  @title = " - Add Comment"
-  @action = "blog"
-  render :erb, :new_comment
+  for_blog_related_action(:title => " - Add Comment", :rte_required => true) do
+    @post = Post.find_by_slug(params["slug"])
+    raise_post_not_found(params["slug"]) unless @post
+    @comment = Comment.new(:post_id => @post.id)
+    render :erb, :new_comment
+  end
 end
 
 #New comment
 get '/blog/new/comment/:slug' do
-  @post = Post.find_by_slug(params["slug"])
-  raise_post_not_found(params["slug"]) unless @post
-  @comment = Comment.new(:post_id => @post.id)
-  @title = " - Add Comment"
-  @rte_required = true
-  @action = "blog"
-  erb :new_comment	
+  for_blog_related_action(:title => " - Add Comment", :rte_required => true) do
+    @post = Post.find_by_slug(params["slug"])
+    raise_post_not_found(params["slug"]) unless @post
+    @comment = Comment.new(:post_id => @post.id)
+    erb :new_comment	
+  end
 end
 
 #Create comment
@@ -240,16 +217,4 @@ post "/blog/create/comment/:slug" do
     @title = " - Add Comment"
     render :erb, :new_comment
   end
-end
-
-private
-
-def raise_post_not_found(id)
-  raise Sinatra::NotFound.new("Could not find a post identified by: #{id}")
-end
-
-def load_blog_variables
-  @tags ||= Post.all_tags
-  @tumblr_posts ||= MattPayne::Tumblr.posts
-  @github_repos ||= MattPayne::GitHub.repositories
 end

@@ -30,8 +30,8 @@ module MattPayne
       email_link_to(image_tag(image_name, image_html_options), email, email_link_options)
     end
 	
-    def start_form(url, method="post")
-      "<form action=\"#{url}\" method=\"#{method}\">"
+    def start_form(url, method="post", html_options={})
+      "<form action=\"#{url}\" method=\"#{method}\" #{html_options.to_html_options}>"
     end
 	
     def end_form
@@ -40,6 +40,10 @@ module MattPayne
 	
     def submit_button(text="Submit", html_options={})
       input_tag({:type => "submit", :value => text}, html_options)
+    end
+    
+    def button_tag(text, html_options={})
+      input_tag({:type => "button", :value => text}, html_options)
     end
 	
     def text_area_tag(name, html_options={})

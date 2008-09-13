@@ -93,23 +93,32 @@ module MattPayne
       (posts.current_page.to_s == posts.page_count.to_s) ? "" : "More"
     end
 	
-    def render_paged_link(posts, number, tagged)
+    def render_paged_link(posts, number, tagged=false, searched=false)
       return unless posts
       unless number.to_s == posts.current_page.to_s
-        return link_to("#{number}", "/blog?page=#{number}") if !tagged
-        return link_to("#{number}", "/blog/posts/tagged-as/#{params['tag']}?page=#{number}") if tagged
+        if searched
+          return link_to("#{number}", "/blog/posts/search?query=#{params['query']}&page=#{number}")
+        elsif tagged
+          return link_to("#{number}", "/blog/posts/tagged-as/#{params['tag']}?page=#{number}")
+        else
+          return link_to("#{number}", "/blog?page=#{number}")
+        end
       else
         return "#{number}"
       end
     end
 	
-    def render_paging(posts, tagged)
+    def render_paging(posts, tagged=false, searched=false)
       return if posts.blank? || posts.page_count.to_i <= 1
-      partial(:paging, :locals => {:posts => posts, :tagged => tagged })
+      partial(:paging, :locals => {:posts => posts, :tagged => tagged, :searched => searched })
     end
 	
     def render_github_repos(repos)
       partial(:github_repositories, :locals => {:repos => repos})
+    end
+    
+    def render_post_search
+      partial(:search)
     end
 	
     def render_tumblr_posts(posts)
@@ -129,7 +138,7 @@ module MattPayne
     end
 		
     def link_to_rss_feed
-      image_link_to("feed-icon-14x14.png", "/blog/posts.rss", {}, {:style => "margin-bottom:-3px;"})
+      image_link_to("feed-icon-14x14.png", "/blog/posts.rss", {}, {})
     end
 
     def link_to_randomize_tag_size(tag)

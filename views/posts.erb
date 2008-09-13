@@ -4,9 +4,12 @@
   <%= render_github_repos(@github_repos) %>
 </div>
 <div class="right-bar">
-  <div class="rss">
-    Subscribe to the MPC blog rss feed 
-    <%= link_to_rss_feed %>
+  <div>
+    <div class="rss">
+      Subscribe to the MPC blog rss feed 
+      <%= link_to_rss_feed %>
+    </div>
+    <%# render_post_search %>
   </div>
   <div class="posts">
     <% if @posts && @posts.not_empty? %>
@@ -15,9 +18,15 @@
         <%= render_post(post, false) %>
       <% end %>
     <% else %>
-      <p class="no_posts">There are currently no posts.</p>
+      <p class="no_posts">
+        <% unless @searched %>
+            There are currently no posts.
+        <% else %>
+            Sorry, no posts found that match your search. Please try again.
+        <% end %>
+      </p>
     <% end %>
     <%= render_create_post %>
   </div>
 </div>
-<div style="clear:both"><%= render_paging(@posts, @tagged) %></div>
+<div style="clear:both"><%= render_paging(@posts, @tagged, @searched) %></div>

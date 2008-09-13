@@ -1,0 +1,6 @@
+<div class="search-container">
+  <%= start_form("/blog/posts/search", "GET", {:class => "search-form"}) %>
+  <%= text_field_tag("query") %>    
+  <%= submit_button("Search Posts") %>
+  <%= end_form %>
+</div>

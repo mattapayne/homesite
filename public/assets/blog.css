@@ -5,10 +5,21 @@
     border:1px dashed #737373;
 }
 
+.posts
+{
+    clear:both;
+}
+
 .post
 {
   margin-bottom:30px;
   margin-top:10px;
+}
+
+.search-form
+{
+    margin:0;
+    padding:0;
 }
  
 .post_body
@@ -25,6 +36,12 @@ hr.wide-rule
 .rss
 {
     padding-bottom:10px;
+    float:left;
+}
+
+.search-container
+{
+    float:right;
 }
  
 .comment
