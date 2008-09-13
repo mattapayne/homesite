@@ -27,7 +27,6 @@
       <% end %>>
       <div id="header">
   <%= image_link_to("logo.png", "/") %>
-  <!-- <div id="menu"> -->
     <ul id="menu">
       <li><%= link_to("Home", "/",  :id => "home") %></li>
       <li><%= link_to("Services", "/services", :id => "services") %></li>
@@ -41,7 +40,6 @@
         <li><%= link_to("Login", "/login",  :id => "login") %></li>
       <% end %>
     </ul>
-  <!-- </div> -->
   </div>
   <div id="body">
     <%= yield %>
