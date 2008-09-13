@@ -14,7 +14,7 @@
   <%= text_area_tag("comment", :value => @comment.comment, :rows => 25, :cols => 60) %>
 </p>
 <p class="captcha">
-  <%= render_captcha %>
+  <%= render_captcha(@captcha) %>
   <br />Can't read the code? Click <%= link_to("here", "/blog/new/comment/#{@post.slug}") %> to get a new one.
   <br />Please enter the code shown above
   <br />

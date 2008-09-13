@@ -4,7 +4,6 @@ module MattPayne
 	
     include MattPayne::HtmlTags
     include Rack::Utils
-    include MattPayne::Captcha
     include MattPayne::Security
 		
     @@tag_font_map = {1 => "8px", 2 => "12px", 3 => "14px", 4 => "18px", 5 => "20px", 6 => "24px"}
@@ -145,8 +144,9 @@ module MattPayne
       link_to("#{tag.tag} (#{tag.count})", "/blog/posts/tagged-as/#{tag.tag}", :style => "font-size:#{MattPayne::Helpers.font_for_tag(tag)}")
     end
 	
-    def render_captcha(html_options={})
-      remote_image_tag(captcha_url(), html_options)
+    def render_captcha(captcha, html_options={})
+      random = captcha.generate_random()
+      "#{hidden_field_tag('random', {:value => random})} #{remote_image_tag(captcha.captcha_url(random), html_options)}"
     end
 	
     def datetime(date, format="%I:%M%p on %m/%d/%Y")

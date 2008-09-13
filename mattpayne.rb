@@ -149,7 +149,7 @@ post '/blog/create/post' do
   else
     @errors = @post.validation_errors.join("<br />")
     @title = " - Create Post"
-    render :erb, :new_post
+    erb :new_post
   end
 end
 
@@ -166,7 +166,7 @@ put '/blog/update/post/:slug' do
     @errors = @post.validation_errors.join("<br />")
     @rte_required = true
     @title = " - Edit Post"
-    render :erb, :edit_post
+    erb :edit_post
   end
 end
 
@@ -182,6 +182,7 @@ end
 #New comment
 get '/blog/new/comment/:slug' do
   for_blog_related_action(:title => " - Add Comment", :rte_required => true) do
+    @captcha = MattPayne::Captcha.new
     @post = Post.find_by_slug(params["slug"])
     raise_post_not_found(params["slug"]) unless @post
     @comment = Comment.new(:post_id => @post.id)
@@ -193,9 +194,11 @@ end
 post "/blog/create/comment/:slug" do
   @post = Post.find_by_slug(params["slug"])
   raise_post_not_found(params["slug"]) unless @post
+  supplied_captcha = params.delete("captcha")
+  random = params.delete("random")
   @comment = Comment.new(params.merge(:post_id => @post.id))
   errors = @comment.validation_errors || []
-  unless captcha_valid?(params.delete("captcha"))
+  unless MattPayne::Captcha.valid?(random, supplied_captcha)
     errors << "Invalid captcha. Please try again." 
   end
   if errors.empty?
@@ -205,6 +208,7 @@ post "/blog/create/comment/:slug" do
     @errors = errors.join("<br />")
     @rte_required = true
     @title = " - Add Comment"
-    render :erb, :new_comment
+    @captcha = MattPayne::Captcha.new
+    erb :new_comment
   end
 end
