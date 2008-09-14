@@ -38,17 +38,19 @@ module MattPayne
     end
     
     def self.connection_string
-      return @@cache[:connection_string] if @@cache.key?(:connection_string)
+      connection_string = retrieve_from_cache(:connection_string)
+      return connection_string unless connection_string.blank?
       f = nil
       begin
         f = File.open("config.txt", "r")
         connection_string = f.read()
-        @@cache[:connection_string] = connection_string.strip().chomp()
+        store_in_cache(:connection_string, connection_string.strip().chomp())
       ensure
         unless f.nil?
           f.close()
         end
       end
+      return retrieve_from_cache(:connection_string)
     end
     
     private
