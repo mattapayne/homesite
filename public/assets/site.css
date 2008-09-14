@@ -20,6 +20,11 @@ a img {border: none;}
     color:white;
 }
 
+p.small
+{
+	font-size:8pt;
+}
+
 body 
 {
     color: #444;
