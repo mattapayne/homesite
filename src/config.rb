@@ -38,10 +38,12 @@ module MattPayne
     end
     
     def self.connection_string
+      return @@cache[:connection_string] if @@cache.key?(:connection_string)
       f = nil
       begin
         f = File.open("config.txt", "r")
-        return f.read()
+        connection_string = f.read()
+        @@cache[:connection_string] = connection_string.strip().chomp()
       ensure
         unless f.nil?
           f.close()
