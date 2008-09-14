@@ -16,7 +16,7 @@
     <% if @searched %>
       <div class="search-results">
         <%= @error_message %>
-        Your search for '<%= @query %>' resulted in <%= @posts.size %> result(s).
+        Your search for '<%= @query %>' resulted in <%= @posts.total_items %> result(s).
       </div>
     <% end %>
     <% if @posts && @posts.not_empty? %>

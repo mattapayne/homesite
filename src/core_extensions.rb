@@ -43,11 +43,10 @@ end
 
 class PagingArray < Array
 	
-  attr_reader :current_page
-  attr_reader :page_count
+  attr_reader :current_page, :page_count, :total_items
 	
-  def initialize(current_page, page_count)
-    @current_page, @page_count = current_page, page_count
+  def initialize(current_page, page_count, total_items)
+    @current_page, @page_count, @total_items = current_page, page_count, total_items
   end
 	
 end
