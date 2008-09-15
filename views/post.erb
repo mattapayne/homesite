@@ -4,6 +4,7 @@
       <h2><%= link_to(h(post.title), "/blog/post/#{post.slug}") %></h2>
     <% else %>
       <h2><%= h(post.title) %></h2>
+      <hr />
     <% end %>
     <p>Posted on <%= datetime(post.created_at) %><br />
       Tags: <%= post.tags.split(" ").join(", ") %>
