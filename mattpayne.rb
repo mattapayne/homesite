@@ -1,4 +1,4 @@
-require 'src/loader'
+require File.join(File.dirname(__FILE__), 'src/loader')
 
 configure :production do
   set :connection_string => MattPayne::Config.connection_string

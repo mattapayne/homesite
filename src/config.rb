@@ -42,7 +42,7 @@ module MattPayne
       return connection_string unless connection_string.blank?
       f = nil
       begin
-        f = File.open("config.txt", "r")
+        f = File.open(File.join(File.dirname(__FILE__), "..", "config.txt"), "r")
         connection_string = f.read()
         store_in_cache(:connection_string, connection_string.strip().chomp())
       ensure

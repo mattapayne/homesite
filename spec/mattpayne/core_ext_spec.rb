@@ -109,7 +109,7 @@ describe "Core Extensions" do
   describe PagingArray do
 		
     before(:each) do
-      @a = PagingArray.new(12, 20)
+      @a = PagingArray.new(12, 20, 43)
     end
 		
     it "should respond_to? current_page" do
@@ -118,6 +118,10 @@ describe "Core Extensions" do
 		
     it "should respond_to? page_count" do
       @a.should respond_to(:page_count)
+    end
+    
+    it "should respond_to? total_items" do
+      @a.should respond_to(:total_items)
     end
 		
   end
