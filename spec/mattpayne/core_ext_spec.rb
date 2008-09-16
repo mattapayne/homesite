@@ -139,6 +139,14 @@ describe "Core Extensions" do
     it "should handle an empty string" do
       "".capitalize.should == ""
     end
+    
+    it "should slugify a string" do
+      "this is a test".slugify().should == "this-is-a-test"
+    end
+    
+    it "should do nothing to a previously slugified string" do
+      "this-is-a-test".slugify().should == "this-is-a-test"
+    end
 		
   end
 	

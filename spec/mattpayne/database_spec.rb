@@ -48,7 +48,18 @@ describe MattPayne::Database do
     it "should respond_to? create_app_settings" do
       @util.should respond_to(:create_app_settings)
     end
+    
+    it "should respond_to? add_post_slug" do
+      @util.should respond_to(:add_post_slug)
+    end
+    
+    it "should respond_to? make_posts_full_text" do
+      @util.should respond_to(:make_posts_full_text)
+    end
 
+    it "should respond_to? add_google_maps_api_key" do
+      @util.should respond_to(:add_google_maps_api_key)
+    end
 
   end
 	

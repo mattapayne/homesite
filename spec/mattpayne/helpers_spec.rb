@@ -34,6 +34,12 @@ describe MattPayne::Helpers do
     it "should render a proper post link if number is not equal to current page and it's not tagged" do
       self.render_paged_link(PagingArray.new(1, 5, 2), 3, false).should == "<a href=\"/blog?page=3\" >3</a>"
     end
+    
+    it "should render a proper search link if number is not equal to current page and it was a search" do
+      self.stub!(:params).and_return('query' => "django")
+      self.render_paged_link(PagingArray.new(1, 5, 2), 3, false, true).should ==
+        "<a href=\"/blog/posts/search?query=django&page=3\" >3</a>"
+    end
 		
     it "should render a proper post link if number is not equal to current page and it is tagged" do
       self.stub!(:params).and_return({'tag' => "something"})

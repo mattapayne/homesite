@@ -48,7 +48,7 @@ describe MattPayne::Tumblr do
     MattPayne::Tumblr.posts.should be_empty
   end
 	
-  it "should return an array of hashes, each representing a post" do
+  it "should return an array of OpenStructs, each representing a post" do
     stub_response(false)
     MattPayne::Tumblr.posts.should have(2).items
   end

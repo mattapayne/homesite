@@ -1,12 +1,28 @@
 module MattPayne
 
   class Config
+    
+    class ConnectionStringGetter
+      
+      def self.get(path)
+        f = nil
+        begin
+          f = File.open(path, "r")
+          return f.read()
+        ensure
+          unless f.blank?
+            f.close()
+          end
+        end
+      end
+      
+    end
 		
     @@config = nil
     @@cache = {}
 		
     def self.config
-      @@config ||= load_config
+      @@config.blank? ? load_config : @@config
     end
 	
     def self.captcha_key
@@ -40,16 +56,8 @@ module MattPayne
     def self.connection_string
       connection_string = retrieve_from_cache(:connection_string)
       return connection_string unless connection_string.blank?
-      f = nil
-      begin
-        f = File.open(File.join(File.dirname(__FILE__), "..", "config.txt"), "r")
-        connection_string = f.read()
-        store_in_cache(:connection_string, connection_string.strip().chomp())
-      ensure
-        unless f.nil?
-          f.close()
-        end
-      end
+      connection_string = ConnectionStringGetter.get(File.join(File.dirname(__FILE__), "..", "config.txt"))
+      store_in_cache(:connection_string, connection_string.strip().chomp())
       return retrieve_from_cache(:connection_string)
     end
     

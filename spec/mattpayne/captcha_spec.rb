@@ -6,10 +6,6 @@ describe MattPayne::Captcha do
     @cap = MattPayne::Captcha.new
   end
 	
-  def session
-    @session ||= {}
-  end
-	
   def valid_supplied_captcha
     @valid ||= "bphign"
   end
