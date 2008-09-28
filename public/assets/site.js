@@ -48,7 +48,7 @@ window.addEvent("domready", function()
     headers = $A($$('h3.comments_header'));
     for(var i=0; i < headers.length; ++i)
     {
-        notice = headers[i].getParent().getElement('span.notice');
+        notice = headers[i].getElement('span.notice');
         headers[i].addEvent('click', function(e) 
         {
             area = e.target.getParent().getElement('div.comments_container');
