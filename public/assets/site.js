@@ -45,21 +45,22 @@ function verifyValue(element_id)
 
 window.addEvent("domready", function() 
 {
-    headers = $A($$('h3.comments_header'));
-    for(var i=0; i < headers.length; ++i)
+    //get all the comments links on the page
+    links = $A($$('span.comment_link'));
+    for(var i=0; i < links.length; ++i)
     {
-        notice = headers[i].getElement('span.notice');
-        headers[i].addEvent('click', function(e) 
+        links[i].addEvent('click', function(e) 
         {
-            area = e.target.getParent().getElement('div.comments_container');
+            //get the hidden area
+            area = e.target.getParent().getParent().getElement('div.comments_container');
             if(area.style.display == "")
             {
-                notice.set("text", "(Click to show)");
+                e.target.set("text", "(Show)");
                 area.style.display = "none";
             }
             else
             {
-                notice.set("text", "(Click to hide)");
+                e.target.set("text", "(Hide)");
                 area.style.display = "";
             }
         })

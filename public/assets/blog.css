@@ -5,17 +5,12 @@
     border:1px dashed #737373;
 }
 
-.post_comments h3
-{
-    cursor:pointer;
-    color:blue;
-}
-
-span.notice
+span.comment_link
 {
     font-size:10pt;
-    color:#737373;
-    text-decoration:none;
+    color:blue;
+    text-decoration:underline;
+    cursor:pointer;
 }
 
 .comment_summary
