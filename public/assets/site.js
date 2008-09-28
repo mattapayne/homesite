@@ -32,8 +32,8 @@ function verifyValue(element_id)
     elem = $(element_id);
     if(elem.value == null || elem.value == "")
     {
-      alert("Please enter a search value.");
-      return false;
+        alert("Please enter a search value.");
+        return false;
     }
     else if(elem.value.length < 4)
     {
@@ -42,3 +42,27 @@ function verifyValue(element_id)
     }
     return true;
 }
+
+window.addEvent("domready", function() 
+{
+    headers = $A($$('h3.comments_header'));
+    for(var i=0; i < headers.length; ++i)
+    {
+        notice = headers[i].getParent().getElement('span.notice');
+        headers[i].addEvent('click', function(e) 
+        {
+            area = e.target.getParent().getElement('div.comments_container');
+            if(area.style.display == "")
+            {
+                notice.set("text", "(Click to show)");
+                area.style.display = "none";
+            }
+            else
+            {
+                notice.set("text", "(Click to hide)");
+                area.style.display = "";
+            }
+        })
+    }
+}
+)

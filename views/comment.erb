@@ -1,19 +1,21 @@
 <div class="post_comments">
-  <h3><%= post.comments.size %> Comment(s)</h3>
-  <% unless post.comments.empty? %>
-    <% for comment in post.comments %>
-      <div class="comment">
-        <p class="comment_summary">
-          Posted at <%= datetime(comment.created_at) %>
-          by <%= comment.has_website? ? link_to(h(comment.username), h(comment.website), {:target => "_blank"}) : 
-                                            h(comment.username) %>
-        </p>
-        <%= comment.comment %>
-      </div>
+  <h3 class="comments_header"><%= post.comments.size %> Comment(s) <span class="notice">(Click to show)</span></h3>
+  <div class="comments_container" style="display:none">
+    <% unless post.comments.empty? %>
+      <% for comment in post.comments %>
+        <div class="comment">
+          <p class="comment_summary">
+            Posted at <%= datetime(comment.created_at) %>
+            by <%= comment.has_website? ? link_to(h(comment.username), h(comment.website), {:target => "_blank"}) : 
+              h(comment.username) %>
+          </p>
+          <%= comment.comment %>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="comment">No comments have been posted.</p>
     <% end %>
-  <% else %>
-    <p class="comment">No comments have been posted.</p>
-  <% end %>
-  <p><%= link_to("Comment", "/blog/new/comment/#{post.slug}") %></p>
+    <p><%= link_to("Comment", "/blog/new/comment/#{post.slug}") %></p>
+  </div>
 </div>
 

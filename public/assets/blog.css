@@ -5,6 +5,19 @@
     border:1px dashed #737373;
 }
 
+.post_comments h3
+{
+    cursor:pointer;
+    color:blue;
+}
+
+span.notice
+{
+    font-size:10pt;
+    color:#737373;
+    text-decoration:none;
+}
+
 .comment_summary
 {
     font-style:italic;
