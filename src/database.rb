@@ -38,7 +38,8 @@ module MattPayne
       def create_comments(db)
       	db.execute("DROP TABLE IF EXISTS comments;")
       	db.execute(%{create table comments (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-          comment TEXT NOT NULL, username VARCHAR(100), post_id INT NOT NULL, created_at DATETIME NOT NULL);})
+          comment TEXT NOT NULL, username VARCHAR(100), post_id INT NOT NULL, 
+          created_at DATETIME NOT NULL, website VARCHAR(255));})
       end
       
       def create_posts(db)
@@ -50,6 +51,10 @@ module MattPayne
       
       def add_post_slug(db)
       	db.execute(%{ALTER TABLE posts ADD slug VARCHAR(255);})
+      end
+      
+      def add_website_to_comments(db)
+        db.execute(%{ALTER TABLE comments ADD website VARCHAR(255);})
       end
       
       def make_posts_full_text(db)

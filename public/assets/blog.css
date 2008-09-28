@@ -5,6 +5,13 @@
     border:1px dashed #737373;
 }
 
+.comment_summary
+{
+    font-style:italic;
+    font-weight:200;
+    font-size:10pt;
+}
+
 .posts
 {
     clear:both;
@@ -29,6 +36,11 @@
     color:red;
     padding:5px;
     margin:0;
+}
+
+.captcha
+{
+    font-size:10pt;
 }
  
 .post_body

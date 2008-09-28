@@ -7,11 +7,17 @@
 <% end %>
 <%= start_form("/blog/create/comment/#{@post.slug}") %>
 <%= hidden_field_tag("post_id", :value => @post.id) %>
-<p>Your name:<br />
+<br />
+<p>
+  Your name:<br />
   <%= text_field_tag("username", :value => @comment.username, :class => "select") %>
 </p>
+<p>
+  Website (optional):<br />
+  <%= text_field_tag("website", :value => @comment.website) %>
+</p>
 <p>Your comment:<br />
-  <%= text_area_tag("comment", :value => @comment.comment, :rows => 25, :cols => 60) %>
+  <%= text_area_tag("comment", :value => @comment.comment, :rows => 10, :cols => 60) %>
 </p>
 <p class="captcha">
   <%= render_captcha(@captcha) %>

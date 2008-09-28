@@ -135,10 +135,16 @@ module MattPayne
       protected
 			
       def validate
-        required_fields.inject([]) do |arr, att| 
+        arr = validate_custom || []
+        required_fields.inject(arr) do |arr, att| 
           arr << "#{att.to_s.capitalize} is required." if self.send(att).blank?
           arr
         end
+      end
+      
+      def validate_custom
+        #hook
+        nil
       end
 			
       def required_fields
@@ -317,7 +323,8 @@ module MattPayne
 		
     class Comment < Base
 			
-      attr_reader :post_id, :comment, :username
+      attr_reader :post_id, :comment, :username, :website
+      WEBSITE_REGEXP = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
 			
       def self.find_for_post(post_id)
         results = []
@@ -335,10 +342,15 @@ module MattPayne
       end
 			
       def to_hash
-        {:post_id => self.post_id, :comment => self.comment, :username => self.username}
+        {:post_id => self.post_id, :comment => self.comment, 
+          :username => self.username, :website => convert_url(self.website)}
+      end
+      
+      def has_website?
+        !self.website.blank? && website_format_ok?
       end
 			
-      protected	
+      protected
 		
       def self.table
         :comments
@@ -347,7 +359,29 @@ module MattPayne
       def required_fields
         [:comment, :username]
       end
-						
+		
+      def validate_custom
+        return if self.website.blank?
+        unless website_format_ok?
+          return ["Invalid url"]
+        end
+        nil
+      end
+      
+      private
+      
+      def website_format_ok?
+        convert_url(self.website) =~ WEBSITE_REGEXP
+      end
+      
+      def convert_url(url)
+        return if self.website.blank?
+        unless url =~ /^(http|https):\/\/.+/
+          url = "http://#{url}"
+        end
+        return url
+      end
+      
     end
 	
   end

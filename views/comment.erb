@@ -3,10 +3,12 @@
   <% unless post.comments.empty? %>
     <% for comment in post.comments %>
       <div class="comment">
-        <p class="comment_date">Posted at <%= datetime(comment.created_at) %>
-          by <%= h(comment.username) %>
+        <p class="comment_summary">
+          Posted at <%= datetime(comment.created_at) %>
+          by <%= comment.has_website? ? link_to(h(comment.username), h(comment.website), {:target => "_blank"}) : 
+                                            h(comment.username) %>
         </p>
-        <p><%= comment.comment %></p>
+        <%= comment.comment %>
       </div>
     <% end %>
   <% else %>
@@ -14,3 +16,4 @@
   <% end %>
   <p><%= link_to("Comment", "/blog/new/comment/#{post.slug}") %></p>
 </div>
+
