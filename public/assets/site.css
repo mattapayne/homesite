@@ -133,6 +133,7 @@ div.divider
 {
     text-decoration: none;
     padding: 3px 0.5em;
+    padding-bottom: 2px;
     margin-right: 3px;
     border-bottom: none;
     background: #737373;
