@@ -6,6 +6,15 @@ html {min-height: 100%;}
     padding: 0;
 }
 
+div.notice
+{
+    background-color:#DCDCDC;
+    font-size:10pt;
+    padding:5px;
+    text-align:center;
+    border-top:2px solid red;
+}
+
 hr
 {
     color:#737373;
