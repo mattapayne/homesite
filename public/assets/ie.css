@@ -2,3 +2,12 @@
 {
     margin-top:11px;
 }
+
+#menu li a
+{
+    text-decoration: none;
+    padding: 3px 0.5em;
+    margin-right: 3px;
+    border-bottom: none;
+    background: #737373;
+}
