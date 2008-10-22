@@ -24,7 +24,7 @@ function unloadMap()
 
 function setSelectedTab(tab)
 {
-    $(tab).className = "selected-tab";
+    $(tab).className = "highlight";
 }
 
 function verifyValue(element_id)

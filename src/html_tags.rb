@@ -5,6 +5,10 @@ module MattPayne
     def link_to(link_text, url, html_options={})
       "<a href=\"#{url}\" #{html_options.to_html_options}>#{link_text}</a>"
     end
+    
+    def link_to_with_span(link_text, url, html_options={})
+      "<a href=\"#{url}\" #{html_options.to_html_options}><span class='menu_ar'>#{link_text}<span></a>"
+    end
 	
     def image_tag(image_name, html_options={})
       default_opts = {:border => "0px", :alt => file_name_without_ext(image_name)}
