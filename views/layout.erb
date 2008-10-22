@@ -26,29 +26,22 @@
       <% unless @render_gmh.blank? %>
         onunload="unloadMap();"
       <% end %>>
-      <div class="notice">
-  Please note that I am currently only accepting new work on a part-time basis. To contact me
-  regarding your project, <%= email_link_to("email", "paynmatt@gmail.com") %> me.
+      <div id="header">
+  <%= image_link_to("logo.png", "/") %>
   </div>
-  <div id="header">
-    <%= image_link_to("logo.png", "/") %>
-    <div class="menu bubplastic horizontal gray">
-      <ul>
-        <li id="home"><span class="menu_r"><%= link_to_with_span("Home", "/") %></span></li>
-        <li id="services"><span class="menu_r"><%= link_to_with_span("Services", "/services") %></span></li>
-        <li id="projects"><span class="menu_r"><%= link_to_with_span("Projects", "/projects") %></span></li>
-        <li id="about"><span class="menu_r"><%= link_to_with_span("About", "/about") %></span></li>
-        <li id="contact"><span class="menu_r"><%= link_to_with_span("Contact", "/contact") %></span></li>
-        <li id="blog"><span class="menu_r"><%= link_to_with_span("Blog", "/blog") %></span></li>
-        <% if logged_in? %>
-          <li id="logout"><span class="menu_r"><%= link_to_with_span("Logout", "/logout") %></span></li>
-        <% else %>
-          <li id="logout"><span class="menu_r"><%= link_to_with_span("Login", "/login") %></span></li>
-        <% end %>
-      </ul>
-      <br class="clearit" />
-    </div>
-  </div>
+  <ul class="menu silver">
+    <li id="home"><%= link_to("Home", "/") %></li>
+    <li id="services"><%= link_to("Services", "/services") %></li>
+    <li id="projects"><%= link_to("Projects", "/projects") %></li>
+    <li id="about"><%= link_to("About", "/about") %></li>
+    <li id="contact"><%= link_to("Contact", "/contact") %></li>
+    <li id="blog"><%= link_to("Blog", "/blog") %></li>
+    <% if logged_in? %>
+      <li id="logout"><%= link_to("Logout", "/logout") %></li>
+    <% else %>
+      <li id="login"><%= link_to("Login", "/login") %></li>
+    <% end %>
+  </ul>
   <div id="body">
     <%= yield %>
   </div>
@@ -60,6 +53,10 @@
     Site developed by <%= link_to("MPC", "/") %> using <%= link_to("Sinatra", "http://sinatrarb.com") %> (an alternative Ruby web framework). (2008)
     <br />
     View the Django version <%= link_to("here", "http://py.mattpayne.ca") %>
+  </div>
+  <div class="notice">
+    Please note that I am currently only accepting new work on a part-time basis. To contact me
+    regarding your project, <%= email_link_to("email", "paynmatt@gmail.com") %> me.
   </div>
   <% if @requires_highlighting %>
     <%= render_syntax %>

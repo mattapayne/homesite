@@ -24,11 +24,6 @@ hr
 a:hover {color: #06C;}
 a img {border: none;}
 
-#menu a
-{
-    color:white;
-}
-
 p.small
 {
     font-size:8pt;
@@ -136,64 +131,55 @@ div.service-right
     margin-left:10px;
 }
 
-.clearit {
-    margin: 0;
-    padding: 0;
-    height: 0;
-    clear: both;
+ul.menu {
+    list-style-type:none;
+    width:auto;
+    position:relative;
+    display:block;
+    height:33px;
+    font-size:.6em;
+    background:url(images/bg.png) repeat-x top left;
+    font-family:Neuropolitical,Verdana,Helvetica,Arial,sans-serif;
+    margin:0;
+    padding:0;
 }
 
-/* BUBBLE PLASTIC HORIZONTAL MENU */
-
-.bubplastic.horizontal {
-    width: 100%;
-    height: 27px;
-    margin: 0;
-    padding: 0;
-    background: #000000 url(bg-bubplastic.gif) top left repeat-x;
-}
-.bubplastic.horizontal ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.bubplastic.horizontal ul li {
-    float: left;
-    margin: 0;
-    padding: 0;
-    background: transparent url(bg-bubplastic-button.gif) top left no-repeat;
+ul.menu li {
+    display:block;
+    float:left;
+    margin:0;
+    padding:0;
 }
 
-.bubplastic.horizontal ul li a {
-    display: block;
-    height: 27px;
-    padding-left: 35px;
-    float: left;
-    font-family: "Neuropolitical","Helvetica Neue",helvetica,"microsoft sans serif",arial,sans-serif;
-    font-size: 70%;
-    color: #FFFFFF;
-    text-decoration: none;
+ul.menu li a {
+    float:left;
+    color:white;
+    text-decoration:none;
+    height:24px;
+    padding:9px 15px 0;
+    font-weight:bold;
 }
 
-.bubplastic.horizontal ul li a span.menu_ar {
-    display: block;
-    float: left;
-    height: 22px;
-    padding-top: 5px;
-    padding-right: 35px;
-    background: transparent url(bg-bubplastic-button.gif) top right no-repeat;
-    cursor: pointer;
+ul.menu li a:hover,.current {
+    color:Black;
+    background:url(images/bg.png) repeat-x top left;
+    text-decoration:none;
 }
 
-/* GRAY HOVER */
-.bubplastic.gray ul li a:hover,
-.bubplastic.gray ul li.highlight a {
-    background: transparent url(bg-bubplastic-h-gray.gif) top left no-repeat;
+ul.menu .current a {
+    color:Black;
+    font-weight:700;
 }
-.bubplastic.gray ul li a:hover span.menu_ar,
-.bubplastic.gray ul li.highlight a span.menu_ar {
-    background: transparent url(bg-bubplastic-h-gray.gif) top right no-repeat;
+
+
+/*GREEN*/
+ul.menu.silver{
+    background-color:Black;
 }
+ul.menu.silver li a:hover, .menu.silver li.current {
+    background-color:white;
+}                    
+                    
 
 
      
