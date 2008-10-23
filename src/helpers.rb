@@ -12,9 +12,13 @@ module MattPayne
     
     def tags_as_links(tags)
       return if tags.blank?
-      string = ""
-      tags.each {|t| string << link_to("#{t}", "/blog/posts/tagged-as/#{t}"); string << " "; }
-      string
+      urls = tags.split(" ").inject(String.new) do |s, t|
+        s << link_to("#{t}", "/blog/posts/tagged-as/#{t}")
+        s << ", "
+        s
+      end
+      urls.chomp!(", ")
+      urls
     end
 		
     def self.font_for_tag(tag)
