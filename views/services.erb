@@ -1,8 +1,14 @@
 <h1>Services</h1>
 <hr />
 <br />
+<div class="notice">
+  <strong>What can I do for you?</strong><br />
+  <em>Rates are negotiable and based on project scope, complexity and timeframe.
+  <%= email_link_to("Contact me", "paynmatt@gmail.com") %> to discuss your project.</em>
+</div>
+<br />
 <div class="service-left">
-  MPC offers a diverse range of services:
+  <strong>MPC offers a diverse range of services:</strong>
   <ul>
     <li>Development of web-based software solutions.
       <ul>
@@ -47,10 +53,9 @@
       </ul>
     </li>
   </ul>
-  What can I do for you?
 </div>
 <div class="service-right">
-  MPC offers a varied range of language expertise:
+  <strong>MPC offers a range of technology expertise:</strong>
   <ul>
     <li><%= link_to(".NET (C#, VB.NET)", "http://www.microsoft.com/NET/", :target => "_blank") %>
       <ul>
@@ -66,9 +71,4 @@
     <li><%= link_to("Python", "http://www.python.org", :target => "_blank") %> (<%= link_to("Django", "http://www.djangoproject.com/", :target => "_blank") %>)</li>
   </ul>
 </div>
-<div style="clear:both;">&nbsp;</div>
-<p>
-  Rates are negotiable and based on project scope, complexity and timeframe.
-  <br />
-  <%= email_link_to("Contact me", "paynmatt@gmail.com") %> to discuss your project.
-</p>
+<br class="clear" />

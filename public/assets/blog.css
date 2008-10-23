@@ -58,8 +58,10 @@ span.comment_link
 
 hr.wide-rule
 {
-    background-color:#737373;
+    /*background-color:#d4d3d3;*/
     height:5px;
+    background-color:Black;
+    border:0;
 }
 
 .rss
@@ -88,8 +90,9 @@ div.paged
 div.sidebar-content
 {
     font-size:62.5%;
-    border:1px dashed #737373;
+    border:1px solid Black;
     padding:5px;
+    background-color:#d4d3d3;
 }
 
 div.sidebar-content h2

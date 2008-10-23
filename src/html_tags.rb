@@ -3,7 +3,9 @@ module MattPayne
   module HtmlTags
 		
     def link_to(link_text, url, html_options={})
-      "<a href=\"#{url}\" #{html_options.to_html_options}>#{link_text}</a>"
+      bold = html_options.delete(:bold)
+      return "<a href=\"#{url}\" #{html_options.to_html_options}>#{link_text}</a>" unless bold
+      return "<a href=\"#{url}\" #{html_options.to_html_options}><strong>#{link_text}</strong></a>"
     end
     
     def link_to_with_span(link_text, url, html_options={})
