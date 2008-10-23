@@ -1,4 +1,4 @@
-<% if @singular %>
+<% if singular %>
   <div>
 <% else %>
   <div class="post">
@@ -10,8 +10,8 @@
       <h2><%= h(post.title) %></h2>
       <hr /><br />
     <% end %>
-    <p>Posted on <%= datetime(post.created_at) %><br />
-      Tags: <%= post.tags.split(" ").join(", ") %>
+    <p class="date_tags">Posted on <%= datetime(post.created_at) %><br />
+      Tags: <%= tags_as_links(post.tags) %>
     </p>
     <div class="post_body">
       <%= post.body %>	

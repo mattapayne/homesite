@@ -5,6 +5,11 @@
     border:1px dashed #737373;
 }
 
+.date_tags
+{
+  font-size:9pt;
+}
+
 span.comment_link
 {
     font-size:10pt;

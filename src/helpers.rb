@@ -9,6 +9,13 @@ module MattPayne
     @@tag_font_map = {1 => "8px", 2 => "12px", 3 => "14px", 4 => "18px", 5 => "20px", 6 => "24px"}
 		
     alias_method :h, :escape_html
+    
+    def tags_as_links(tags)
+      return if tags.blank?
+      string = ""
+      tags.each {|t| string << link_to("#{t}", "/blog/posts/tagged-as/#{t}"); string << " "; }
+      string
+    end
 		
     def self.font_for_tag(tag)
       max = @@tag_font_map.max
