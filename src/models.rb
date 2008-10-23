@@ -371,11 +371,11 @@ module MattPayne
 		
       def validate_custom
         custom_errors = []
-        if self.website && !website_format_ok?
-          custom_errors << ["Invalid url"]
+        if !self.website.blank? && !website_format_ok?
+          custom_errors << "Invalid url"
         end
-        if self.email && !email_ok?
-          custom_errors << ["Invalid email"]
+        if !self.email.blank? && !email_ok?
+          custom_errors << "Invalid email"
         end
         custom_errors.empty? ? nil : custom_errors
       end
