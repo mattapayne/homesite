@@ -4,6 +4,22 @@ module MattPayne
     
     private
 
+    def blog_url
+      Sinatra.application.development? ? "http://localhost:4567/blog" : nil
+    end
+    
+    def user_ip
+      request.env["REMOTE_ADDR"]
+    end
+    
+    def user_referrer
+      request.env["HTTP_REFERER"]
+    end
+    
+    def user_agent
+      request.env["HTTP_USER_AGENT"]
+    end
+    
     def ensure_param(condition, message)
       unless condition
         @error_message = message

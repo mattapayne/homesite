@@ -39,7 +39,7 @@ module MattPayne
       	db.execute("DROP TABLE IF EXISTS comments;")
       	db.execute(%{create table comments (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
           comment TEXT NOT NULL, username VARCHAR(100), post_id INT NOT NULL, 
-          created_at DATETIME NOT NULL, website VARCHAR(255));})
+          created_at DATETIME NOT NULL, website VARCHAR(255), email VARCHAR(100));})
       end
       
       def create_posts(db)
@@ -57,6 +57,10 @@ module MattPayne
         db.execute(%{ALTER TABLE comments ADD website VARCHAR(255);})
       end
       
+      def add_email_to_comments(db)
+        db.execute(%{ALTER TABLE comments ADD email VARCHAR(100);})
+      end
+      
       def make_posts_full_text(db)
         db.execute("ALTER TABLE posts ADD FULLTEXT (title, body, tags);")
       end
@@ -68,6 +72,15 @@ module MattPayne
           'ABQIAAAAmKfFxA14dHoBadEFep47iRQwHu3rQCyfTgH93yBlkTR7UAz0_BQABOpQxFTILdJiz_tUXzDmxR5L9Q', 'test');})
         db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('gmaps_key', 
           'ABQIAAAAmKfFxA14dHoBadEFep47iRQwHu3rQCyfTgH93yBlkTR7UAz0_BQABOpQxFTILdJiz_tUXzDmxR5L9Q', 'production');})
+      end
+      
+      def add_akismet_key(db)
+        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('akismet_key', 
+          '9554412da53f', 'development');})
+        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('akismet_key', 
+          '9554412da53f', 'test');})
+        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('akismet_key', 
+          '9554412da53f', 'production');})
       end
       
       def create_app_settings(db)

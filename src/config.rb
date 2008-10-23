@@ -25,6 +25,10 @@ module MattPayne
       @@config.blank? ? load_config : @@config
     end
 	
+    def self.akismet_key
+      value_for_key(:akismet_key)
+    end
+    
     def self.captcha_key
       value_for_key(:captcha_key)
     end

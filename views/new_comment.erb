@@ -5,26 +5,35 @@
     <%= @errors %>
   </div>
 <% end %>
+<p class="notice">
+  I promise that your email address will not be used or sold in any way
+</p>
 <%= start_form("/blog/create/comment/#{@post.slug}") %>
 <%= hidden_field_tag("post_id", :value => @post.id) %>
-<br />
-<p>
-  Your name:<br />
-  <%= text_field_tag("username", :value => @comment.username, :class => "select") %>
+<p class="comment_field comment_field_with_margin float_left">
+  <span>Your name:</span><br />
+  <%= text_field_tag("username", :value => @comment.username, :class => "select", :size => "20") %>
 </p>
-<p>
-  Website (optional):<br />
-  <%= text_field_tag("website", :value => @comment.website) %>
+<p class="comment_field comment_field_with_margin float_left">
+  <span>Your website (optional):</span><br />
+  <%= text_field_tag("website", :value => @comment.website, :size => "30") %>
 </p>
-<p>Your comment:<br />
-  <%= text_area_tag("comment", :value => @comment.comment, :rows => 10, :cols => 60) %>
+<p class="comment_field">
+  <span>Your email (optional):</span><br />
+  <%= text_field_tag("email", :value => @comment.email, :size => "30") %>
+</p>
+<div style="padding:0;margin:0;clear:left;"></div>
+<p class="comment_field">
+  <span>Your comment:</span><br />
+  <%= text_area_tag("comment", :value => @comment.comment, :rows => 15, :cols => 100) %>
 </p>
 <p class="captcha">
+  <span>Can't read the code? Click <%= link_to("here", "/blog/new/comment/#{@post.slug}") %> to get a new one.</span><br />
   <%= render_captcha(@captcha) %>
-  <br />Can't read the code? Click <%= link_to("here", "/blog/new/comment/#{@post.slug}") %> to get a new one.
-  <br />Please enter the code shown above
   <br />
-  <%= text_field_tag("captcha") %>
+  Please enter the code shown above
+  <br />
+  <%= text_field_tag("captcha", :value => nil, :size => "10") %>
 </p>
 <%= submit_button("Save") %>
 <%= end_form %>

@@ -323,8 +323,12 @@ module MattPayne
 		
     class Comment < Base
 			
-      attr_reader :post_id, :comment, :username, :website
+      attr_reader :post_id, :comment, :username, :website, :email
       WEBSITE_REGEXP = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
+      EMAIL_NAME_REGEX  = '[\w\.%\+\-]+'.freeze
+      DOMAIN_HEAD_REGEX = '(?:[A-Z0-9\-]+\.)+'.freeze
+      DOMAIN_TLD_REGEX  = '(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)'.freeze
+      EMAIL_REGEX   = /\A#{EMAIL_NAME_REGEX}@#{DOMAIN_HEAD_REGEX}#{DOMAIN_TLD_REGEX}\z/i
 			
       def self.find_for_post(post_id)
         results = []
@@ -343,11 +347,16 @@ module MattPayne
 			
       def to_hash
         {:post_id => self.post_id, :comment => self.comment, 
-          :username => self.username, :website => convert_url(self.website)}
+          :username => self.username, :website => convert_url(self.website),
+          :email => self.email}
       end
       
       def has_website?
         !self.website.blank? && website_format_ok?
+      end
+      
+      def has_email?
+        !self.email.blank? && email_ok?
       end
 			
       protected
@@ -361,17 +370,24 @@ module MattPayne
       end
 		
       def validate_custom
-        return if self.website.blank?
-        unless website_format_ok?
-          return ["Invalid url"]
+        custom_errors = []
+        if self.website && !website_format_ok?
+          custom_errors << ["Invalid url"]
         end
-        nil
+        if self.email && !email_ok?
+          custom_errors << ["Invalid email"]
+        end
+        custom_errors.empty? ? nil : custom_errors
       end
       
       private
       
       def website_format_ok?
         convert_url(self.website) =~ WEBSITE_REGEXP
+      end
+      
+      def email_ok?
+        self.email =~ EMAIL_REGEX
       end
       
       def convert_url(url)

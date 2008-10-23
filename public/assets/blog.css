@@ -20,6 +20,21 @@ span.comment_link
     font-size:10pt;
 }
 
+.comment_field_with_margin
+{
+    margin-right:5px;
+}
+
+.comment_field
+{
+    font-size:12pt;
+}
+
+.float_left
+{
+    float:left;
+}
+
 .posts
 {
     clear:both;
@@ -49,6 +64,12 @@ span.comment_link
 .captcha
 {
     font-size:10pt;
+}
+
+.captcha span
+{
+    font-size:7pt;
+    font-style:italic;
 }
  
 .post_body

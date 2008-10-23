@@ -78,10 +78,26 @@ div.map-container
     padding-bottom:15px;
 }
 
+form
+{
+    margin:0;
+    padding:0;
+}
+
+.notice
+{
+    font-size:10pt;
+    font-style:italic;
+}
+
 .error
 {
     font-size:12px;
-    color:red;
+    color:Blue;
+    padding:5px;
+    margin-bottom:10px;
+    margin-top:10px;
+    border:1px solid Black;
 }
 
 p.home

@@ -206,6 +206,10 @@ post "/blog/create/comment/:slug" do
   unless MattPayne::Captcha.valid?(random, supplied_captcha)
     errors << "Invalid captcha. Please try again." 
   end
+  unless MattPayne::Akismet.valid_comment?(@comment, {
+      :blog => blog_url, :ip => user_ip, :referrer => user_referrer, :user_agent => user_agent})
+    errors << "Your comment appears to be spam. Please try again."
+  end
   if errors.empty?
     @comment.save
     redirect "/blog"
