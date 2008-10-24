@@ -207,7 +207,7 @@ post "/blog/create/comment/:slug" do
     errors << "Invalid captcha. Please try again." 
   end
   unless MattPayne::AK.valid_comment?(@comment, {
-        :ip => user_ip, :referrer => user_referrer, :user_agent => user_agent}
+        :ip => user_ip, :referrer => user_referrer, :user_agent => user_agent, :blog => blog_url}
     )
     errors << "Your comment appears to be spam. Please try again."
   end

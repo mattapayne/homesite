@@ -92,9 +92,7 @@ class Akismet
       other.each_pair {|key, value| data.concat("&#{key}=#{value}")}
     end
     data = URI.escape(data)
-            
     resp, data = http.post(path, data, STANDARD_HEADERS)
-        
     return (data != "false")
   end
   

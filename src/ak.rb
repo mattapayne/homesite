@@ -8,10 +8,12 @@ module MattPayne
     
     def self.valid_comment?(comment, data)
       permalink = "#{AK::BLOG}/post/#{comment.post.slug}"
-      return !AK.akismet_api.commentCheck(
+      #If check comment returns true, the comment is spam, otherwise, it's not spam.
+      result = akismet_api.commentCheck(
         data[:ip], data[:user_agent], data[:referrer], permalink, data[:comment] || "comment", 
-        comment.username, comment.email, comment.website, comment.comment, nil
+        comment.username, comment.email, comment.website, comment.comment, {:blog => data[:blog] || BLOG}
       )
+      return result != true
     end
    
     private
