@@ -243,7 +243,7 @@ module MattPayne
       def self.search(query, limit=5, page="1")
         paged = PagingArray.new(page.to_i, 0, 0)
         with_database do |db|
-          data = db[table].full_text_search([:title, :body, :tags], query).paginate(page.to_i, limit.to_i)
+          data = db[table].full_text_search([:title, :body, :tags], query).paginate(page.to_i, limit.to_i).order(:created_at.desc)
           paged = data.inject(PagingArray.new(
               page.to_i, data.page_count, data.pagination_record_count )) { |arr, row| arr << new(row); arr}
         end
