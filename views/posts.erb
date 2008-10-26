@@ -19,6 +19,11 @@
         Your search for '<%= @query %>' resulted in <%= @posts.total_items %> result(s).
       </div>
     <% end %>
+    <% if @commented %>
+      <div class="comment-results">
+        <%= @message %>
+      </div>
+    <% end %>
     <% if @posts && @posts.not_empty? %>
       <% for post in @posts %>
         <%= render_post(post, false) %>

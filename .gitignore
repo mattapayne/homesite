@@ -1,3 +1,4 @@
 *.txt
+config.yml
 nbproject/*
 vendor/*

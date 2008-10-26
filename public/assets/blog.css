@@ -1,3 +1,8 @@
+.comment-results
+{
+    color:blue;
+}
+
 .post_comments
 {
     padding-left:10px;
@@ -11,9 +16,55 @@
     font-weight:bold;
 }
 
+div.stats table
+{
+    font-size:8pt;
+    text-align:center;
+    border-collapse:collapse;
+    width:100%;
+}
+
+div.stats table tr th
+{
+    background-color:black;
+    color:white;
+}
+
+div.stats table tr td
+{
+    padding:3px;
+    background-color:Silver;
+}
+
+div.comments table
+{
+    font-size:8pt;
+    text-align:center;
+    border-collapse:collapse;
+    width:100%;
+}
+
+div.comments table tr td
+{
+    padding:3px;
+    background-color:Silver;
+}
+
+div.comments table tr th
+{
+    background-color:black;
+    color:white;
+}
+
+.spam td
+{
+    font-weight:bold;
+    color:red;
+}
+
 .date_tags
 {
-  font-size:9pt;
+    font-size:9pt;
 }
 
 span.comment_link
@@ -53,8 +104,8 @@ span.comment_link
 
 .post
 {
-  margin-bottom:30px;
-  margin-top:10px;
+    margin-bottom:30px;
+    margin-top:10px;
 }
 
 .search-form
@@ -72,17 +123,6 @@ span.comment_link
     margin:0;
 }
 
-.captcha
-{
-    font-size:10pt;
-}
-
-.captcha span
-{
-    font-size:7pt;
-    font-style:italic;
-}
- 
 .post_body
 {
     margin-bottom:5px;
@@ -106,19 +146,19 @@ hr.wide-rule
 {
     float:right;
 }
- 
+
 .comment
 {
     border-top:1px dashed #737373;
     padding:5px;
 }
- 
+
 div.paged
 {
     text-align:center;
     font-weight:bold;
 }
- 
+
 div.sidebar-content
 {
     font-size:62.5%;

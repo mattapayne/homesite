@@ -27,13 +27,9 @@
   <span>Your comment:</span><br />
   <%= text_area_tag("comment", :value => @comment.comment, :rows => 15, :cols => 100) %>
 </p>
-<p class="captcha">
-  <span>Can't read the code? Click <%= link_to("here", "/blog/new/comment/#{@post.slug}") %> to get a new one.</span><br />
-  <%= render_captcha(@captcha) %>
-  <br />
-  Please enter the code shown above
-  <br />
-  <%= text_field_tag("captcha", :value => nil, :size => "10") %>
-</p>
 <%= submit_button("Save") %>
+<% if logged_in? %>
+  <%= submit_button("Spam", {:name => "spam"}) %>
+  <%= submit_button("Ham", {:name => "ham"}) %>
+<% end %>
 <%= end_form %>

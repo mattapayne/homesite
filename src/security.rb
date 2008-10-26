@@ -3,9 +3,11 @@ module MattPayne
   module Security
 		
     def login(username, password)
+      puts "USERNAME: #{username}, PASSWORD: #{password}"
       if ((username == MattPayne::Config.admin_username) && 
             (password == MattPayne::Config.admin_password))
         session[:logged_in] = true
+        puts "Logged in!!"
         return true
       end
       return false

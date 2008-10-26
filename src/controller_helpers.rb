@@ -3,6 +3,33 @@ module MattPayne
   module ControllerHelpers
     
     private
+    
+    def submit_post(post)
+      RDefensio::API.announce_article(
+        {
+          "article-author" => "Matt Payne",
+          "article-author-email" => "paynmatt@gmail.com",
+          "article-title" => post.title, "article-content" => post.body,
+          "permalink" => "#{RDefensio::API.owner_url}/post/#{post.slug}"
+        }
+      )
+    end
+    
+    def submit_comment(comment, spam=false, ham=false)
+      args =  {
+        "user-ip" => user_ip, "article-date" => comment.post.created_at, 
+        "comment-author" => comment.username, "comment-type" => "comment",
+        "comment-content" => comment.comment, "comment-author-email" => comment.email,
+        "permalink" => "#{RDefensio::API.owner_url}/post/#{comment.post.slug}", "referrer" => user_referrer,
+        "user-logged-in" => logged_in?.to_s, "trusted-user" => logged_in?.to_s
+      }
+      if spam
+        args["test-force"] = "spam,0.6700"
+      elsif ham
+        args["test-force"] = "ham,0.6700"
+      end
+      RDefensio::API.audit_comment(args)
+    end
 
     def blog_url
       Sinatra.application.development? ? "http://localhost:4567/blog" : nil

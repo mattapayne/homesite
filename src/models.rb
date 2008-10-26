@@ -214,7 +214,7 @@ module MattPayne
 			
       extend MattPayne::BlogToRss
 		
-      attr_accessor :title, :body, :tags, :slug
+      attr_accessor :title, :body, :tags, :slug, :announced
       attr_reader :updated_at
 			
       def comments
@@ -262,7 +262,10 @@ module MattPayne
       end
 			
       def to_hash
-        {:title => self.title, :body => self.body, :tags => self.tags, :slug => self.title.slugify}
+        {
+          :title => self.title, :body => self.body, :tags => self.tags, 
+          :slug => self.title.slugify, :announced => self.announced
+        }
       end
 			
       def contains_code?
@@ -281,49 +284,12 @@ module MattPayne
 			
     end
 		
-    #---------------------------------------------------------------------------
-		
-    class Setting
-			
-      include MattPayne::Database
-			
-      attr_reader :name, :value, :environment
-			
-      def initialize(hash={})
-        return if hash.blank?
-        hash.each do |key, value|
-          var = "@#{key}"
-          if respond_to?(key.to_sym)
-            self.instance_variable_set(var, value)
-          end
-        end
-      end
-			
-      def self.all
-        @@all ||= fetch_settings
-      end
-			
-      private
-			
-      def self.fetch_settings
-        all = []
-        with_database do |db|
-          all = db[table].inject([]) {|arr, row| arr << new(row); arr}
-        end
-        all
-      end
-			
-      def self.table
-        :app_settings
-      end
-			
-    end
-		
     #---------------------------------------------------------------------------		
 		
     class Comment < Base
 			
       attr_reader :post_id, :comment, :username, :website, :email
+      attr_accessor :signature, :spam, :spaminess, :api_version, :reviewed
       WEBSITE_REGEXP = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
       EMAIL_NAME_REGEX  = '[\w\.%\+\-]+'.freeze
       DOMAIN_HEAD_REGEX = '(?:[A-Z0-9\-]+\.)+'.freeze
@@ -333,7 +299,28 @@ module MattPayne
       def self.find_for_post(post_id)
         results = []
         with_database do |db|
-          results = db[table].filter(:post_id => post_id).order(:created_at.desc).inject([]) do |arr, row|
+          results = db[table].filter(:post_id => post_id, :spam => false, :reviewed => true).
+            order(:created_at.desc).inject([]) do |arr, row|
+            arr << new(row)
+            arr
+          end
+        end
+        results
+      end
+      
+      def self.find_by_signature(signature)
+        obj = nil
+        with_database do |db|
+          data = db[table][:signature => signature]
+          obj = new(data) unless data.blank?
+        end
+        obj
+      end
+      
+      def self.all_by_spaminess
+        results = []
+        with_database do |db|
+          results = db[table].order(:spaminess.desc).inject([]) do |arr, row|
             arr << new(row)
             arr
           end
@@ -346,9 +333,13 @@ module MattPayne
       end
 			
       def to_hash
-        {:post_id => self.post_id, :comment => self.comment, 
+        {
+          :post_id => self.post_id, :comment => self.comment, 
           :username => self.username, :website => convert_url(self.website),
-          :email => self.email}
+          :email => self.email, :signature => self.signature, :spam => self.spam,
+          :spaminess => self.spaminess, :api_version => self.api_version,
+          :reviewed => self.reviewed
+        }
       end
       
       def has_website?
@@ -357,6 +348,18 @@ module MattPayne
       
       def has_email?
         !self.email.blank? && email_ok?
+      end
+      
+      def spam?
+        self.spam
+      end
+      
+      def reviewed?
+        self.reviewed
+      end
+      
+      def possibly_spam?
+        (!self.reviewed? && self.spam?) || (!self.reviewed? && self.spaminess.to_f > 0.0)
       end
 			
       protected

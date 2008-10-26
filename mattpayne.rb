@@ -1,5 +1,12 @@
 require File.join(File.dirname(__FILE__), 'src/loader')
 
+configure do
+  RDefensio::API.configure do |conf|
+    conf.api_key = MattPayne::Config.defensio_api_key
+    conf.owner_url = MattPayne::Config.defensio_owner_url
+  end
+end
+
 configure :production do
   set :connection_string => MattPayne::Config.connection_string
 	
@@ -14,10 +21,12 @@ configure :production do
 end
 
 configure :test do
+  set :sessions => true
   set :connection_string => MattPayne::Config.connection_string
 end
 
 configure :development do
+  set :sessions => true
   set :connection_string => MattPayne::Config.connection_string
 end
 
@@ -149,13 +158,16 @@ post '/blog/create/post' do
   require_login
   @post = Post.new(params)
   if @post.valid?
-    @post.save
-    redirect '/blog'
-  else
-    @errors = @post.validation_errors.join("<br />")
-    @title = " - Create Post"
-    erb :new_post
+    results = submit_post(@post)
+    if results.status == "success"
+      @post.announced = true
+      @post.save
+      redirect '/blog' and return
+    end
   end
+  @errors = @post.validation_errors.join("<br />")
+  @title = " - Create Post"
+  erb :new_post
 end
 
 #Update post
@@ -187,7 +199,6 @@ end
 #New comment
 get '/blog/new/comment/:slug' do
   for_blog_related_action(:title => " - Add Comment", :rte_required => true) do
-    @captcha = MattPayne::Captcha.new
     @post = Post.find_by_slug(params["slug"])
     raise_post_not_found(params["slug"]) unless @post
     @comment = Comment.new(:post_id => @post.id)
@@ -199,26 +210,67 @@ end
 post "/blog/create/comment/:slug" do
   @post = Post.find_by_slug(params["slug"])
   raise_post_not_found(params["slug"]) unless @post
-  supplied_captcha = params.delete("captcha")
-  random = params.delete("random")
   @comment = Comment.new(params.merge(:post_id => @post.id))
   errors = @comment.validation_errors || []
-  unless MattPayne::Captcha.valid?(random, supplied_captcha)
-    errors << "Invalid captcha. Please try again." 
-  end
-  unless MattPayne::AK.valid_comment?(@comment, {
-        :ip => user_ip, :referrer => user_referrer, :user_agent => user_agent, :blog => blog_url}
-    )
-    errors << "Your comment appears to be spam. Please try again."
-  end
   if errors.empty?
-    @comment.save
-    redirect "/blog"
-  else
-    @errors = errors.join("<br />")
-    @rte_required = true
-    @title = " - Add Comment"
-    @captcha = MattPayne::Captcha.new
-    erb :new_comment
+    audit_results = submit_comment(@comment, params["spam"], params["ham"])
+    if errors.empty?
+      if audit_results.spam || !audit_results.spam && audit_results.spaminess.to_f >= 0.0
+        @message = "Your comment has been marked for review and will be posted if approved."
+      else
+        @message = "Thanks for your comment."
+      end
+      @commented = true
+      @comment.signature = audit_results.signature
+      @comment.spam = audit_results.spam
+      @comment.spaminess = audit_results.spaminess
+      @comment.api_version = audit_results.api_version
+      @comment.reviewed = false
+      @comment.save
+      redirect "/blog" and return
+    end
   end
+  @errors = errors.join("<br />")
+  @rte_required = true
+  @title = " - Add Comment"
+  erb :new_comment
+end
+
+#See all comments
+get "/blog/comments" do
+  for_blog_related_action(:secure => true, :title => " - Manage Comments", :action => "comments") do
+    @comments = Comment.all_by_spaminess
+    erb :comments
+  end
+end
+
+get "/blog/comments/stats" do
+  for_blog_related_action(:secure => true, :title => " - Comment Statistics", :action => "stats") do
+    @stats = RDefensio::API.get_stats
+    erb :stats
+  end
+end
+
+post "/blog/comments/mark-as-spam" do
+  require_login
+  @comment = Comment.find_by_signature(params["signature"])
+  result = RDefensio::API.report_false_negatives(@comment.signature)
+  if result.status == "success"
+    @comment.reviewed = true
+    @comment.spam = true
+    @comment.save
+  end
+  redirect "/blog/comments"
+end
+
+post "/blog/comments/mark-as-not-spam" do
+  require_login
+  @comment = Comment.find_by_signature(params["signature"])
+  result = RDefensio::API.report_false_positives(@comment.signature)
+  if result.status == "success"
+    @comment.reviewed = true
+    @comment.spam = false
+    @comment.save
+  end
+  redirect "/blog/comments"
 end

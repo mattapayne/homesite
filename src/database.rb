@@ -30,99 +30,52 @@ module MattPayne
         with_database do |db|
           create_posts(db)
           create_comments(db)
-          create_app_settings(db)
-          db.execute("ALTER TABLE comments ADD FOREIGN KEY(post_id) REFERENCES posts(id);")
+          add_foreign_keys(db)
         end
+      end
+      
+      def add_foreign_keys(db)
+        db.execute("ALTER TABLE comments ADD FOREIGN KEY(post_id) REFERENCES posts(id);")
       end
       
       def create_comments(db)
       	db.execute("DROP TABLE IF EXISTS comments;")
       	db.execute(%{create table comments (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
           comment TEXT NOT NULL, username VARCHAR(100), post_id INT NOT NULL, 
-          created_at DATETIME NOT NULL, website VARCHAR(255), email VARCHAR(100));})
+          created_at DATETIME NOT NULL, website VARCHAR(255), email VARCHAR(100),
+          signature VARCHAR(100), spam BOOLEAN NOT NULL DEFAULT false,
+          spaminess VARCHAR(20) NOT NULL, api_version VARCHAR(10) NOT NULL,
+          reviewed BOOLEAN NOT NULL DEFAULT false);})
       end
       
       def create_posts(db)
       	db.execute("DROP TABLE IF EXISTS posts;")
       	db.execute(%{create table posts (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
           title VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, body TEXT NOT NULL, 
-          tags TEXT, created_at DATETIME NOT NULL, updated_at DATETIME, FULLTEXT (title,body,tags));})
-      end
-      
-      def add_post_slug(db)
-      	db.execute(%{ALTER TABLE posts ADD slug VARCHAR(255);})
-      end
-      
-      def add_website_to_comments(db)
-        db.execute(%{ALTER TABLE comments ADD website VARCHAR(255);})
-      end
-      
-      def add_email_to_comments(db)
-        db.execute(%{ALTER TABLE comments ADD email VARCHAR(100);})
+          tags TEXT, created_at DATETIME NOT NULL, updated_at DATETIME, 
+          announced BOOLEAN NOT NULL DEFAULT FALSE, FULLTEXT (title,body,tags));})
       end
       
       def make_posts_full_text(db)
         db.execute("ALTER TABLE posts ADD FULLTEXT (title, body, tags);")
       end
       
-      def add_google_maps_api_key(db)
-        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('gmaps_key', 
-          'ABQIAAAAmKfFxA14dHoBadEFep47iRQwHu3rQCyfTgH93yBlkTR7UAz0_BQABOpQxFTILdJiz_tUXzDmxR5L9Q', 'development');})
-        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('gmaps_key', 
-          'ABQIAAAAmKfFxA14dHoBadEFep47iRQwHu3rQCyfTgH93yBlkTR7UAz0_BQABOpQxFTILdJiz_tUXzDmxR5L9Q', 'test');})
-        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('gmaps_key', 
-          'ABQIAAAAmKfFxA14dHoBadEFep47iRQwHu3rQCyfTgH93yBlkTR7UAz0_BQABOpQxFTILdJiz_tUXzDmxR5L9Q', 'production');})
+      def add_defensio_columns(db)
+        db.execute("ALTER TABLE comments ADD COLUMN signature VARCHAR(100) NOT NULL;")
+        db.execute("ALTER TABLE comments ADD COLUMN spam BOOLEAN NOT NULL DEFAULT false;")
+        db.execute("ALTER TABLE comments ADD COLUMN spaminess VARCHAR(20) NOT NULL;")
+        db.execute("ALTER TABLE comments ADD COLUMN api_version VARCHAR(10) NOT NULL;")
+        db.execute("ALTER TABLE comments ADD COLUMN reviewed BOOLEAN NOT NULL DEFAULT false;")
+      end
+	
+      def add_defensio_columns_to_post(db)
+        db.execute("ALTER TABLE posts ADD COLUMN announced BOOLEAN DEFAULT FALSE NOT NULL;")
       end
       
-      def add_akismet_key(db)
-        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('akismet_key', 
-          '9554412da53f', 'development');})
-        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('akismet_key', 
-          '9554412da53f', 'test');})
-        db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('akismet_key', 
-          '9554412da53f', 'production');})
+      def drop_app_settings(db)
+        db.execute("DROP TABLE IF EXISTS app_settings;")
       end
       
-      def create_app_settings(db)
-      	db.execute("DROP TABLE IF EXISTS app_settings;")
-      	db.execute(%{create table app_settings (name VARCHAR(100) NOT NULL, value VARCHAR(255) NOT NULL, 
-          environment VARCHAR(30));})
-      	
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) 
-          VALUES ('captcha_key', '6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl', 'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) 
-          VALUES ('captcha_key', '6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl', 'test');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) 
-          VALUES ('captcha_key', '6Y7E402rgYu2FdM5m0yVMgnZ2CSSeEwNNMl5sbXl', 'production');})
-      	
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_username', 'mattpayne', 'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_username', 'mattpayne', 'test');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('captcha_username', 'mattpayne', 'production');})
-      	
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('tumblr_url', 
-      		'http://mpayne.tumblr.com/api/read?type=regular&num=5', 'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('tumblr_url', 
-      		'http://mpayne.tumblr.com/api/read?type=regular&num=5', 'test');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('tumblr_url', 
-      		'http://mpayne.tumblr.com/api/read?type=regular&num=5', 'production');})	
-      		
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('github_url',
-      		'http://github.com/api/v1/xml/mattapayne', 'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('github_url',
-      		'http://github.com/api/v1/xml/mattapayne', 'test');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('github_url',
-      		'http://github.com/api/v1/xml/mattapayne', 'production');})
-      		
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_username', 'mpayne', 'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_username', 'mpayne', 'test');})
-       	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_username', 'mpayne', 'production');})
-      	
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 'development');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 'test');})
-      	db.execute(%{INSERT INTO app_settings (name, value, environment) VALUES ('admin_password', 'mojothemonkey', 'production');})
-  
-      end
-		
     end
 	
   end
