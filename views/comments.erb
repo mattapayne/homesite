@@ -1,0 +1,43 @@
+<div class="comments">
+  <h1>All Comments</h1>
+  <br />
+  <% unless @comments.empty? %>
+    <table>
+      <tr>
+        <th>Post Title</th>
+        <th>Date</th>
+        <th>User</th>
+        <th>Content</th>
+        <th>Spam?</th>
+        <th>Spamminess</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+      </tr>
+      <% for comment in @comments %>
+        <% style = comment.spam? ? "spam" : "nonspam" %>
+        <tr class="<%= style %>">
+          <td><%= link_to(h(comment.post.title), "/blog/post/#{comment.post.slug}") %></td>
+          <td><%= h(datetime(comment.created_at, "%Y/%m/%d")) %></td>
+          <td><%= comment.website.nil? ? h(comment.username) : link_to(h(comment.username), h(comment.website)) %></td>
+          <td><%= h(comment.comment) %></td>
+          <td><%= comment.spam? ? "Yes" : "No" %></td>
+          <td><%= comment.spaminess.to_s %></td>
+          <td>
+            <%= start_form("/blog/comments/mark-as-spam") %>
+            <%= hidden_field_tag(:signature, {:value => comment.signature}) %>
+            <%= submit_button("Spam!") %>
+            <%= end_form %>
+          </td>
+          <td>
+            <%= start_form("/blog/comments/mark-as-not-spam") %>
+            <%= hidden_field_tag(:signature, {:value => comment.signature}) %>
+            <%= submit_button("Not Spam!") %>
+            <%= end_form %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p>There are no comments.</p>
+  <% end %>
+</div>

@@ -1,0 +1,9 @@
+--- 
+:connection_string: mysql://username:password@server/database_name
+:defensio_key: api key here
+:owner_url: owner url here
+:tumblr_url: Tumblr url here
+:github_url: GitHub url here
+:gmaps_key: Google Maps api key here
+:admin_username: Admin username here
+:admin_password: Admin password here

@@ -1,0 +1,29 @@
+<div class="stats">
+  <% if @stats %>
+    <h1>Defensio Statistics</h1>
+    <table>
+      <tr>
+        <th>API Version</th>
+        <th>Accuracy</th>
+        <th># Spam</th>
+        <th># Ham</th>
+        <th># False Positives</th>
+        <th># False Negatives</th>
+        <th>Learning?</th>
+        <th>Learning Status</th>
+      </tr>
+      <tr>
+        <td><%= h(@stats.api_version) %></td>
+        <td><%= h(@stats.accuracy.to_s) %></td>
+        <td><%= h(@stats.spam.to_s) %></td>
+        <td><%= h(@stats.ham.to_s) %></td>
+        <td><%= h(@stats.false_positives.to_s) %></td>
+        <td><%= h(@stats.false_negatives.to_s) %></td>
+        <td><%= h(@stats.learning) %></td>
+        <td><%= h(@stats.learning_status) %></td>
+      </tr>
+    </table>
+  <% else %>
+    <p>Sorry, there are no stats.</p>
+  <% end %>
+</div>
