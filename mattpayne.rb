@@ -212,28 +212,35 @@ post "/blog/create/comment/:slug" do
   raise_post_not_found(params["slug"]) unless @post
   @comment = Comment.new(params.merge(:post_id => @post.id))
   errors = @comment.validation_errors || []
+  #Make sure there are no validation errors
   if errors.empty?
+    #Submit to Defensio
     audit_results = submit_comment(@comment, params["spam"], params["ham"])
-    if errors.empty?
-      if audit_results.spam || !audit_results.spam && audit_results.spaminess.to_f >= 0.0
-        @message = "Your comment has been marked for review and will be posted if approved."
-      else
-        @message = "Thanks for your comment."
-      end
-      @commented = true
-      @comment.signature = audit_results.signature
-      @comment.spam = audit_results.spam
-      @comment.spaminess = audit_results.spaminess
-      @comment.api_version = audit_results.api_version
+    #Set the Defensio values
+    @comment.signature = audit_results.signature
+    @comment.spam = audit_results.spam
+    @comment.spaminess = audit_results.spaminess
+    @comment.api_version = audit_results.api_version
+    if @comment.possibly_spam?
       @comment.reviewed = false
-      @comment.save
-      redirect "/blog" and return
+    else
+      @comment.reviewed = true
     end
+    @comment.save
+    #If the comment requires review, render the comment submitted view
+    if @comment.possibly_spam?
+      @title = " - Comment Submitted"
+      @action = "blog"
+      erb :comment_submitted
+    else
+      redirect "/blog"
+    end
+  else
+    @errors = errors.join("<br />")
+    @rte_required = true
+    @title = " - Add Comment"
+    erb :new_comment
   end
-  @errors = errors.join("<br />")
-  @rte_required = true
-  @title = " - Add Comment"
-  erb :new_comment
 end
 
 #See all comments

@@ -359,7 +359,8 @@ module MattPayne
       end
       
       def possibly_spam?
-        (!self.reviewed? && self.spam?) || (!self.reviewed? && self.spaminess.to_f > 0.0)
+        (!self.reviewed? && self.spam?) || 
+          (!self.reviewed? && self.spaminess.to_f > MattPayne::Config.min_acceptable_spaminess.to_f)
       end
 			
       protected
@@ -375,10 +376,10 @@ module MattPayne
       def validate_custom
         custom_errors = []
         if !self.website.blank? && !website_format_ok?
-          custom_errors << "Invalid url"
+          custom_errors << "The website you've supplied does not appear to be a valid url."
         end
         if !self.email.blank? && !email_ok?
-          custom_errors << "Invalid email"
+          custom_errors << "The email address you've supplied does not appear to be a valid email address."
         end
         custom_errors.empty? ? nil : custom_errors
       end

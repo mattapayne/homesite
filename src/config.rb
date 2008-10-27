@@ -11,6 +11,10 @@ module MattPayne
       @@config.blank? ? load_config : @@config
     end
     
+    def self.min_acceptable_spaminess
+      value_for_key(:min_acceptable_spamminess)
+    end
+    
     def self.google_maps_api_key
       value_for_key(:gmaps_key)
     end

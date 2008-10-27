@@ -7,3 +7,4 @@
 :gmaps_key: Google Maps api key here
 :admin_username: Admin username here
 :admin_password: Admin password here
+:min_acceptable_spaminess: 0.1

@@ -15,13 +15,8 @@
     <hr class="wide-rule" />
     <% if @searched %>
       <div class="search-results">
-        <%= @error_message %>
+        <%= h(@error_message) %>
         Your search for '<%= @query %>' resulted in <%= @posts.total_items %> result(s).
-      </div>
-    <% end %>
-    <% if @commented %>
-      <div class="comment-results">
-        <%= @message %>
       </div>
     <% end %>
     <% if @posts && @posts.not_empty? %>
