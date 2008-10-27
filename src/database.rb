@@ -67,6 +67,11 @@ module MattPayne
         db.execute("ALTER TABLE comments ADD COLUMN api_version VARCHAR(10) NOT NULL;")
         db.execute("ALTER TABLE comments ADD COLUMN reviewed BOOLEAN NOT NULL DEFAULT false;")
       end
+      
+      def set_defensio_defaults_for_existing(db)
+        db.execute("UPDATE comments SET spam = false, spaminess = '0', api_version = '1.2', reviewed = true WHERE signature is NULL;")
+        db.execute("UPDATE posts SET announced = true;")
+      end
 	
       def add_defensio_columns_to_post(db)
         db.execute("ALTER TABLE posts ADD COLUMN announced BOOLEAN DEFAULT FALSE NOT NULL;")
