@@ -130,6 +130,10 @@ module MattPayne
     def render_post_search
       partial(:search)
     end
+    
+    def render_defensio
+      partial(:defensio)
+    end
 	
     def render_tumblr_posts(posts)
       partial(:tumblr_posts, :locals => {:posts => posts})

@@ -27,6 +27,7 @@
   <span>Your comment:</span><br />
   <%= text_area_tag("comment", :value => @comment.comment, :rows => 15, :cols => 100) %>
 </p>
+<%= render_defensio %>
 <%= submit_button("Save") %>
 <% if logged_in? %>
   <%= submit_button("Spam", {:name => "spam"}) %>

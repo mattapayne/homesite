@@ -85,6 +85,7 @@ span.comment_link
 .comment_field
 {
     font-size:12pt;
+    padding-bottom:5px;
 }
 
 .float_left
