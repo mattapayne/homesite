@@ -97,6 +97,10 @@ module MattPayne
     def render_create_post
       partial(:create_post)
     end
+    
+    def render_admin_menu
+      partial(:admin_menu)
+    end
 	
     def render_paging_title(posts)
       return unless posts
