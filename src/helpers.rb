@@ -17,15 +17,16 @@ module MattPayne
     end
     
     def begin_rounded_box
-      html = "<div class='roundedcornr_box'><div class='roundedcornr_top'><div></div></div>"
-      html << "<div class='roundedcornr_content'>"
+      html = "<div class=\"roundedcornr_box\">"
+      html << "<div class=\"roundedcornr_top\"><div></div></div>"
+      html << "<div class=\"roundedcornr_content\">"
       html
     end
     
     def end_rounded_box
       html = "</div>"
-      html << "<div class='roundedcornr_bottom'><div></div></div>"
-      html << "</div"
+      html << "<div class=\"roundedcornr_bottom\"><div></div></div>"
+      html << "</div>"
       html
     end
     
