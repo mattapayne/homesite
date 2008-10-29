@@ -14,7 +14,6 @@
     <%= render_post_search %>
   </div>
   <div class="posts">
-    <hr class="wide-rule" />
     <% if @searched %>
       <div class="search-results">
         <%= h(@error_message) %>
@@ -24,7 +23,6 @@
     <% if @posts && @posts.not_empty? %>
       <% for post in @posts %>
         <%= render_post(post, false) %>
-        <hr class="wide-rule" />
       <% end %>
     <% else %>
       <p class="no_posts">
