@@ -27,6 +27,11 @@ div.notice
     border:5px solid Black;
 }
 
+div.sidebar-content
+{
+    margin-bottom:15px;
+}
+
 hr
 {
     color:Black;

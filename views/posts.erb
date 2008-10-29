@@ -1,8 +1,10 @@
 <div class="left-bar">
-  <%= render_tags(@tags) %>
-  <br />
-  <%= render_tumblr_posts(@tumblr_posts) %>
-  <br />
+  <div class="sidebar-content">
+    <%= render_tags(@tags) %>
+  </div>
+  <div class="sidebar-content">
+    <%= render_tumblr_posts(@tumblr_posts) %>
+  </div>  
   <%= render_github_repos(@github_repos) %>
 </div>
 <div class="right-bar">

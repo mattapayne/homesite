@@ -1,9 +1,20 @@
 <div class="left-bar">
-  <%= render_tags(@tags) %><br />
-  <%= render_tumblr_posts(@tumblr_posts) %><br />
+  <div class="sidebar-content">
+    <%= render_tags(@tags) %>
+  </div>
+  <div class="sidebar-content">
+    <%= render_tumblr_posts(@tumblr_posts) %>
+  </div>
   <%= render_github_repos(@github_repos) %>
 </div>
 <div class="right-bar">
+  <div>
+    <div class="rss">
+      Subscribe to the MPC blog rss feed 
+      <%= link_to_rss_feed %>
+    </div>
+    <%= render_post_search %>
+  </div>
   <div class="posts">
     <%= render_post(@post, true) %>
   </div>

@@ -154,8 +154,9 @@ hr.wide-rule
 
 .rss
 {
-    padding-bottom:10px;
+    padding-bottom:15px;
     float:left;
+    font-size:11px;
 }
 
 .search-container
