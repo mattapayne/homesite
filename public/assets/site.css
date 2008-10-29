@@ -8,7 +8,7 @@ html {min-height: 100%;}
 
 div.center
 {
-   text-align:center; 
+    text-align:center; 
 }
 
 .clear
@@ -227,6 +227,45 @@ div.service-right
     color:#fff;
     background:url(menu9_hover_right.png) no-repeat right top;
     *background:url(menu9_hover_right.gif) no-repeat right top;
+}
+
+/* Rounded Corners */
+
+.roundedcornr_box {
+    background: #d4d3d3;
+}
+.roundedcornr_top div {
+    background: url(roundedcornr_tl.png) no-repeat top left;
+}
+.roundedcornr_top {
+    background: url(roundedcornr_tr.png) no-repeat top right;
+}
+.roundedcornr_bottom div {
+    background: url(roundedcornr_bl.png) no-repeat bottom left;
+}
+.roundedcornr_bottom {
+    background: url(roundedcornr_br.png) no-repeat bottom right;
+}
+
+.roundedcornr_top div, .roundedcornr_top, 
+.roundedcornr_bottom div, .roundedcornr_bottom {
+    width: 100%;
+    height: 10px;
+    font-size: 1px;
+}
+.roundedcornr_content 
+{ 
+    margin: 0 10px;
+    font-size:62.5%;
+    /*border:1px solid Black;*/
+    padding:5px;
+    background-color:#d4d3d3;
+}
+.roundedcornr_content h2
+{
+    padding:0px;
+    padding-bottom:10px;
+    font-weight:bold;
 }
 
      

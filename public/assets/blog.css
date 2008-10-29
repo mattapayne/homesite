@@ -1,14 +1,20 @@
 .post_comments
 {
+    margin-top:10px;
     padding-left:10px;
     padding-right:10px;
     border:1px dashed #737373;
+    background-color:black;
+    color:white;
 }
 
 .post_comments h3
 {
     font-size:14px;
     font-weight:bold;
+    color:white;
+    padding-bottom:10px;
+    padding-top:10px;
 }
 
 div.stats table
@@ -62,10 +68,15 @@ div.comments table tr th
     font-size:9pt;
 }
 
+.author
+{
+    background-color:Grey;
+    color:black;
+}
+
 span.comment_link
 {
     font-size:10pt;
-    color:blue;
     text-decoration:underline;
     cursor:pointer;
 }
@@ -119,9 +130,19 @@ span.comment_link
     margin:0;
 }
 
-.post_body
+div.topLeft              
+{
+    background: url(small-left.gif) no-repeat top left
+}
+div.topRight	      
+{
+    background: url(small-right.gif) no-repeat top right
+}
+
+div.post_body
 {
     margin-bottom:5px;
+    padding:10px;
 }
 
 hr.wide-rule
@@ -152,20 +173,5 @@ hr.wide-rule
 div.paged
 {
     text-align:center;
-    font-weight:bold;
-}
-
-div.sidebar-content
-{
-    font-size:62.5%;
-    border:1px solid Black;
-    padding:5px;
-    background-color:#d4d3d3;
-}
-
-div.sidebar-content h2
-{
-    padding:0px;
-    padding-bottom:10px;
     font-weight:bold;
 }

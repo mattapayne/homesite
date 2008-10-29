@@ -1,22 +1,18 @@
-<% if singular %>
-  <div>
-<% else %>
-  <div class="post">
+<div class="post">
+  <%= begin_rounded_box %>
+  <% unless singular %>
+    <h2><%= link_to(h(post.title), "/blog/post/#{post.slug}") %></h2>
+  <% else %>
+    <h2><%= h(post.title) %></h2>
+    <hr /><br />
   <% end %>
-  <div>
-    <% unless singular %>
-      <h2><%= link_to(h(post.title), "/blog/post/#{post.slug}") %></h2>
-    <% else %>
-      <h2><%= h(post.title) %></h2>
-      <hr /><br />
-    <% end %>
-    <p class="date_tags">Posted on <%= datetime(post.created_at) %><br />
-      Tags: <%= tags_as_links(post.tags) %>
-    </p>
-    <div class="post_body">
-      <%= post.body %>	
-    </div>
+  <p class="date_tags">Posted on <%= datetime(post.created_at) %><br />
+    Tags: <%= tags_as_links(post.tags) %>
+  </p>
+  <div class="post_body">
+    <%= post.body %>	
   </div>
   <%= partial(:comment, :locals => {:post => post }) %>
   <%= partial(:admin_post, :locals => {:post => post}) %>
+  <%= end_rounded_box %>
 </div>

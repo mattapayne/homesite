@@ -10,6 +10,25 @@ module MattPayne
 		
     alias_method :h, :escape_html
     
+    def comment_class_for_author(comment)
+      if comment.username.downcase == "matt"
+        return "author"
+      end
+    end
+    
+    def begin_rounded_box
+      html = "<div class='roundedcornr_box'><div class='roundedcornr_top'><div></div></div>"
+      html << "<div class='roundedcornr_content'>"
+      html
+    end
+    
+    def end_rounded_box
+      html = "</div>"
+      html << "<div class='roundedcornr_bottom'><div></div></div>"
+      html << "</div"
+      html
+    end
+    
     def tags_as_links(tags)
       return if tags.blank?
       urls = tags.split(" ").inject(String.new) do |s, t|
