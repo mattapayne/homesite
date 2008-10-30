@@ -24,6 +24,12 @@ div.stats table
     width:100%;
 }
 
+div.blog-header
+{
+    line-height:30px;
+    font-size:12px;
+}
+
 div.stats table tr th
 {
     background-color:black;
@@ -71,6 +77,8 @@ div.comments table tr th
 {
     background-color:Grey;
     color:black;
+    border:none;
+    padding-bottom:2px;
 }
 
 span.comment_link
@@ -108,12 +116,6 @@ span.comment_link
     clear:both;
 }
 
-.post
-{
-    margin-bottom:15px;
-    margin-top:10px;
-}
-
 .search-form
 {
     margin:0;
@@ -129,44 +131,31 @@ span.comment_link
     margin:0;
 }
 
-div.topLeft              
-{
-    background: url(small-left.gif) no-repeat top left
-}
-div.topRight	      
-{
-    background: url(small-right.gif) no-repeat top right
-}
-
 div.post_body
 {
     margin-bottom:5px;
     padding:10px;
 }
 
-hr.wide-rule
-{
-    /*background-color:#d4d3d3;*/
-    height:5px;
-    background-color:Black;
-    border:0;
-}
-
 .rss
 {
-    padding-bottom:15px;
     float:left;
-    font-size:11px;
+    padding:0;
+    margin:0;
+    margin-left:5px;
 }
 
 .search-container
 {
     float:right;
+    padding:0;
+    margin:0;
+    margin-right:10px;
 }
 
 .comment
 {
-    border-top:1px dashed #737373;
+    border-bottom:1px dashed White;
     padding:5px;
 }
 

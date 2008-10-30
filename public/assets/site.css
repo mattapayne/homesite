@@ -16,6 +16,7 @@ div.center
     margin:0;
     padding:0;
     clear:both;
+    height:1px;
 }
 
 div.notice
@@ -72,7 +73,7 @@ h1,h2,h3 {color: Black;}
     font-family:verdana;
     width:90%;
     margin-left:5%;
-    padding-top:30px;
+    padding-top:15px;
     padding-bottom:10px;
     min-height:450px;
 }

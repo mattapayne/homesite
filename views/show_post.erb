@@ -1,3 +1,11 @@
+<div class="blog-header">
+  <div class="rss">
+    Subscribe to the MPC blog rss feed 
+    <%= link_to_rss_feed %>
+  </div>
+  <%= render_post_search %>
+  <div class="clear">&nbsp;</div>
+</div>
 <div class="left-bar">
   <div class="sidebar-content">
     <%= render_tags(@tags) %>
@@ -8,13 +16,6 @@
   <%= render_github_repos(@github_repos) %>
 </div>
 <div class="right-bar">
-  <div>
-    <div class="rss">
-      Subscribe to the MPC blog rss feed 
-      <%= link_to_rss_feed %>
-    </div>
-    <%= render_post_search %>
-  </div>
   <div class="posts">
     <%= render_post(@post, true) %>
   </div>
