@@ -68,6 +68,10 @@ module MattPayne
       @action = options[:action]
       @title = " - #{options[:action].capitalize}"
       @render_gmh = options[:render_gmh]
+      sleep_time = options[:sleep] || false
+      if sleep_time
+        sleep(sleep_time)
+      end
       block.call if block_given?
     end
 

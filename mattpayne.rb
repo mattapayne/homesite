@@ -78,6 +78,7 @@ get '/login' do
 end
 
 post '/attempt/login' do
+  sleep(3)
   if login(params["username"], params["password"])
     redirect '/'
   else
