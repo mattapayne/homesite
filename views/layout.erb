@@ -38,7 +38,7 @@
     <li id="blog"><%= link_to("Blog", "/blog", :bold => true) %></li>
     <% if logged_in? %>
       <li id="comments"><%= link_to("Comments", "/blog/comments", :bold => true)%></li>
-      <li id="comments"><%= link_to("Stats", "/blog/comments/stats", :bold => true)%></li>
+      <li id="stats"><%= link_to("Stats", "/blog/comments/stats", :bold => true)%></li>
       <li id="logout"><%= link_to("Logout", "/logout", :bold => true) %></li>
     <% end %>
   </ul>
