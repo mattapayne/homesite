@@ -116,6 +116,11 @@ span.comment_link
     clear:both;
 }
 
+.post
+{
+    margin-bottom:10px;
+}
+
 .search-form
 {
     margin:0;
