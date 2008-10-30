@@ -118,7 +118,7 @@ span.comment_link
 
 .post
 {
-    margin-bottom:10px;
+    margin-bottom:15px;
 }
 
 .search-form
@@ -168,4 +168,5 @@ div.paged
 {
     text-align:center;
     font-weight:bold;
+    font-size:12pt;
 }
