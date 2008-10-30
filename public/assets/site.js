@@ -24,7 +24,10 @@ function unloadMap()
 
 function setSelectedTab(tab)
 {
-    $(tab).className = "current";
+    if(tab && $(tab))
+    {
+        $(tab).className = "current";
+    }
 }
 
 function verifyValue(element_id)
