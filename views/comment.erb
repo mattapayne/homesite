@@ -1,6 +1,6 @@
 <div class="post_comments">
   <h3>
-    <%= post.comments.size %> Comment(s) 
+    <%= comments_title(post.comments) %> 
     <span class="comment_link">(Show)</span> 
     <%= link_to("Add Comment", "/blog/new/comment/#{post.slug}", {:style => "font-size:10pt;"}) %>
   </h3>
