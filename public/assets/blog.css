@@ -73,14 +73,6 @@ div.comments table tr th
     font-size:9pt;
 }
 
-.author
-{
-    background-color:Grey;
-    color:black;
-    border:none;
-    padding-bottom:2px;
-}
-
 span.comment_link
 {
     font-size:10pt;
@@ -93,6 +85,16 @@ span.comment_link
     font-style:italic;
     font-weight:200;
     font-size:10pt;
+    border-top:2px solid white;
+    border-bottom:2px solid white;
+    background-color:#d4340c;
+    padding:3px;
+    color:black;
+}
+
+.author
+{
+    background-color:Silver;
 }
 
 .comment_field_with_margin
@@ -160,7 +162,6 @@ div.post_body
 
 .comment
 {
-    border-bottom:1px dashed White;
     padding:5px;
 }
 
