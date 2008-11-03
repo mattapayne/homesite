@@ -5,20 +5,14 @@ module MattPayne
     private
     
     def send_new_comment_mail(comment)
-      log.info("About to send the comment email for post titled: #{comment.post.title}")
-      begin
-        options = {
-          :username => MattPayne::Config.gmail_username,
-          :password => MattPayne::Config.gmail_password,
-          :subject => "A New Comment Has Been Submitted",
-          :body => %{#{comment.username} has submitted a comment about: #{comment.post.title}
+      options = {
+        :username => MattPayne::Config.gmail_username,
+        :password => MattPayne::Config.gmail_password,
+        :subject => "A New Comment Has Been Submitted",
+        :body => %{#{comment.username} has submitted a comment about: #{comment.post.title}
                   #{comment.comment}}
-        }
-        MattPayne::GMailer.send(options)
-        log.info("Successfully sent comment email.")
-      rescue Exception => e
-        log.info("Caught an error when sending comment email: #{e}")
-      end
+      }
+      MattPayne::GMailer.send(options)
     end
     
     def submit_post(post)
