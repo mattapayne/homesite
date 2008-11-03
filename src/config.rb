@@ -11,6 +11,14 @@ module MattPayne
       @@config.blank? ? load_config : @@config
     end
     
+    def self.gmail_username
+      value_for_key(:gmail_username)
+    end
+    
+    def self.gmail_password
+      value_for_key(:gmail_password)
+    end
+    
     def self.min_acceptable_spaminess
       value_for_key(:min_acceptable_spamminess)
     end

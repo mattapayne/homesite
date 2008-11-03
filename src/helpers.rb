@@ -14,6 +14,7 @@ module MattPayne
       return "#{comments.size} Comments" unless comments.nil? || comments.size == 1
       return "#{comments.size} Comment"
     end
+    
     def comment_class_for_author(comment)
       if comment.username.downcase == "matt"
         return "author"

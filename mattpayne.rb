@@ -228,6 +228,7 @@ post "/blog/create/comment/:slug" do
       @comment.reviewed = true
     end
     @comment.save
+    send_new_comment_mail(@comment)
     #If the comment requires review, render the comment submitted view
     if @comment.possibly_spam?
       @title = " - Comment Submitted"

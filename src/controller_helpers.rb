@@ -4,7 +4,28 @@ module MattPayne
     
     private
     
+    def send_new_comment_mail(comment)
+      begin
+        options = {
+          :username => MattPayne::Config.gmail_username,
+          :password => MattPayne::Config.gmail_password,
+          :subject => "A New Comment Has Been Submitted",
+          :body => %{#{comment.username} has submitted a comment about: #{comment.post.title}
+                  #{comment.comment}}
+        }
+        MattPayne::GMailer.send(options)
+      rescue Exception => e
+        #Swallow the exception
+      end
+    end
+    
     def submit_post(post)
+      if [:test, :development].include?(Sinatra.application.options.env)
+        require 'ostruct'
+        return OpenStruct.new({
+            :status => "success"
+          })
+      end
       RDefensio::API.announce_article(
         {
           "article-author" => "Matt Payne",
@@ -16,6 +37,15 @@ module MattPayne
     end
     
     def submit_comment(comment, spam=false, ham=false)
+      if [:test, :development].include?(Sinatra.application.options.env)
+        require 'ostruct'
+        return OpenStruct.new({
+            :signature => "dfsdfsdf",
+            :spam => false,
+            :spaminess => 0.03,
+            :api_version => "1.2"
+          })
+      end
       args =  {
         "user-ip" => user_ip, "article-date" => comment.post.created_at, 
         "comment-author" => comment.username, "comment-type" => "comment",

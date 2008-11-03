@@ -8,3 +8,5 @@
 :admin_username: Admin username here
 :admin_password: Admin password here
 :min_acceptable_spaminess: 0.1
+:gmail_username: username
+:gmail_password: password
