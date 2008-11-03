@@ -5,7 +5,7 @@ module MattPayne
     private
     
     def send_new_comment_mail(comment)
-      log.debug("About to send the comment email for post titled: #{comment.post.title}")
+      log.info("About to send the comment email for post titled: #{comment.post.title}")
       begin
         options = {
           :username => MattPayne::Config.gmail_username,
@@ -15,9 +15,9 @@ module MattPayne
                   #{comment.comment}}
         }
         MattPayne::GMailer.send(options)
-        log.debug("Successfully sent comment email.")
+        log.info("Successfully sent comment email.")
       rescue Exception => e
-        log.debug("Caught an error when sending comment email: #{e}")
+        log.info("Caught an error when sending comment email: #{e}")
       end
     end
     
