@@ -2,6 +2,7 @@
   <h1>All Comments</h1>
   <%= render_defensio %>
   <br />
+  <p>We are in <%= Sinatra.application.options.env.to_s %> mode</p>
   <% unless @comments.empty? %>
     <table>
       <tr>
