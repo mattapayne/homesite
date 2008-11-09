@@ -12,7 +12,11 @@ module MattPayne
         :body => %{#{comment.username} has submitted a comment about: #{comment.post.title}
                   #{comment.comment}}
       }
-      MattPayne::GMailer.send(options)
+      begin
+        MattPayne::GMailer.send(options)
+      rescue Exception
+        #Swallow it - not much we can do ...
+      end
     end
     
     def submit_post(post)
