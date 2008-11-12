@@ -5,6 +5,7 @@ $:.unshift(local_path) unless $:.include?(local_path)
 $:.unshift(vendor_path) unless $:.include?(vendor_path)
 
 require 'rubygems'
+require 'app_logger'
 require 'rdefensio'
 require 'sinatra'
 require 'core_extensions'

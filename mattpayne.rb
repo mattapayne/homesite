@@ -263,8 +263,13 @@ end
 post "/blog/comments/mark-as-spam" do
   require_login
   @comment = Comment.find_by_signature(params["signature"])
-  result = RDefensio::API.report_false_negatives(@comment.signature)
-  if result.status == "success"
+  result = nil
+  begin
+    result = RDefensio::API.report_false_negatives(@comment.signature)
+  rescue Exception => e
+    MattPayne::AppLogger.error("Attempting to mark a comment as spam, but an error occurred: #{e}")
+  end
+  if result && result.status == "success"
     @comment.reviewed = true
     @comment.spam = true
     @comment.save
@@ -275,8 +280,13 @@ end
 post "/blog/comments/mark-as-not-spam" do
   require_login
   @comment = Comment.find_by_signature(params["signature"])
-  result = RDefensio::API.report_false_positives(@comment.signature)
-  if result.status == "success"
+  result = nil
+  begin
+    result = RDefensio::API.report_false_positives(@comment.signature)
+  rescue Exception => e
+    MattPayne::AppLogger.error("Attempting to mark a comment as not spam, but an error occurred: #{e}")
+  end
+  if result && result.status == "success"
     @comment.reviewed = true
     @comment.spam = false
     @comment.save

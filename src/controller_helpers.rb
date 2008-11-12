@@ -14,8 +14,8 @@ module MattPayne
       }
       begin
         MattPayne::GMailer.send(options)
-      rescue Exception
-        #Swallow it - not much we can do ...
+      rescue Exception => e
+        MattPayne::AppLogger.error("Attempting to send new comment email, but an error occurred: #{e}")
       end
     end
     
@@ -26,14 +26,18 @@ module MattPayne
             :status => "success"
           })
       end
-      RDefensio::API.announce_article(
-        {
-          "article-author" => "Matt Payne",
-          "article-author-email" => "paynmatt@gmail.com",
-          "article-title" => post.title, "article-content" => post.body,
-          "permalink" => "#{RDefensio::API.owner_url}/post/#{post.slug}"
-        }
-      )
+      begin
+        RDefensio::API.announce_article(
+          {
+            "article-author" => "Matt Payne",
+            "article-author-email" => "paynmatt@gmail.com",
+            "article-title" => post.title, "article-content" => post.body,
+            "permalink" => "#{RDefensio::API.owner_url}/post/#{post.slug}"
+          }
+        )
+      rescue Exception => e
+        MattPayne::AppLogger.error("Attempting to announce new article to Defension, but an error occurred: #{e}")
+      end
     end
     
     def submit_comment(comment, spam=false, ham=false)
@@ -58,7 +62,11 @@ module MattPayne
       elsif ham
         args["test-force"] = "ham,0.6700"
       end
-      RDefensio::API.audit_comment(args)
+      begin
+        RDefensio::API.audit_comment(args)
+      rescue Exception => e
+        MattPayne::AppLogger.error("Attempting to audit a comment, but an error occurred: #{e}")
+      end
     end
 
     def blog_url

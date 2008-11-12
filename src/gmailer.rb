@@ -31,7 +31,7 @@ module MattPayne
               end
             end
           rescue Timeout::Error => e
-            #Swallow the timeout
+            MattPayne::AppLogger.error("Attempting to send new comment email, but a timeout occurred: #{e}")
           end
         else
           raise "Message options are invalid"
