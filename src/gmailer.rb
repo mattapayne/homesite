@@ -34,7 +34,7 @@ module MattPayne
             MattPayne::AppLogger.error("Attempting to send new comment email, but a timeout occurred: #{e}")
           end
         else
-          raise "Message options are invalid"
+          raise "Message options are invalid. Current options: #{options.inspect}."
         end
       end
       
