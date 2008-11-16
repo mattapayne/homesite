@@ -197,6 +197,13 @@ delete '/blog/delete/post/:slug' do
   redirect '/blog'
 end
 
+delete "/blog/comments/delete" do
+  require_login
+  @comment = Comment.find(params["id"])
+  @comment.delete
+  redirect "/blog/comments"
+end
+
 #New comment
 get '/blog/new/comment/:slug' do
   for_blog_related_action(:title => " - Add Comment", :rte_required => true) do

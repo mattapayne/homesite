@@ -15,6 +15,7 @@
         <th>Reviewed?</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
+        <th>&nbsp;</th>
       </tr>
       <% for comment in @comments %>
         <% style = comment.spam? ? "spam" : "nonspam" %>
@@ -37,6 +38,13 @@
             <%= hidden_field_tag(:signature, {:value => comment.signature}) %>
             <%= submit_button("Not Spam!") %>
             <%= end_form %>
+          </td>
+          <td>
+            <%= start_form("/blog/comments/delete") %>
+            <%= hidden_field_tag("_method", {:value => "DELETE"}) %>
+            <%= hidden_field_tag(:id, {:value => comment.id}) %>
+            <%= submit_button("Delete") %>
+            <% end_form %>
           </td>
         </tr>
       <% end %>
