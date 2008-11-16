@@ -236,9 +236,10 @@ post "/blog/create/comment/:slug" do
     end
     unless @comment.definitely_spam?
       @comment.save
+      log_valid_comment(@comment)
       send_new_comment_mail(@comment)
     else
-      log_spam(comment)
+      log_spam(@comment)
     end
     #If the comment requires review, render the comment submitted view
     if @comment.possibly_spam?
