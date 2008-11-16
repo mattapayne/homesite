@@ -5,11 +5,11 @@ module MattPayne
     private
     
     def log_valid_comment(comment)
-       MattPayne::AppLogger.info("VALID COMMENT DETECTED FROM #{request.env["REMOTE_ADDR"]}. The comment is: #{comment.inspect}.")
+       MattPayne::AppLogger.info("VALID COMMENT DETECTED FROM #{request.env["REMOTE_ADDR"]}. The comment refers to post: #{comment.post.slug}.")
     end
     
     def log_spam(comment)
-      MattPayne::AppLogger.warn("SPAM COMMENT DETECTED FROM #{request.env["REMOTE_ADDR"]}. The comment is: #{comment.inspect}.")
+      MattPayne::AppLogger.warn("SPAM COMMENT DETECTED FROM #{request.env["REMOTE_ADDR"]}. The comment refers to post: #{comment.post.slug}.")
     end
     
     def send_new_comment_mail(comment)
