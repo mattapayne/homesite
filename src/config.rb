@@ -11,7 +11,7 @@ module MattPayne
       @@config.blank? ? load_config : @@config
     end
     
-    def spam_limit
+    def self.spam_limit
       value_for_key(:spam_limit)
     end
     
