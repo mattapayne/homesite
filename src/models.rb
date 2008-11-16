@@ -362,6 +362,10 @@ module MattPayne
         (!self.reviewed? && self.spam?) || 
           (!self.reviewed? && self.spaminess.to_f > MattPayne::Config.min_acceptable_spaminess.to_f)
       end
+      
+      def definitely_spam?
+        !self.reviewed? && self.spam? && self.spaminess.to_f >= MattPayne::Config.spam_limit
+      end
 			
       protected
 		

@@ -4,6 +4,10 @@ module MattPayne
     
     private
     
+    def log_spam(comment)
+      MattPayne::AppLogger.warn("SPAM COMMENT DETECTED FROM #{request.env["REMOTE_ADDR"]}. The comment is: #{comment.inspect}.")
+    end
+    
     def send_new_comment_mail(comment)
       options = {
         :username => MattPayne::Config.gmail_username,
