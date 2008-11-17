@@ -1,8 +1,12 @@
 <div class="post_comments">
   <h3>
     <%= comments_title(post.comments) %> 
-    <span class="comment_link">(Show)</span> 
-    <%= link_to("Add Comment", "/blog/new/comment/#{post.slug}", {:style => "font-size:10pt;"}) %>
+    <span class="comment_link">(Show)</span>
+    <% unless post.too_old_for_comments? %>
+      <%= link_to("Add Comment", "/blog/new/comment/#{post.slug}", {:style => "font-size:10pt;"}) %>
+    <% else %>
+      <span>Comments are closed for this post</span>
+    <% end %>
   </h3>
   <div class="comments_container" style="display:none">
     <% unless post.comments.empty? %>

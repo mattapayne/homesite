@@ -271,6 +271,10 @@ module MattPayne
       def contains_code?
         (self.body =~ /^.*<pre name="code".*$/) != nil
       end
+      
+      def too_old_for_comments?
+        self.created_at + (5*24*60*60) >= Time.now
+      end
 			
       protected	
 		
