@@ -206,54 +206,62 @@ end
 
 #New comment
 get '/blog/new/comment/:slug' do
-  for_blog_related_action(:title => " - Add Comment", :rte_required => true) do
-    @post = Post.find_by_slug(params["slug"])
-    raise_post_not_found(params["slug"]) unless @post
-    @comment = Comment.new(:post_id => @post.id)
-    erb :new_comment	
+  @post = Post.find_by_slug(params["slug"])
+  unless @post.too_old_for_comments?
+    for_blog_related_action(:title => " - Add Comment", :rte_required => true) do
+      raise_post_not_found(params["slug"]) unless @post
+      @comment = Comment.new(:post_id => @post.id)
+      erb :new_comment	
+    end
+  else
+    redirect "/blog"
   end
 end
 
 #Create comment
 post "/blog/create/comment/:slug" do
   @post = Post.find_by_slug(params["slug"])
-  raise_post_not_found(params["slug"]) unless @post
-  @comment = Comment.new(params.merge(:post_id => @post.id))
-  errors = @comment.validation_errors || []
-  #Make sure there are no validation errors
-  if errors.empty?
-    #Submit to Defensio
-    audit_results = submit_comment(@comment, params["spam"], params["ham"])
-    #Set the Defensio values
-    @comment.signature = audit_results.signature
-    @comment.spam = audit_results.spam
-    @comment.spaminess = audit_results.spaminess
-    @comment.api_version = audit_results.api_version
-    if @comment.possibly_spam?
-      @comment.reviewed = false
+  unless @post.too_old_for_comments?
+    raise_post_not_found(params["slug"]) unless @post
+    @comment = Comment.new(params.merge(:post_id => @post.id))
+    errors = @comment.validation_errors || []
+    #Make sure there are no validation errors
+    if errors.empty?
+      #Submit to Defensio
+      audit_results = submit_comment(@comment, params["spam"], params["ham"])
+      #Set the Defensio values
+      @comment.signature = audit_results.signature
+      @comment.spam = audit_results.spam
+      @comment.spaminess = audit_results.spaminess
+      @comment.api_version = audit_results.api_version
+      if @comment.possibly_spam?
+        @comment.reviewed = false
+      else
+        @comment.reviewed = true
+      end
+      unless @comment.definitely_spam?
+        @comment.save
+        log_valid_comment(@comment)
+        send_new_comment_mail(@comment)
+      else
+        log_spam(@comment)
+      end
+      #If the comment requires review, render the comment submitted view
+      if @comment.possibly_spam?
+        @title = " - Comment Submitted"
+        @action = "blog"
+        erb :comment_submitted
+      else
+        redirect "/blog"
+      end
     else
-      @comment.reviewed = true
-    end
-    unless @comment.definitely_spam?
-      @comment.save
-      log_valid_comment(@comment)
-      send_new_comment_mail(@comment)
-    else
-      log_spam(@comment)
-    end
-    #If the comment requires review, render the comment submitted view
-    if @comment.possibly_spam?
-      @title = " - Comment Submitted"
-      @action = "blog"
-      erb :comment_submitted
-    else
-      redirect "/blog"
+      @errors = errors.join("<br />")
+      @rte_required = true
+      @title = " - Add Comment"
+      erb :new_comment
     end
   else
-    @errors = errors.join("<br />")
-    @rte_required = true
-    @title = " - Add Comment"
-    erb :new_comment
+    redirect "/blog"
   end
 end
 
