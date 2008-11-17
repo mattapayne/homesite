@@ -273,7 +273,7 @@ module MattPayne
       end
       
       def too_old_for_comments?
-        self.created_at + (5*24*60*60) >= Time.now
+        return (self.created_at + (5*24*60*60)) <= Time.now
       end
 			
       protected	
