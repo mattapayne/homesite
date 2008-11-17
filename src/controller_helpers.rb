@@ -9,7 +9,15 @@ module MattPayne
     end
     
     def log_spam(comment)
-      MattPayne::AppLogger.warn("SPAM COMMENT DETECTED FROM #{request.env["REMOTE_ADDR"]}. The comment refers to post: #{comment.post.slug}.")
+      MattPayne::AppLogger.warn(generate_spam_log_message(comment))
+    end
+    
+    def generate_spam_log_message(comment)
+      %{
+        SPAM COMMENT DETECTED FROM: #{request.env["REMOTE_ADDR"]}. The comment
+        refers to post: #{comment.post.slug}.
+        DEFENSIO VALUES: Spam? #{comment.spam?}, Spaminess: #{comment.spaminess}
+      }
     end
     
     def send_new_comment_mail(comment)
