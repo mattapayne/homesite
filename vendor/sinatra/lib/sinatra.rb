@@ -49,18 +49,13 @@ module Rack #:nodoc:
   module Utils
     extend self
   end
-
-  module Handler
-    autoload :Mongrel, ::File.dirname(__FILE__) + "/sinatra/rack/handler/mongrel"
-  end
-
 end
 
 
 module Sinatra
   extend self
 
-  VERSION = '0.3.0'
+  VERSION = '0.3.2'
 
   class NotFound < RuntimeError
     def self.code ; 404 ; end
@@ -163,7 +158,7 @@ module Sinatra
         return unless host === request.host
       end
       return unless pattern =~ request.path_info.squeeze('/')
-      path_params = param_keys.zip($~.captures.map{|s| unescape(s)}).to_hash
+      path_params = param_keys.zip($~.captures.map{|s| unescape(s) if s}).to_hash
       params.merge!(path_params)
       splats = params.select { |k, v| k =~ /^_splat_\d+$/ }.sort.map(&:last)
       unless splats.empty?
@@ -202,20 +197,16 @@ module Sinatra
   class Static
     include Rack::Utils
 
+    def initialize(app)
+      @app = app
+    end
+
     def invoke(request)
-      return unless File.file?(
-        Sinatra.application.options.public + unescape(request.path_info)
-      )
+      path = @app.options.public + unescape(request.path_info)
+      return unless File.file?(path)
+      block = Proc.new { send_file path, :disposition => nil }
       Result.new(block, {}, 200)
     end
-
-    def block
-      Proc.new do
-        send_file Sinatra.application.options.public +
-          unescape(request.path_info), :disposition => nil
-      end
-    end
-
   end
 
   # Methods for sending files and streams to the browser instead of rendering.
@@ -224,13 +215,12 @@ module Sinatra
       :type         => 'application/octet-stream'.freeze,
       :disposition  => 'attachment'.freeze,
       :stream       => true,
-      :buffer_size  => 4096
+      :buffer_size  => 8192
     }.freeze
 
     class MissingFile < RuntimeError; end
 
     class FileStreamer
-
       attr_reader :path, :options
 
       def initialize(path, options)
@@ -242,18 +232,17 @@ module Sinatra
       end
 
       def each
+        size = options[:buffer_size]
         File.open(path, 'rb') do |file|
-          while buf = file.read(options[:buffer_size])
+          while buf = file.read(size)
             yield buf
           end
         end
       end
-
     end
 
   protected
-
-    # Sends the file by streaming it 4096 bytes at a time. This way the
+    # Sends the file by streaming it 8192 bytes at a time. This way the
     # whole file doesn't need to be read into memory at once.  This makes
     # it feasible to send even large files.
     #
@@ -274,7 +263,7 @@ module Sinatra
     #   is read (true) or to read the entire file before sending (false).
     #   Defaults to true.
     # * <tt>:buffer_size</tt> - specifies size (in bytes) of the buffer used
-    #   to stream the file. Defaults to 4096.
+    #   to stream the file. Defaults to 8192.
     # * <tt>:status</tt> - specifies the status code to send with the
     #   response. Defaults to '200 OK'.
     # * <tt>:last_modified</tt> - an optional RFC 2616 formatted date value
@@ -319,12 +308,14 @@ module Sinatra
       options[:filename] ||= File.basename(path)
       options[:type] ||= Rack::File::MIME_TYPES[File.extname(options[:filename])[1..-1]] || 'text/plain'
       options[:last_modified] ||= File.mtime(path).httpdate
+      options[:stream] = true unless options.key?(:stream)
+      options[:buffer_size] ||= DEFAULT_SEND_FILE_OPTIONS[:buffer_size]
       send_file_headers! options
 
       if options[:stream]
         throw :halt, [options[:status] || 200, FileStreamer.new(path, options)]
       else
-        File.open(path, 'rb') { |file| throw :halt, [options[:status] || 200, file.read] }
+        File.open(path, 'rb') { |file| throw :halt, [options[:status] || 200, [file.read]] }
       end
     end
 
@@ -359,7 +350,7 @@ module Sinatra
     # See +send_file+ for more information on HTTP Content-* headers and caching.
     def send_data(data, options = {}) #:doc:
       send_file_headers! options.merge(:length => data.size)
-      throw :halt, [options[:status] || 200, data]
+      throw :halt, [options[:status] || 200, [data]]
     end
 
   private
@@ -937,7 +928,7 @@ module Sinatra
         :run => true,
         :port => 4567,
         :host => '0.0.0.0',
-        :env => :development,
+        :env => (ENV['RACK_ENV'] || :development).to_sym,
         :root => root,
         :views => root + '/views',
         :public => root + '/public',
@@ -1264,6 +1255,10 @@ module Sinatra
           end
         body = returned.to_result(context)
       rescue => e
+        msg  = "#{e.class.name} - #{e.message}:"
+        msg << "\n  #{e.backtrace.join("\n  ")}"
+        request.env['rack.errors'] << msg
+
         request.env['sinatra.error'] = e
         context.status(500)
         raise if options.raise_errors && e.class != NotFound
@@ -1285,7 +1280,7 @@ module Sinatra
     # Called immediately after the application is initialized or reloaded to
     # register default events, templates, and error handlers.
     def load_default_configuration!
-      events[:get] << Static.new
+      events[:get] << Static.new(self)
       configure do
         error do
           '<h1>Internal Server Error</h1>'
@@ -1375,7 +1370,7 @@ end
 
 def use_in_file_templates!
   require 'stringio'
-  templates = IO.read(caller.first.split(':').first).split('__FILE__').last
+  templates = IO.read(caller.first.split(':').first).split('__END__').last
   data = StringIO.new(templates)
   current_template = nil
   data.each do |line|
@@ -1467,9 +1462,7 @@ end
 
 at_exit do
   raise $! if $!
-  if Sinatra.application.options.run
-    Sinatra.run
-  end
+  Sinatra.run if Sinatra.application.options.run
 end
 
 mime :xml, 'application/xml'
