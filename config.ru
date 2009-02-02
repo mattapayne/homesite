@@ -3,8 +3,14 @@ local_path = File.expand_path(File.dirname(__FILE__))
 $:.unshift(local_path) unless $:.include?(local_path)
 $:.unshift(vendor_path) unless $:.include?(vendor_path)
 
+require 'rack/file'
+class Rack::File
+   MIME_TYPES = Hash.new { |hash, key|
+   Rack::Mime::MIME_TYPES[".#{key}"] }
+end
+
 require 'rubygems'
-require 'sinatra'
+require File.join(vendor_path, 'sinatra')
 
 Sinatra::Application.default_options.merge!(
   :run => false,
