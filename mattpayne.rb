@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'sinatra'
 require File.join(File.dirname(__FILE__), 'src/loader')
 
 configure do

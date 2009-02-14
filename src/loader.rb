@@ -2,10 +2,8 @@ local_path = File.expand_path(File.dirname(__FILE__))
 
 $:.unshift(local_path) unless $:.include?(local_path)
 
-require 'rubygems'
-require 'app_logger'
 require 'rdefensio'
-require 'sinatra'
+require 'app_logger'
 require 'core_extensions'
 require 'config'
 require 'tumblr'
