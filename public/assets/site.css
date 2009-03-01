@@ -6,6 +6,12 @@ html {min-height: 100%;}
     padding: 0;
 }
 
+body
+{
+	background-image: url(gradient.png);
+	background-repeat: repeat-x;
+}
+
 div.center
 {
     text-align:center; 
@@ -13,30 +19,7 @@ div.center
 
 .clear
 {
-    margin:0;
-    padding:0;
     clear:both;
-    height:1px;
-}
-
-div.notice
-{
-    background-color:#d4d3d3;
-    font-size:10pt;
-    padding:5px;
-    text-align:center;
-    border:5px solid Black;
-}
-
-div.sidebar-content
-{
-    margin-bottom:15px;
-}
-
-hr
-{
-    color:Black;
-    width:100%;
 }
 
 a:hover {color: #06C;}
@@ -49,7 +32,7 @@ p.small
 
 body 
 {
-    background-color:#d4340c;
+    background-color:white;
     color: Black;
     font: normal 14pt Verdana,sans-serif;
 }
@@ -75,7 +58,19 @@ h1,h2,h3 {color: Black;}
     margin-left:5%;
     padding-top:15px;
     padding-bottom:10px;
-    min-height:450px;
+}
+
+.right-bar
+{
+	float:left;
+	width:78%;
+	margin-left:15px;
+}
+
+.left-bar
+{
+	float:left;
+	width:20%;
 }
 
 div.map-container
@@ -90,25 +85,12 @@ form
     padding:0;
 }
 
-.notice
+hr
 {
-    font-size:10pt;
-    font-style:italic;
+	width:90%;
 }
 
-.error
-{
-    font-size:12px;
-    color:Red;
-    padding:5px;
-    margin-bottom:10px;
-    margin-top:10px;
-    border:1px solid Black;
-    background-color:#D4D3D3;
-    width:50%;
-}
-
-p.home
+div#home
 {
     font-size:16pt;
 }
@@ -119,19 +101,8 @@ p.home
     padding-top:5px;
     font-size:10px;
     text-align:center;
-    background-color:black;
-    color:white;
-}
-
-div.divider
-{
-    background:#FFFFFF url(footer-bg.png) repeat-x scroll 0% 0%;
-}
-
-#header
-{
-    background-color:black;
-    border-top:2px solid #d4340c;
+	background-image: url(footer_gradient.png);
+	background-repeat: repeat-x;
 }
 
 #header a img
@@ -139,104 +110,15 @@ div.divider
 	padding-left:50px;
 }
 
-div.right-bar
+.sidebar-content
 {
-    float:left;
-    margin-left:15px;
-    width:78%;
-}
-
-div.left-bar
-{
-    float:left;
-    width:20%;
-}
-
-div.service-left
-{
-    float:left;
-    width:45%;
-}
-
-div.service-right
-{
-    float:left;
-    width:45%;
-    margin-left:10px;
-}              
-
-.menu
-{
-    position:relative;
-    padding:0 0 0 34px;
-    margin:0 auto 0 auto;
-    background:url(menu9_bg.png) repeat-x;
-    *background:url(menu9_bg.gif) repeat-x;
-    height:46px;
-    list-style:none;
-}
-.menu li
-{
-    float:left;
-}
-
-.menu li a
-{
-    float:left;
-    display:block;
-    color:#000;
-    text-decoration:none;
-    font-family:sans-serif;
-    font-size:13px;
-    font-weight:bold;
-    padding:0 0 0 18px;
-    height:46px;
-    line-height:46px;
-    text-align:center;
-    cursor:pointer;	
-}
-
-.menu li a strong
-{
-    float:left;
-    display:block;
-    padding:0 36px 0 18px;
-}
-
-.menu li.current a
-{
-    color:#fff;
-    background:url(menu9_hover_left.png) no-repeat;	
-    *background:url(menu9_hover_left.gif) no-repeat;
-    background-position:left;
-}
-
-.menu li.current a strong
-{
-    color:#fff;
-    background:url(menu9_hover_right.png) no-repeat right top;	
-    *background:url(menu9_hover_right.gif) no-repeat right top;
-}
-
-.menu li a:hover
-{
-    color:#fff;
-    background:url(menu9_hover_left.png) no-repeat;
-    *background:url(menu9_hover_left.gif) no-repeat;
-    background-position:left;
-}
-
-.menu li a:hover strong
-{
-    color:#fff;
-    background:url(menu9_hover_right.png) no-repeat right top;
-    *background:url(menu9_hover_right.gif) no-repeat right top;
+	margin-bottom:15px;
 }
 
 /* Rounded Corners */
 
 .roundedcornr_box {
-    background: #d4d3d3;
+    background: #dcdcdc;
 }
 .roundedcornr_top div {
     background: url(roundedcornr_tl.png) no-repeat top left;
@@ -263,7 +145,7 @@ div.service-right
     font-size:62.5%;
     /*border:1px solid Black;*/
     padding:5px;
-    background-color:#d4d3d3;
+    background-color:#dcdcdc;
 }
 .roundedcornr_content h2
 {
@@ -272,4 +154,22 @@ div.service-right
     font-weight:bold;
 }
 
+.menu
+{
+	margin-top:50px;
+	font-size:70%;
+}
+
+.menu li
+{
+	display:inline;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+.menu li.current
+{
+	background-color:#d4340c;
+}
      

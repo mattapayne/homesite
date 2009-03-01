@@ -26,22 +26,26 @@
         onunload="unloadMap();"
       <% end %>>
       <div id="header">
-  <%= image_link_to("logo.png", "/") %>
+		<div style="float:left;">
+  			<%= image_link_to("logo.png", "/") %>
+		</div>
+		<div style="float:left;">
+			<ul class="menu">
+			    <li id="home"><%= link_to("Home", "/", :bold => true) %></li>
+			    <li id="services"><%= link_to("Services", "/services", :bold => true) %></li>
+			    <li id="projects"><%= link_to("Projects", "/projects", :bold => true) %></li>
+			    <li id="about"><%= link_to("About", "/about", :bold => true) %></li>
+			    <li id="contact"><%= link_to("Contact", "/contact", :bold => true) %></li>
+			    <li id="blog"><%= link_to("Blog", "/blog", :bold => true) %></li>
+			    <% if logged_in? %>
+			      <li id="comments"><%= link_to("Comments", "/blog/comments", :bold => true)%></li>
+			      <li id="stats"><%= link_to("Stats", "/blog/comments/stats", :bold => true)%></li>
+			      <li id="logout"><%= link_to("Logout", "/logout", :bold => true) %></li>
+			    <% end %>
+			</ul>
+		</div>
   </div>
-  <ul class="menu">
-    <li id="home"><%= link_to("Home", "/", :bold => true) %></li>
-    <li id="services"><%= link_to("Services", "/services", :bold => true) %></li>
-    <li id="projects"><%= link_to("Projects", "/projects", :bold => true) %></li>
-    <li id="about"><%= link_to("About", "/about", :bold => true) %></li>
-    <li id="contact"><%= link_to("Contact", "/contact", :bold => true) %></li>
-    <li id="blog"><%= link_to("Blog", "/blog", :bold => true) %></li>
-    <% if logged_in? %>
-      <li id="comments"><%= link_to("Comments", "/blog/comments", :bold => true)%></li>
-      <li id="stats"><%= link_to("Stats", "/blog/comments/stats", :bold => true)%></li>
-      <li id="logout"><%= link_to("Logout", "/logout", :bold => true) %></li>
-    <% end %>
-  </ul>
-  <div id="body">
+  <div id="body" class="clear">
     <%= yield %>
   </div>
   <div id="footer">
