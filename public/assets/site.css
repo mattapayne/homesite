@@ -22,7 +22,6 @@ div.center
     clear:both;
 }
 
-a:hover {color: #06C;}
 a img {border: none;}
 
 p.small
@@ -156,7 +155,7 @@ div#home
 
 .menu
 {
-	margin-top:50px;
+	margin-top:45px;
 	font-size:70%;
 }
 
@@ -164,13 +163,28 @@ div#home
 {
 	display:inline;
 	list-style-type:none;
-	margin:0;
-	padding:0;
+	padding:5px;
 }
 
 .menu li.current
 {
 	background-color:#d4340c;
 	padding:5px;
+}
+
+.menu li a
+{
+	text-decoration:none;
+	color:#d4340c;
+}
+
+.menu li a:hover
+{
+	color:black;
+}
+
+.menu li.current a
+{
+	color:white;
 }
      
