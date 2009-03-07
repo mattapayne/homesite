@@ -43,7 +43,10 @@
 </div>
 <div style="clear:both"><%= render_paging(@posts, @tagged, @searched) %></div>
 <div style="display:none;" class="popup" id="comment_popup">
-	<div class="top" id="popup_top">Add Comment</div>
+	<div class="top" id="popup_top">
+		<span style="float:left;">Add Comment</span>
+		<span class="close" id="close_button">&nbsp;</span>
+	</div>
 	<div class="content">
 		<p class="errors" id="comment_errors"></p>
 		<p class="success" id="comment_success"></p>

@@ -175,7 +175,19 @@ div.paged
 	top:75px;
 	left:75px;
 	background-color:white;
-	border:1px solid black;
+	border-top:1px solid Grey;
+	border-left:1px solid Grey;
+	border-bottom:4px solid Grey;
+	border-right:4px solid Grey;
+}
+
+.close
+{
+	float:right;
+	background-image:url(closebutton.gif);
+	background-color:#DCDCDC;
+	background-repeat:no-repeat;
+	width:20px;
 }
 
 p.errors
@@ -208,6 +220,7 @@ p.success
 	padding:5px;
 	cursor:move;
 	font-weight:bold;
+	height:25px;
 }
 
 .popup div.bottom
@@ -215,6 +228,7 @@ p.success
 	background-color:#DCDCDC;
 	padding:5px;
 	margin-top:5px;
+	height:25px;
 }
 
 .popup p.notice

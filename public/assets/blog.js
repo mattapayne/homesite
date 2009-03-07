@@ -18,7 +18,18 @@ function showCommentPopup(e)
 {
 	resetCommentButtons();
 	clearPopupContents();
+	centrePopup();
 	$('comment_popup').setStyle({display : ""});
+}
+
+function centrePopup()
+{
+	var popup = $('comment_popup');
+	var popupDimensions = popup.getDimensions();
+	var browserDimensions = document.body.getDimensions();
+	var y = (browserDimensions.height - popupDimensions.height) / 2;
+	var x = (browserDimensions.width - popupDimensions.width) / 2;
+	popup.setStyle({top: y + "px", left: x + "px"});
 }
 
 function clearPopupContents()
@@ -101,6 +112,13 @@ function setupButtons()
 				var errorsHTML = generateCommentErrorMessages(errors);
 				$('comment_errors').update(errorsHTML);
 			}
+		});
+	}
+	closeButton = $('close_button');
+	if(closeButton)
+	{
+		closeButton.observe("click", function() {
+			hideCommentPopup();
 		});
 	}
 }
