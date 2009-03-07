@@ -248,7 +248,8 @@ function validUrl(url)
 function setupPopup()
 {
 	new Draggable('comment_popup', {
-		handle : 'popup_top'
+		handle : 'popup_top',
+		scroll : window
 	})
 }
 
