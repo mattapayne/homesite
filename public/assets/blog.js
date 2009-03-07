@@ -26,7 +26,7 @@ function centrePopup()
 {
 	var popup = $('comment_popup');
 	var popupDimensions = popup.getDimensions();
-	var browserDimensions = document.body.getDimensions();
+	var browserDimensions = document.viewport.getDimensions();
 	var y = (browserDimensions.height - popupDimensions.height) / 2;
 	var x = (browserDimensions.width - popupDimensions.width) / 2;
 	popup.setStyle({top: y + "px", left: x + "px"});
