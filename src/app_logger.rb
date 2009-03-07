@@ -46,7 +46,7 @@ module MattPayne
       end
       
       def log_destination
-        return STDOUT if [:development, :test].include?(Sinatra.application.options.env)
+        return STDOUT if [:development, :test].include?(Sinatra::Application.environment)
         return LOG_TO
       end
       

@@ -3,7 +3,7 @@
     <%= comments_title(post.comments) %> 
     <span class="comment_link">(Show)</span>
     <% unless post.too_old_for_comments? %>
-      <%= link_to("Add Comment", "/blog/new/comment/#{post.slug}", {:style => "font-size:10pt;"}) %>
+      <%= link_to("Add Comment", "#", {:style => "font-size:8pt;", :id => "#{post.id}", :class => "add_comment_link"}) %>
     <% else %>
       <span><small>(Comments are closed for this post)</small></span>
     <% end %>

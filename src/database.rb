@@ -13,7 +13,7 @@ module MattPayne
       def with_database
         begin
           return unless block_given?
-          db = Sequel.connect(Sinatra.application.options.connection_string)
+          db = Sequel.connect(Sinatra::Application.connection_string)
           yield(db)
         ensure
           db.disconnect if db

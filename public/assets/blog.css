@@ -70,9 +70,9 @@ div.comments table tr th
     font-size:9pt;
 }
 
-span.comment_link
+.comment_link
 {
-    font-size:10pt;
+    font-size:8pt;
     text-decoration:underline;
     cursor:pointer;
 }
@@ -167,4 +167,53 @@ div.paged
     text-align:center;
     font-weight:bold;
     font-size:12pt;
+}
+
+.popup
+{
+	position:absolute;
+	top:75px;
+	left:75px;
+	background-color:white;
+	border:1px solid black;
+}
+
+p.errors
+{
+	color:red;
+}
+
+p.success
+{
+	color:green;
+}
+
+.popup div.content
+{
+	padding:10px;
+}
+
+.popup p
+{
+	font-size:10px;
+}
+
+.popup div.top
+{
+	background-color:#DCDCDC;
+	padding:5px;
+	cursor:move;
+	font-weight:bold;
+}
+
+.popup div.bottom
+{
+	background-color:#DCDCDC;
+	padding:5px;
+	margin-top:5px;
+}
+
+.popup p.notice
+{
+	font-style:italic;
 }

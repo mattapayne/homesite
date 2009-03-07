@@ -273,7 +273,7 @@ module MattPayne
       end
       
       def too_old_for_comments?
-        return (self.created_at + (5*24*60*60)) <= Time.now
+        return (self.created_at + (14*24*60*60)) <= Time.now
       end
 			
       protected	
@@ -344,6 +344,10 @@ module MattPayne
           :spaminess => self.spaminess, :api_version => self.api_version,
           :reviewed => self.reviewed
         }
+      end
+      
+      def to_json
+        to_hash.to_json
       end
       
       def has_website?

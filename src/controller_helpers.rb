@@ -57,7 +57,7 @@ module MattPayne
     end
     
     def submit_comment(comment, spam=false, ham=false)
-      if [:test, :development].include?(Sinatra.application.options.env)
+      if [:test, :development].include?(Sinatra::Application.environment)
         require 'ostruct'
         return OpenStruct.new({
             :signature => "dfsdfsdf",
@@ -139,6 +139,7 @@ module MattPayne
         require_login
       end
       load_blog_variables
+      @blog_page = true
       @action = options[:action]
       @title = options[:title]
       @rte_required = options[:rte_required]

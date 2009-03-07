@@ -18,8 +18,14 @@
   <% if @render_gmh %>
     <%= render_gmh %>
   <% end %>
-  <script src="/assets/mootools-1.2-core-yc.js" type="text/javascript" language="javascript"></script>
+  <script src="/assets/prototype-1.6.0.3.js" type="text/javascript" language="javascript"></script>
   <script type="text/javascript" language="javascript" src="/assets/site.js"></script>
+  <% if @blog_page %>
+	<script type="text/javascript" language="javascript" src="/assets/scriptaculous.js"></script>
+	<script type="text/javascript" language="javascript" src="/assets/effect.js"></script>
+	<script type="text/javascript" language="javascript" src="/assets/dragdrop.js"></script>
+	<script type="text/javascript" language="javascript" src="/assets/blog.js"></script>
+  <% end %>
 </head>
 <body onload="setCursor()"
       <% unless @render_gmh.blank? %>

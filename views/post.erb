@@ -16,3 +16,37 @@
   <%= partial(:admin_post, :locals => {:post => post}) %>
   <%= end_rounded_box %>
 </div>
+
+<div style="display:none;" class="popup" id="comment_popup">
+	<div class="top" id="popup_top">Add Comment</div>
+	<div class="content">
+		<p class="errors" id="comment_errors"></p>
+		<p class="success" id="comment_success"></p>
+		<p class="notice">
+		  I promise that your email address will not be used or sold in any way
+		</p>
+		<%= hidden_field_tag("post_id") %>
+		<p class="comment_field comment_field_with_margin float_left">
+		  <span>Your name:</span><br />
+		  <%= text_field_tag("username", :class => "select", :size => "20") %>
+		</p>
+		<p class="comment_field comment_field_with_margin float_left">
+		  <span>Your website (optional):</span><br />
+		  <%= text_field_tag("website", :size => "30") %>
+		</p>
+		<p class="comment_field">
+		  <span>Your email (optional):</span><br />
+		  <%= text_field_tag("email", :size => "30") %>
+		</p>
+		<div style="padding:0;margin:0;clear:left;"></div>
+		<p class="comment_field">
+		  <span>Your comment:</span><br />
+		  <%= text_area_tag("comment", :rows => 8, :cols => 47) %>
+		</p>
+		<%= render_defensio %>
+	</div>
+	<div class="bottom">
+		<%= submit_button("Save", :id => "submit_comment_button") %>
+		<%= button_tag("Cancel", {:id => 'cancel_button'}) %>
+	</div>
+</div>
