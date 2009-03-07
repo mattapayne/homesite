@@ -181,11 +181,15 @@ div.paged
 p.errors
 {
 	color:red;
+	padding:0;
+	margin:0;
 }
 
 p.success
 {
 	color:green;
+	padding:0;
+	margin:0;
 }
 
 .popup div.content
