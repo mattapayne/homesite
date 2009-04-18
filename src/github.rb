@@ -6,7 +6,9 @@ require 'timeout'
 module MattPayne
 
   module GitHub
-	
+	  
+	  IGNORED_REPOS = ['colorsoft', 'homesite', 'complainatron', 'complainatron-client', 'jambase4rails'].freeze
+	  
     def self.repositories
       repos = []
       begin
@@ -15,8 +17,10 @@ module MattPayne
           tmp = xml.blank? ? {} : XmlSimple.xml_in(xml)
           tmp = extract_repositories(tmp)
           repos = tmp.inject([]) do |arr, r|
-            h = {:name => r["name"].first, :url => r["url"].first}
-            arr << OpenStruct.new(h) 
+            unless IGNORED_REPOS.include?(r["name"].first)
+              h = {:name => r["name"].first, :url => r["url"].first}
+              arr << OpenStruct.new(h) 
+            end
             arr
           end
         end
