@@ -36,7 +36,7 @@ module MattPayne
     end
     
     def submit_post(post)
-      if [:test, :development].include?(Sinatra.application.options.env)
+      if [:test, :development].include?(Sinatra::Application.environment)
         require 'ostruct'
         return OpenStruct.new({
             :status => "success"
@@ -86,7 +86,7 @@ module MattPayne
     end
 
     def blog_url
-      Sinatra.application.development? ? "http://localhost:4567/blog" : nil
+      Sinatra::Application.development? ? "http://localhost:4567/blog" : nil
     end
     
     def user_ip
