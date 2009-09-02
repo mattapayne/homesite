@@ -193,5 +193,8 @@ div#home
 	background-color:#DCDCDC;
 	padding:10px;
 	border:2px solid silver;
+	text-align:center;
+	font-size:75%;
+	font-weight:bold;
 }
      
