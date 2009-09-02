@@ -187,4 +187,11 @@ div#home
 {
 	color:white;
 }
+
+.not-available
+{
+	background-color:#DCDCDC;
+	padding:10px;
+	border:2px solid silver;
+}
      
