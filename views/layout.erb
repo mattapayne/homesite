@@ -34,7 +34,6 @@
       <div id="header">
 		<div style="float:left;">
   			<%= image_link_to("logo.png", "/") %>
-			<%= image_link_to("qr.png", "/") %>
 		</div>
 		<div style="float:left;">
 			<ul class="menu">
@@ -65,6 +64,9 @@
     </div>
     Site developed by <%= link_to("MPC", "/") %> using <%= link_to("Sinatra", "http://sinatra.rubyforge.org") %> (an alternative Ruby web framework). (2008)
   </div>
+	<div>Scan it!
+		<%= image_link_to("qr.png", "/") %>
+	</div>
   <% if @requires_highlighting %>
     <%= render_syntax %>
   <% end %>
