@@ -128,6 +128,25 @@ module MattPayne
       end
       block.call if block_given?
     end
+    
+    def for_cycling_related_action(options={}, &block)
+      options = {
+        :action => "cycling",
+        :title => " - Blog",
+        :secure => false
+      }.merge(options)
+      if options.key?(:secure) && options[:secure] == true
+        require_login
+      end
+      @blog_page = false
+      @action = options[:action]
+      @title = options[:title]
+      @rte_required = false
+      @requires_highlighting = false
+      @tagged = false
+      @searched = false
+      block.call if block_given?
+    end
 
     def for_blog_related_action(options={}, &block)
       options = {

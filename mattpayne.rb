@@ -97,7 +97,7 @@ end
 
 #Cycle blog
 get '/cycling' do
-  for_blog_related_action(:tagged => true, :title => " - Blog - Cycling Posts") do
+  for_cycling_related_action(:title => " - Blog - Cycling Posts") do
     @posts = Post.find_by_tag("cycling", 5, params["page"] || "1")
     @requires_highlighting = false
     erb :posts
