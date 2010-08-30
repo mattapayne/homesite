@@ -144,7 +144,7 @@ module MattPayne
         require_login
       end
       load_cycling_variables
-      @blog_page = false
+      @blog_page = true
       @action = options[:action]
       @title = options[:title]
       @rte_required = false
