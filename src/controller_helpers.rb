@@ -112,7 +112,7 @@ module MattPayne
     end
 
     def load_blog_variables
-      @tags ||= Post.all_tags.select(|t| t.tag.downcase != 'cycling')
+      @tags ||= Post.all_tags.select { |t| t.tag.downcase != 'cycling' }
       @tumblr_posts ||= MattPayne::Tumblr.posts
       @github_repos ||= MattPayne::GitHub.repositories
     end
