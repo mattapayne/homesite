@@ -7,9 +7,11 @@
   <div class="clear">&nbsp;</div>
 </div>
 <div class="left-bar">
-  <div class="sidebar-content">
-    <%= render_tags(@tags) %>
-  </div>
+	<% if @tags %>
+  		<div class="sidebar-content">
+    		<%= render_tags(@tags) %>
+  		</div>
+	<% end %>
   <div class="sidebar-content">
     <%= render_tumblr_posts(@tumblr_posts) %>
   </div> 

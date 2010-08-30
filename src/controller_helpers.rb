@@ -116,6 +116,11 @@ module MattPayne
       @tumblr_posts ||= MattPayne::Tumblr.posts
       @github_repos ||= MattPayne::GitHub.repositories
     end
+    
+    def load_cycling_variables
+      @tumblr_posts ||= MattPayne::Tumblr.posts
+      @github_repos ||= MattPayne::GitHub.repositories
+    end
 
     def for_simple_action(options={}, &block)
       options = {:action => "home", :render_gmh => false}.merge(options)
@@ -138,6 +143,7 @@ module MattPayne
       if options.key?(:secure) && options[:secure] == true
         require_login
       end
+      load_cycling_variables
       @blog_page = false
       @action = options[:action]
       @title = options[:title]
