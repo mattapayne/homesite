@@ -63,11 +63,11 @@ module MattPayne
 
           function load() {
             if (GBrowserIsCompatible()) {
-              var address = "<p>139 Brighton St. Unit 6b<br />Waterloo, Ontario, Canada<br />N2J 4Z5<br />(519) 573-2888<br /><a href='mailto:paynmatt@gmail.com>Email MPC</a></p>";
+              var address = "<p>177 Esson St.<br />Waterloo, Ontario, Canada<br />N2L 2A2<br />(519) 573-2888<br /><a href='mailto:paynmatt@gmail.com>Email MPC</a></p>";
               var map = new GMap2(document.getElementById("map"));
               var ctl = new GSmallMapControl();
               map.addControl(ctl);
-              var point = new GLatLng(43.471258, -80.51850);
+              var point = new GLatLng(49.891235, -97.15369);
               map.setCenter(point, 15);
               marker = new GMarker(point);
               map.addOverlay(marker);
